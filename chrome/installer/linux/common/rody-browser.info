@@ -1,0 +1,42 @@
+# Copyright 2024 Rody Browser
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+#
+# This file provides common configuration information for building
+# rody-browser packages for various platforms.
+
+# Base name of the package.
+PACKAGE="rody-browser"
+
+# Filename of the main executable (for generating launcher scripts, etc.)
+PROGNAME=chrome
+
+# Base directory for package installation.
+INSTALLDIR=/opt/rody/browser
+
+# Directory for device policy enrollments.
+ENROLLMENTDIR=/etc/rody/policies/enrollment
+
+# Display string for desktop menu/icon.
+MENUNAME="Rody Browser"
+
+# Brief package description.
+SHORTDESC="A fast, secure, and user-friendly web browser"
+
+# Detailed package description.
+FULLDESC="Rody Browser is a fast, secure, and user-friendly web browser built on the Chromium open-source project. It provides enhanced privacy, security, and performance features for all users."
+
+# Package maintainer information.
+MAINTNAME="Rody Browser Team"
+MAINTMAIL="support@rodybrowser.com"
+PRODUCTURL="https://rodybrowser.com/"
+
+PROJECT_LICENSE="BSD-3-Clause and LGPL-2.1+ and Apache-2.0 and IJG and MIT and GPL-2.0+ and ISC and OpenSSL and (MPL-1.1 or GPL-2.0 or LGPL-2.0)"
+
+DEVELOPER_NAME="Rody Browser"
+
+BUGTRACKERURL="https://rodybrowser.com/report-issue"
+
+HELPURL="https://rodybrowser.com/help"
+
+RDN="com.rody.browser"
