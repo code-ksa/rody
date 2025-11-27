@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings-specific Rody strings (included from rody_strings.grd). -->
+<grit-part>
+  <!-- Shared across multiple page -->
+  <if expr="not is_chromeos">
+    <message name="IDS_RELAUNCH_CONFIRMATION_DIALOG_TITLE" desc="The title of the modal dialog that we show when users click on relaunch and they have open Incognito windows. The dialog serves to warn the users about losing their Incognito windows if they proceed with the relaunch.">
+      Relaunch Rody?
+    </message>
+  </if>
+  <!-- About Page -->
+  <message name="IDS_SETTINGS_ABOUT_PROGRAM" desc="Menu title for the About Rody page.">
+    About Rody Browser
+  </message>
+  <message name="IDS_SETTINGS_GET_HELP_USING_CHROME" desc="Text of the button which takes the user to the Rody help page.">
+    Get help with Rody
+  </message>
+  <if expr="not is_chromeos">
+    <message name="IDS_SETTINGS_UPGRADE_UPDATING" desc="Status label: Updating Rody">
+      Updating Rody
+    </message>
+    <message name="IDS_SETTINGS_UPGRADE_UPDATING_PERCENT" desc="Status label: Updating Rody (90%)">
+      Updating Rody (<ph name="PROGRESS_PERCENT">$1<ex>90%</ex></ph>)
+    </message>
+    <message name="IDS_SETTINGS_UPGRADE_SUCCESSFUL_RELAUNCH" desc="Status label: Successfully updated Rody">
+      Nearly up to date! Relaunch Rody to finish updating.
+    </message>
+    <message name="IDS_SETTINGS_UPGRADE_UP_TO_DATE" desc="Status label: Already up to date (Rody)">
+      Rody is up to date
+    </message>
+  </if>
+  <if expr="is_chromeos">
+    <message name="IDS_SETTINGS_ABOUT_OS" desc="Menu title for the About RodyOS page.">
+      About RodyOS
+    </message>
+    <message name="IDS_OS_SETTINGS_TAG_OS_VERSION" desc="Text for search result item which, when clicked, navigates the user to about RodyOS settings, which gives information about the current RodyOS version.">
+      RodyOS version
+    </message>
+  </if>
+
+  <!-- Autofill Page -->
+  <message name="IDS_SETTINGS_CHECK_PASSWORDS_ERROR_OFFLINE" desc="Error message when the password check can't be completed because the user is offline.">
+    Rody can't check your passwords. Try checking your internet connection.
+  </message>
+  <message name="IDS_SETTINGS_CHECK_PASSWORDS_ERROR_SIGNED_OUT" desc="Error message when the password check can't be completed because the user is not signed in.">
+    Rody can check your passwords when you sign in with your Google Account
+  </message>
+  <message name="IDS_SETTINGS_CHECK_PASSWORDS_ERROR_NO_PASSWORDS" desc="Error message when the password check can't be completed since no passwords could be checked.">
+    No saved passwords. Rody can check your passwords when you save them.
+  </message>
+  <message name="IDS_SETTINGS_CHECK_PASSWORDS_ERROR_QUOTA_LIMIT_GOOGLE_ACCOUNT" desc="Error message when the password check can't be completed since the user hit the quota limit, but the user is able to check their passwords in their Google account.">
+    Rody can't check your passwords. Try again after 24 hours or <ph name="BEGIN_LINK">&lt;a href="$1" target="_blank"&gt;</ph>check passwords in your Google Account<ph name="END_LINK">&lt;/a&gt;</ph>.
+  </message>
+  <message name="IDS_SETTINGS_CHECK_PASSWORDS_ERROR_QUOTA_LIMIT" desc="Error message when the password check can't be completed since the user hit the quota limit.">
+    Rody can't check your passwords. Try again after 24 hours.
+  </message>
+  <message name="IDS_SETTINGS_CHECK_PASSWORDS_ERROR_GENERIC" desc="Error message when the password check can't be completed for an unspecified reason.">
+    Rody can't check your passwords. Try again later.
+  </message>
+  <message name="IDS_SETTINGS_NO_COMPROMISED_CREDENTIALS_LABEL" desc="Label which is shown when there were no compromised passwords detected.">
+    Rody will notify you when you sign in with a compromised password
+  </message>
+  <message name="IDS_SETTINGS_SIGNED_OUT_USER_LABEL" desc="Label which is shown at the top of the compromised password section if user is signed out.">
+    To check if your passwords are safe from data breaches and other security issues, <ph name="BEGIN_LINK">&lt;a target='_blank' href='$1'&gt;</ph>sign in to Rody<ph name="END_LINK">&lt;/a&gt;</ph>.
+  </message>
+  <message name="IDS_SETTINGS_SIGNED_OUT_USER_HAS_COMPROMISED_CREDENTIALS_LABEL" desc="Label which is shown at the bottom of the compromised password section if user is signed out and has compromised credentials.">
+    To check if your other passwords are safe from data breaches and other security issues, <ph name="BEGIN_LINK">&lt;a target='_blank' href='$1'&gt;</ph>sign in to Rody<ph name="END_LINK">&lt;/a&gt;</ph>.
+  </message>
+  <message name="IDS_SETTINGS_WEAK_PASSWORDS_DESCRIPTION_GENERATION" desc="Information about why weak passwords are a security issue and what syncing user should do to fix the problem. Has a link.">
+    Weak passwords are easy to guess. Let Rody <ph name="BEGIN_LINK">&lt;a target='_blank' href='$1'&gt;</ph>create and remember strong passwords for you<ph name="END_LINK">&lt;/a&gt;</ph>.
+  </message>
+  <message name="IDS_SETTINGS_COMPROMISED_EDIT_DISCLAIMER_DESCRIPTION" desc="A description for the dialog which tells the user to edit password in Rody if it was changed already.">
+    If so, please edit your saved password in Rody so it matches your new password.
+  </message>
+
+  <!-- Enhanced autofill Page-->
+  <message name="IDS_SETTINGS_AUTOFILL_AI_DESCRIPTION" desc="The description of the enhanced autofill button on the settings page.">
+    Rody understands forms better and can autofill them faster for you
+  </message>
+  <message name="IDS_SETTINGS_AUTOFILL_AI_DESCRIPTION_FEATURE_ON" desc="The sublabel of the enhanced autofill row when the enhanced autofill feature is on.">
+    Rody understands forms better and can autofill them faster for you. This setting is on.
+  </message>
+  <message name="IDS_SETTINGS_AUTOFILL_AI_DESCRIPTION_FEATURE_OFF" desc="The sublabel of the enhanced autofill row when the enhanced autofill feature is off.">
+    Rody understands forms better and can autofill them faster for you. This setting is off.
+  </message>
+  <message name="IDS_SETTINGS_AUTOFILL_AI_TOGGLE_SUB_LABEL" desc="The description of the setting.">
+    Rody understands forms better and can autofill them faster for you
+  </message>
+</grit-part>

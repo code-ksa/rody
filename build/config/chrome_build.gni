@@ -11,6 +11,10 @@ declare_args() {
   # resources).
   is_chrome_branded = false
 
+  # Whether to enable Rody Browser branding. When true, uses Rody branding
+  # instead of Chromium branding.
+  is_rody_branded = false
+
   # Whether to enable Google internal-only sources.
   enable_src_internal =
       (build_with_chromium && checkout_src_internal) ||
@@ -76,6 +80,12 @@ assert(!is_chrome_for_testing || !is_chrome_branded,
 assert(is_chrome_for_testing || !is_chrome_for_testing_branded,
        "`is_chrome_for_testing_branded` requires `is_chrome_for_testing`")
 
+assert(!is_rody_branded || !is_chrome_branded,
+       "`is_rody_branded` is incompatible with `is_chrome_branded`")
+
+assert(!is_rody_branded || !is_chrome_for_testing,
+       "`is_rody_branded` is incompatible with `is_chrome_for_testing`")
+
 declare_args() {
   # Refers to the subdirectory for branding in various places including
   # chrome/app/theme.
@@ -91,6 +101,9 @@ declare_args() {
   } else if (is_internal_chrome_branded) {
     branding_path_component = "google_chrome"
     branding_path_product = "google_chrome"
+  } else if (is_rody_branded) {
+    branding_path_component = "rody"
+    branding_path_product = "rody"
   } else {
     branding_path_component = "chromium"
     branding_path_product = "chromium"

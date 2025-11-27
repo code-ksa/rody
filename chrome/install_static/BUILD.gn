@@ -62,6 +62,11 @@ if (is_win) {
         "google_chrome_for_testing_install_modes.cc",
         "google_chrome_for_testing_install_modes.h",
       ]
+    } else if (is_rody_branded) {
+      sources += [
+        "rody_install_modes.cc",
+        "rody_install_modes.h",
+      ]
     } else {
       sources += [
         "chromium_install_modes.cc",
