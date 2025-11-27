@@ -177,7 +177,12 @@ Note: iOS builds require a valid Apple Developer certificate for distribution.
 
 1. Open Settings > Apps > Installed Apps
 2. Find "Rody Browser" and click Uninstall
-3. Or run from command line: `RodyBrowser.exe --uninstall`
+3. Or use the Programs and Features Control Panel
+4. Or run from command line:
+   ```bash
+   # Typically, the uninstaller is invoked via:
+   "%LOCALAPPDATA%\Rody\Browser\Application\<version>\Installer\setup.exe" --uninstall
+   ```
 
 ### macOS
 
