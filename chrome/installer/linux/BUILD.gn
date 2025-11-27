@@ -270,6 +270,8 @@ copy("common_packaging_files") {
 
   if (is_chrome_branded) {
     sources += [ "common/google-chrome.info" ]
+  } else if (is_rody_branded) {
+    sources += [ "common/rody-browser.info" ]
   } else {
     sources += [ "common/chromium-browser.info" ]
   }
@@ -429,6 +431,8 @@ template("linux_package") {
 
   if (is_chrome_branded) {
     package = "google-chrome"
+  } else if (is_rody_branded) {
+    package = "rody-browser"
   } else {
     package = "chromium-browser"
   }
