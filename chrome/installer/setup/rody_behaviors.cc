@@ -1,0 +1,21 @@
+// Copyright 2024 Rody Browser
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// Brand-specific installer behaviors for Rody Browser.
+
+#include "chrome/installer/setup/brand_behaviors.h"
+
+namespace installer {
+
+void UpdateInstallStatus() {}
+
+std::wstring GetDistributionData() {
+  return std::wstring();
+}
+
+void DoPostUninstallOperations(const base::Version& version,
+                               const base::FilePath& local_data_path,
+                               const std::wstring& distribution_data) {}
+
+}  // namespace installer

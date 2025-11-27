@@ -25,11 +25,19 @@ buildflag_header("branding_buildflags") {
     flags = [
       "CHROMIUM_BRANDING=false",
       "GOOGLE_CHROME_BRANDING=true",
+      "RODY_BRANDING=false",
+    ]
+  } else if (is_rody_branded) {
+    flags = [
+      "CHROMIUM_BRANDING=false",
+      "GOOGLE_CHROME_BRANDING=false",
+      "RODY_BRANDING=true",
     ]
   } else {
     flags = [
       "CHROMIUM_BRANDING=true",
       "GOOGLE_CHROME_BRANDING=false",
+      "RODY_BRANDING=false",
     ]
   }
 

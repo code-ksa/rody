@@ -1,21 +1,57 @@
-# ![Logo](chrome/app/theme/chromium/product_logo_64.png) Chromium
+# ![Logo](chrome/app/theme/rody/product_logo_64.png) Rody Browser
 
-Chromium is an open-source browser project that aims to build a safer, faster,
-and more stable way for all users to experience the web.
+Rody Browser is a fast, secure, and user-friendly web browser built on the
+Chromium open-source project. It provides enhanced privacy, security, and
+performance features for all users.
 
-The project's web site is https://www.chromium.org.
+## Features
 
-To check out the source code locally, don't use `git clone`! Instead,
-follow [the instructions on how to get the code](docs/get_the_code.md).
+- **Fast Browsing**: Lightning-fast page loads and smooth navigation
+- **Security**: Built-in protection against malware and phishing
+- **Privacy**: Enhanced privacy controls and tracking protection
+- **Installer**: Full Windows installer (install.exe) support
+- **Cross-Platform**: Available for Windows, macOS, and Linux
+
+## Building from Source
+
+### Prerequisites
+
+Follow the standard Chromium build prerequisites for your platform.
+
+### Build with Rody Branding
+
+To build Rody Browser with full branding:
+
+```bash
+gn gen out/Default --args='is_rody_branded=true'
+autoninja -C out/Default chrome
+```
+
+### Build Installer (Windows)
+
+To build the Windows installer:
+
+```bash
+gn gen out/Default --args='is_rody_branded=true is_official_build=true'
+autoninja -C out/Default mini_installer
+```
+
+The installer will be available at `out/Default/mini_installer.exe`.
+
+## Documentation
 
 Documentation in the source is rooted in [docs/README.md](docs/README.md).
 
-Learn how to [Get Around the Chromium Source Code Directory
-Structure](https://www.chromium.org/developers/how-tos/getting-around-the-chrome-source-code).
+## Contributing
 
-For historical reasons, there are some small top level directories. Now the
-guidance is that new top level directories are for product (e.g. Chrome,
-Android WebView, Ash). Even if these products have multiple executables, the
-code should be in subdirectories of the product.
+We welcome contributions! Please see our contributing guidelines for more
+information.
 
-If you found a bug, please file it at https://crbug.com/new.
+## License
+
+Rody Browser is open source and available under the same license as Chromium.
+See the [LICENSE](LICENSE) file for details.
+
+---
+
+*Rody Browser is based on the [Chromium](https://www.chromium.org) open-source project.*
