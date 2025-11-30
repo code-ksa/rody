@@ -345,7 +345,6 @@ void RelaunchApp() {
 
 - (AppLaunchConfiguration)appConfigurationForTestCase {
   AppLaunchConfiguration config;
-  config.features_enabled.push_back(kShareInWebContextMenuIOS);
   config.features_enabled.push_back(
       data_sharing::features::kDataSharingFeature);
   config.features_enabled.push_back(kEnableReaderMode);
@@ -362,6 +361,9 @@ void RelaunchApp() {
       [self isRunningTest:@selector(testShareImageHiddenByPolicy)]) {
     config.features_enabled.push_back(
         data_controls::kEnableClipboardDataControlsIOS);
+  }
+  if ([self isRunningTest:@selector(testShowFullURLInWebContextMenu)]) {
+    config.features_disabled.push_back(kIOSWebContextMenuNewTitle);
   }
 
   return config;

@@ -11,11 +11,10 @@ import android.os.SystemClock;
 import org.chromium.base.ObserverList;
 import org.chromium.base.Token;
 import org.chromium.base.metrics.RecordHistogram;
-import org.chromium.base.task.PostTask;
-import org.chromium.base.task.TaskTraits;
 import org.chromium.build.annotations.EnsuresNonNull;
 import org.chromium.build.annotations.NullMarked;
 import org.chromium.build.annotations.Nullable;
+import org.chromium.chrome.browser.app.tabmodel.TabRestorer.TabRestorerDelegate;
 import org.chromium.chrome.browser.flags.ChromeFeatureList;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.tab.CollectionSaveForwarder;
@@ -26,7 +25,6 @@ import org.chromium.chrome.browser.tab.StorageLoadedData.LoadedTabState;
 import org.chromium.chrome.browser.tab.StorageRestoreOrchestratorFactory;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.chrome.browser.tab.TabId;
-import org.chromium.chrome.browser.tab.TabState;
 import org.chromium.chrome.browser.tab.TabStateAttributes;
 import org.chromium.chrome.browser.tab.TabStateAttributes.DirtinessState;
 import org.chromium.chrome.browser.tab.TabStateStorageService;
@@ -50,7 +48,6 @@ import java.util.Map;
 @NullMarked
 public class TabStateStore implements TabPersistentStore {
     private static final String TAG = "TabStateStore";
-    private static final int RESTORE_BATCH_SIZE = 5;
 
     private final TabStateStorageService mTabStateStorageService;
     private final TabCreatorManager mTabCreatorManager;
@@ -62,7 +59,8 @@ public class TabStateStore implements TabPersistentStore {
     private final Map<Token, CollectionSaveForwarder> mGroupForwarderMap = new HashMap<>();
 
     private @Nullable TabModelSelectorTabRegistrationObserver mTabRegistrationObserver;
-    private @Nullable TabGroupModelFilter mFilter;
+    private @Nullable TabRestorer mTabRestorer;
+    // TODO(https://crbug.com/451614469): This synchronizer is only for incognito right now.
     private @Nullable StorageCollectionSynchronizer mSynchronizer;
     private int mRestoredTabCount;
     private boolean mIsDestroyed;
@@ -130,6 +128,40 @@ public class TabStateStore implements TabPersistentStore {
                 }
             };
 
+    private final TabRestorerDelegate mTabRestorerDelegate =
+            new TabRestorerDelegate() {
+                @Override
+                public void onCancelled() {
+                    deleteDbIfNonAuthoritative();
+                }
+
+                @Override
+                public void onFinished() {
+                    onFinishedCreatingAllTabs();
+                }
+
+                @Override
+                public void onDetailsRead(
+                        int index,
+                        @TabId int tabId,
+                        String url,
+                        boolean isStandardActiveIndex,
+                        boolean isIncognitoActiveIndex,
+                        boolean isIncognito,
+                        boolean fromMerge) {
+                    for (TabPersistentStoreObserver observer : mObservers) {
+                        observer.onDetailsRead(
+                                index,
+                                tabId,
+                                url,
+                                isStandardActiveIndex,
+                                isIncognitoActiveIndex,
+                                isIncognito,
+                                fromMerge);
+                    }
+                }
+            };
+
     /**
      * @param tabStateStorageService The {@link TabStateStorageService} to save to.
      * @param tabModelSelector The {@link TabModelSelector} to observe changes in. Regardless of the
@@ -165,16 +197,10 @@ public class TabStateStore implements TabPersistentStore {
         mTabRegistrationObserver.addObserverAndNotifyExistingTabRegistration(
                 new InnerRegistrationObserver());
 
-        mFilter =
-                mTabModelSelector
-                        .getTabGroupModelFilterProvider()
-                        .getTabGroupModelFilter(/* isIncognito= */ false);
-
-        initVisualDataTracking();
-
         // TODO(https://crbug.com/451614469): Watch for incognito as well eventually. But before
         // things are fully functional, do not write any incognito data to avoid regressing on
         // privacy.
+        initVisualDataTracking(false);
     }
 
     @Override
@@ -193,8 +219,12 @@ public class TabStateStore implements TabPersistentStore {
 
     @Override
     public void loadState(boolean ignoreIncognitoFiles) {
+        assert mTabRestorer == null;
+        mTabRestorer = new TabRestorer(mTabRestorerDelegate, mTabCreatorManager);
         // TODO(https://crbug.com/458335579): Handle including or ignoring incognito tabs.
-        loadAllTabsFromService();
+        long loadStartTime = SystemClock.elapsedRealtime();
+        mTabStateStorageService.loadAllData(
+                mWindowTag, /* isOffTheRecord= */ false, data -> onDataLoaded(data, loadStartTime));
     }
 
     @Override
@@ -214,16 +244,14 @@ public class TabStateStore implements TabPersistentStore {
 
     @Override
     public void restoreTabStateForUrl(String url) {
-        // TODO(https://crbug.com/448151052): Synchronously allows a Tab to restore and jump the
-        // queue if it has a matching URL. Used for view intents that target a specific URL. We
-        // should restructure the restore batching to allow this to happen.
+        if (mTabRestorer == null) return;
+        mTabRestorer.restoreTabStateForUrl(url);
     }
 
     @Override
     public void restoreTabStateForId(int id) {
-        // TODO(https://crbug.com/448151052): Synchronously allows a Tab to restore and jump the
-        // queue if it has a matching tab id. Used for view intents that target a specific tab id.
-        // We should restructure the restore batching to allow this to happen.
+        if (mTabRestorer == null) return;
+        mTabRestorer.restoreTabStateForId(id);
     }
 
     @Override
@@ -237,11 +265,11 @@ public class TabStateStore implements TabPersistentStore {
         mTabStateStorageService.clearState();
     }
 
-    @SuppressWarnings("UnusedVariable")
     private void cancelLoadingTabs(boolean incognito) {
-        // TODO(https://crbug.com/448151052): When all tabs are closed during restore, interrupt
-        // current restore aborting any future restore operations to avoid "back from the dead"
-        // tabs.
+        // TODO(https://crbug.com/451614469): Handle incognito.
+        if (incognito || mTabRestorer == null) return;
+
+        mTabRestorer.cancel();
     }
 
     @Override
@@ -253,14 +281,21 @@ public class TabStateStore implements TabPersistentStore {
             mTabRegistrationObserver.destroy();
         }
 
+        if (mTabRestorer != null) {
+            mTabRestorer.cancel();
+            mTabRestorer = null;
+        }
+
         mTabModelSelector.getModel(false).removeObserver(mTabModelObserver);
         mTabModelSelector.getModel(true).removeObserver(mTabModelObserver);
 
         for (CollectionSaveForwarder forwarder : mGroupForwarderMap.values()) {
             forwarder.destroy();
         }
-        if (mFilter != null) {
-            mFilter.removeTabGroupObserver(mVisualDataUpdateObserver);
+        // TODO(https://crbug.com/451614469): Remove incognito observer.
+        TabGroupModelFilter filter = getFilter(/* incognito= */ false);
+        if (filter != null) {
+            filter.removeTabGroupObserver(mVisualDataUpdateObserver);
         }
 
         if (mSynchronizer != null) {
@@ -271,13 +306,13 @@ public class TabStateStore implements TabPersistentStore {
     @Override
     public void pauseSaveTabList() {
         // TODO(https://crbug.com/448151052): This should freeze saves for the collection tree until
-        // resumed.
+        // resumed. If we have proper batching it might not be necessary to pause.
     }
 
     @Override
     public void resumeSaveTabList(Runnable onSaveTabListRunnable) {
         // TODO(https://crbug.com/448151052): This should catch up on saves for the collection tree
-        // after a pause.
+        // after a pause. If we have proper batching it might not be necessary to pause.
     }
 
     @Override
@@ -330,13 +365,6 @@ public class TabStateStore implements TabPersistentStore {
         // TODO(https://crbug.com/430996004): If closing, delete the tab record.
     }
 
-    private void loadAllTabsFromService() {
-        long loadStartTime = SystemClock.elapsedRealtime();
-        // TODO(crbug.com/458335579): Figure out incognito.
-        mTabStateStorageService.loadAllData(
-                mWindowTag, /* isOffTheRecord= */ false, data -> onDataLoaded(data, loadStartTime));
-    }
-
     private void onDataLoaded(StorageLoadedData data, long loadStartTime) {
         LoadedTabState[] loadedTabStates = data.getLoadedTabStates();
 
@@ -353,128 +381,21 @@ public class TabStateStore implements TabPersistentStore {
             initRestoreOrchestrator(data);
         }
 
-        if (mRestoredTabCount == 0) {
-            onFinishedCreatingAllTabs(data);
-            return;
-        }
-
-        restoreActiveTab(data);
-    }
-
-    /**
-     * Restores the active tab from {@code data}. Will post a task to restore the next batch if
-     * there are more tabs to restore otherwise will signal the end of restoration.
-     *
-     * @param data The data to restore tabs from.
-     */
-    private void restoreActiveTab(StorageLoadedData data) {
-        if (mIsDestroyed) {
-            cleanupStorageLoadedData(data);
-            return;
-        }
-
-        LoadedTabState[] loadedTabStates = data.getLoadedTabStates();
-        assert loadedTabStates.length > 0;
-
-        int activeTabIndex = data.getActiveTabIndex();
-        int restoredActiveTabIndex =
-                (activeTabIndex > TabModel.INVALID_TAB_INDEX
-                                && activeTabIndex < loadedTabStates.length)
-                        ? activeTabIndex
-                        : 0;
-        restoreTab(
-                loadedTabStates[restoredActiveTabIndex],
-                restoredActiveTabIndex,
-                /* isIncognito= */ false,
-                /* isActive= */ true);
-
-        if (loadedTabStates.length == 1) {
-            PostTask.postTask(TaskTraits.UI_DEFAULT, () -> onFinishedCreatingAllTabs(data));
-            return;
-        }
-        PostTask.postTask(
-                TaskTraits.UI_DEFAULT,
-                () ->
-                        restoreNextBatchOfTabs(
-                                data,
-                                restoredActiveTabIndex,
-                                /* startIndex= */ 0,
-                                /* batchSize= */ RESTORE_BATCH_SIZE));
-    }
-
-    /**
-     * Restores a single tab.
-     *
-     * @param loadedTabState The tab state to restore.
-     * @param index The index of the tab to restore.
-     * @param isIncognito Whether the tab is in incognito mode.
-     * @param isActive Whether the tab is the active tab.
-     */
-    private void restoreTab(
-            LoadedTabState loadedTabState, int index, boolean isIncognito, boolean isActive) {
-        @TabId int tabId = loadedTabState.tabId;
-        Tab tab = resolveTab(loadedTabState.tabState, tabId, index);
-        if (tab == null) return;
-
-        // TODO(https://crbug.com/451624258): This is the opposite order of creation and details
-        // from how the previous implementation did it. Verify this doesn't break anything.
-        for (TabPersistentStoreObserver observer : mObservers) {
-            observer.onDetailsRead(
-                    index,
-                    tabId,
-                    tab.getUrl().getSpec(),
-                    /* isStandardActiveIndex= */ !isIncognito && isActive,
-                    /* isIncognitoActiveIndex= */ isIncognito && isActive,
-                    /* isIncognito= */ isIncognito,
-                    /* fromMerge= */ false);
+        assert mTabRestorer != null;
+        mTabRestorer.onDataLoaded(data);
+        // A side-effect of onDataLoaded may invalidate the mTabRestorer.
+        if (mTabRestorer != null) {
+            // TODO(crbug.com/464029104): Move this to restoreTabs().
+            mTabRestorer.start();
         }
     }
 
-    /**
-     * Restores tabs in range {@code [startIndex, startIndex + batchSize)} from {@code data} or
-     * until data is exhausted. Will post a task to restore the next batch if there are more tabs to
-     * restore otherwise will signal the end of restoration.
-     *
-     * @param data The data to restore tabs from.
-     * @param restoredActiveTabIndex The index of the active tab that was restored already.
-     * @param startIndex The index of the first tab to restore.
-     * @param batchSize The number of tabs to restore.
-     */
-    private void restoreNextBatchOfTabs(
-            StorageLoadedData data, int restoredActiveTabIndex, int startIndex, int batchSize) {
-        assert startIndex >= 0;
-        assert batchSize > 0;
-        if (mIsDestroyed) {
-            cleanupStorageLoadedData(data);
-            return;
-        }
-
-        LoadedTabState[] loadedTabStates = data.getLoadedTabStates();
-        int endIndex = Math.min(startIndex + batchSize, loadedTabStates.length);
-
-        for (int i = startIndex; i < endIndex; i++) {
-            // Skip the active tab as it was already restored by {@link #restoreActiveTab}.
-            if (i == restoredActiveTabIndex) continue;
-
-            restoreTab(loadedTabStates[i], i, /* isIncognito= */ false, /* isActive= */ false);
-        }
-
-        if (endIndex < loadedTabStates.length) {
-            PostTask.postTask(
-                    TaskTraits.UI_DEFAULT,
-                    () ->
-                            restoreNextBatchOfTabs(
-                                    data, restoredActiveTabIndex, endIndex, RESTORE_BATCH_SIZE));
-        } else {
-            PostTask.postTask(TaskTraits.UI_DEFAULT, () -> onFinishedCreatingAllTabs(data));
-        }
-    }
-
-    private void onFinishedCreatingAllTabs(StorageLoadedData data) {
-        cleanupStorageLoadedData(data);
-        data = null;
+    private void onFinishedCreatingAllTabs() {
+        deleteDbIfNonAuthoritative();
 
         if (mIsDestroyed) return;
+
+        mTabRestorer = null;
 
         initCollectionTracking();
 
@@ -487,7 +408,7 @@ public class TabStateStore implements TabPersistentStore {
         }
     }
 
-    private void cleanupStorageLoadedData(StorageLoadedData data) {
+    private void deleteDbIfNonAuthoritative() {
         if (!ChromeFeatureList.sTabStorageSqlitePrototypeAuthoritativeReadSource.getValue()) {
             // When we aren't the authoritative source we don't trust ourselves to be correct.
             // Raze the db and rebuild from the loaded tab state to ensure we are in a known good
@@ -495,20 +416,6 @@ public class TabStateStore implements TabPersistentStore {
             // delta and if there is we need a less blunt mechanism to reconcile the difference.
             clearState();
         }
-        if (ChromeFeatureList.sTabStorageSqlitePrototypeAuthoritativeReadSource.getValue()) {
-            TabGroupVisualDataStore.removeCachedGroups(data.getGroupsData());
-        }
-        data.destroy();
-    }
-
-    private @Nullable Tab resolveTab(TabState tabState, @TabId int tabId, int index) {
-        if (tabState.contentsState == null || tabState.contentsState.buffer().limit() <= 0) {
-            return null;
-        }
-
-        return mTabCreatorManager
-                .getTabCreator(/* incognito= */ false)
-                .createFrozenTab(tabState, tabId, index);
     }
 
     private void saveTabGroupPayload(Token tabGroupId) {
@@ -517,66 +424,72 @@ public class TabStateStore implements TabPersistentStore {
         forwarder.savePayload();
     }
 
-    private void initVisualDataTracking() {
-        assert mFilter != null;
-
-        TabStripCollection collection = mFilter.getTabModel().getTabStripCollection();
-        assert collection != null;
-
-        Profile profile = mFilter.getTabModel().getProfile();
-        assert profile != null;
+    private void initVisualDataTracking(boolean incognito) {
+        var profileAndCollection = getProfileAndCollection(incognito);
+        TabGroupModelFilter filter = getFilter(incognito);
+        assert filter != null;
 
         // Add forwarders for untracked groups.
-        for (Token groupId : mFilter.getAllTabGroupIds()) {
+        for (Token groupId : filter.getAllTabGroupIds()) {
             CollectionSaveForwarder forwarder =
-                    CollectionSaveForwarder.createForTabGroup(profile, groupId, collection);
+                    CollectionSaveForwarder.createForTabGroup(
+                            profileAndCollection.profile, groupId, profileAndCollection.collection);
             mGroupForwarderMap.put(groupId, forwarder);
         }
 
-        mFilter.addTabGroupObserver(mVisualDataUpdateObserver);
+        filter.addTabGroupObserver(mVisualDataUpdateObserver);
     }
 
     @EnsuresNonNull("mSynchronizer")
-    private void maybeInitSynchronizer() {
+    private void maybeInitSynchronizer(ProfileAndCollection profileAndCollection) {
         if (mSynchronizer != null) return;
 
-        // TODO(https://crbug.com/451614469): Watch for incognito as well, eventually.
-        TabModel tabModel = mTabModelSelector.getModel(/* incognito= */ false);
-
-        TabStripCollection tabStripCollection = tabModel.getTabStripCollection();
-        assert tabStripCollection != null;
-
-        Profile profile = tabModel.getProfile();
-        assert profile != null;
-
-        mSynchronizer = new StorageCollectionSynchronizer(profile, tabStripCollection);
+        mSynchronizer =
+                new StorageCollectionSynchronizer(
+                        profileAndCollection.profile, profileAndCollection.collection);
     }
 
     private void initRestoreOrchestrator(StorageLoadedData data) {
-        maybeInitSynchronizer();
-
-        TabModel tabModel = mTabModelSelector.getModel(/* incognito= */ false);
-
-        Profile profile = tabModel.getProfile();
-        assert profile != null;
-
-        TabStripCollection tabStripCollection = tabModel.getTabStripCollection();
-        assert tabStripCollection != null;
+        // TODO(https://crbug.com/451614469): Watch for incognito as well, eventually.
+        var profileAndCollection = getProfileAndCollection(/* incognito= */ false);
+        maybeInitSynchronizer(profileAndCollection);
 
         StorageRestoreOrchestratorFactory factory =
-                new StorageRestoreOrchestratorFactory(profile, tabStripCollection, data);
+                new StorageRestoreOrchestratorFactory(
+                        profileAndCollection.profile, profileAndCollection.collection, data);
         mSynchronizer.consumeRestoreOrchestratorFactory(factory);
     }
 
     private void initCollectionTracking() {
-        maybeInitSynchronizer();
+        // TODO(https://crbug.com/451614469): Watch for incognito as well, eventually.
+        var profileAndCollection = getProfileAndCollection(/* incognito= */ false);
+        maybeInitSynchronizer(profileAndCollection);
 
-        TabModel tabModel = mTabModelSelector.getModel(/* incognito= */ false);
+        CollectionStorageObserverFactory factory =
+                new CollectionStorageObserverFactory(profileAndCollection.profile);
+        mSynchronizer.consumeCollectionObserverFactory(factory);
+    }
 
+    private static class ProfileAndCollection {
+        public final Profile profile;
+        public final TabStripCollection collection;
+
+        public ProfileAndCollection(Profile profile, TabStripCollection collection) {
+            this.profile = profile;
+            this.collection = collection;
+        }
+    }
+
+    private ProfileAndCollection getProfileAndCollection(boolean incognito) {
+        TabModel tabModel = mTabModelSelector.getModel(incognito);
         Profile profile = tabModel.getProfile();
         assert profile != null;
+        TabStripCollection tabStripCollection = tabModel.getTabStripCollection();
+        assert tabStripCollection != null;
+        return new ProfileAndCollection(profile, tabStripCollection);
+    }
 
-        CollectionStorageObserverFactory factory = new CollectionStorageObserverFactory(profile);
-        mSynchronizer.consumeCollectionObserverFactory(factory);
+    private @Nullable TabGroupModelFilter getFilter(boolean incognito) {
+        return mTabModelSelector.getTabGroupModelFilterProvider().getTabGroupModelFilter(incognito);
     }
 }

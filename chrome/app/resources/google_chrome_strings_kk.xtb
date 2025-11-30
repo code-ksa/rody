@@ -168,7 +168,6 @@
 <translation id="2841525013647267359">Бастапқы тіл</translation>
 <translation id="2846251086934905009">Орнату қатесі: орнату аяқталмады, оның орнына доғарылды.</translation>
 <translation id="2853415089995957805">Chrome сіз кіруіңіз мүмкін беттерді алдын ала жүктейді, сонда олар кірген кезде тезірек жүктеледі.</translation>
-<translation id="2856481144859256719">Google Search-тегі AI режимінің жылдам пәрменін үнемі көрсету</translation>
 <translation id="2857540653560290388">Chrome қосылып жатыр…</translation>
 <translation id="286025080868315611">Неліктен Chrome кейбір жүктеп алынғандарды блоктайтыны туралы ақпарат алыңыз</translation>
 <translation id="2861074815332034794">Chrome жаңартылуда (<ph name="PROGRESS_PERCENT" />)</translation>
@@ -275,6 +274,7 @@
 <translation id="4022972681110646219">Экран мазмұнын аудару</translation>
 <translation id="4023601594785368013">Түпнұсқа тілі: <ph name="LANGUAGE" /></translation>
 <translation id="4035053306113201399">Жаңарту күшіне енуі үшін ChromeOS жүйесін өшіріп қосу керек.</translation>
+<translation id="4039097928859803404">AI режимінің жылдам пәрмендерін үнемі көрсету</translation>
 <translation id="4050175100176540509">Соңғы нұсқасында қауіпсіздік жақсартылып, жаңа мүмкіндіктер берілген.</translation>
 <translation id="4053720452172726777">Google Chrome-ды бейімдеу және басқару</translation>
 <translation id="408393047846373801">Құпия сөздер мен басқа ақпаратты барлық құрылғыдан алу үшін Chrome аккаунтына кіріңіз. Аккаунтқа кіргеннен кейін, бұл құпия сөз Google аккаунтыңызға сақталады.</translation>
@@ -356,6 +356,7 @@
 <translation id="4970880042055371251">ChromeOS нұсқасы</translation>
 <translation id="4990567037958725628">Google Chrome Canary</translation>
 <translation id="5003967926796347400">"Google Password Manager" түймесін басыңыз.</translation>
+<translation id="5043786843026425788">Chrome-дағы Google Lens арқылы іздеу туралы толық ақпарат</translation>
 <translation id="504867494566807945">Кез келген қолданба сілтемесін Chrome-нан ашыңыз. Оңай қол жеткізу үшін ол тапсырмалар жолағына бекітіледі.</translation>
 <translation id="5114340746415930644">Chrome деректерін <ph name="USER_EMAIL" /> аккаунтында қолдану және сақтау үшін құпия фразаны енгізіңіз.</translation>
 <translation id="5120334927898581447">Басқа Google қызметтеріне кірген кезде, Chrome-ға де кіресіз</translation>
@@ -529,6 +530,7 @@ Google Chrome параметрлеріңізді қалпына келтіре �
 <translation id="683440813066116847">mDNS трафигіне рұқсат беретін Google Chrome кіріс ережесі.</translation>
 <translation id="6841242485723266823">Chrome профильдері ақпаратыңыздың әртүрлі бөліктерін бөлек сақтауға көмектеседі. Жаңа профильді қазір қосыңыз.</translation>
 <translation id="684888714667046800">Интернетке қосылу мүмкін емес. Брандмауэр пайдалансаңыз, <ph name="PRODUCT_EXE_NAME" /> өнімінің рұқсат тізімінде екеніне көз жеткізіңіз.</translation>
+<translation id="6859580922007887573">Жалғастыру үшін Tab пернесін басыңыз.</translation>
 <translation id="6877155553248388166">іздеу аймағының төменгі оң жақ бұрышы: оң жақ <ph name="RIGHT" />%, төменгі жақ <ph name="BOTTOM" />%</translation>
 <translation id="6881299373831449287">Chrome жаңартылуда</translation>
 <translation id="6885412569789873916">Chrome Beta қолданбалары</translation>
@@ -566,6 +568,7 @@ Google Chrome параметрлеріңізді қалпына келтіре �
 <translation id="7285616922384953075">Chrome-ды <ph name="MANAGER" /> басқарады</translation>
 <translation id="7288567540154601580">Қойындылар мен кеңейтімдер</translation>
 <translation id="7296210096911315575">Пайдалану және қауіпсіздік туралы маңызды ақпарат</translation>
+<translation id="7302361266603927550">Chrome деректерінің кейбірі Google аккаунтыңызға әлі сақталмаған. Шығу алдында бірнеше минут күтіп көріңіз. Қазір шықсаңыз, бұл деректер жойылады.</translation>
 <translation id="7308322188646931570">Файлдарды жүктеп алу үшін Chrome браузеріне сақтау орнын пайдалану құқығы қажет</translation>
 <translation id="7339898014177206373">Жаңа терезе</translation>
 <translation id="7352651011704765696">Бірнәрсе дұрыс емес</translation>
@@ -622,10 +625,12 @@ Google Chrome параметрлеріңізді қалпына келтіре �
 <translation id="7801699035218095297">Google Chrome құпия сөздерді көшіргісі келеді. Бұған рұқсат беру үшін Windows құпия сөзіңізді теріңіз.</translation>
 <translation id="7804364787702057554">Chrome-дағы аккаунтыңыз</translation>
 <translation id="7808348361785373670">Chrome ішінен жою…</translation>
+<translation id="7827099906024714326">Chrome браузері деректерді Google аккаунтыңызға сақтау және барлық құрылғыңызда пайдалануға рұқсат беру үшін жеке басыңызды растауы қажет. Қазір шықсаңыз, бұл деректер жойылады.</translation>
 <translation id="7845233973568007926">Орнатқаныңыз үшін рақмет. <ph name="BUNDLE_NAME" /> пайдаланбас бұрын компьютерді өшіріп қосуыңыз керек.</translation>
 <translation id="7849037457735762883">Тоқтаған жерден жалғастырыңыз: өшіріп қосқан сайын, Chrome қойындыларды қалпына келтіре алады. Мұны қосу үшін келесі бөлімге өтіңіз:</translation>
 <translation id="7872446069773932638">Жүктеп алынып жатыр… <ph name="SECONDS" /> секунд қалды.</translation>
 <translation id="7886087451482920026">Google Lens көмегімен мәтінді таңдаңыз</translation>
+<translation id="7887929410013642057">AI режимінің жылдам пәрмендерін үнемі көрсету</translation>
 <translation id="7890208801193284374">Компьютерді бөлісетін болсаңыз, достарыңыз бен жақындарыңыз интернетке бөлек кіріп, Chrome браузерін қалауларынша реттей алады.</translation>
 <translation id="7896673875602241923">Әлдекім бұл компьютерден Chrome жүйесіне <ph name="ACCOUNT_EMAIL_LAST" /> болып кірген. Ақпаратты бөлек сақтау үшін жаңа Chrome пайдаланушысын жасаңыз.</translation>
 <translation id="7904985524660297937">Google Chrome-дағы Gemini-ды пайдаланып көру</translation>
@@ -667,6 +672,7 @@ Google Chrome параметрлеріңізді қалпына келтіре �
 <translation id="835927394551949760">Google-дан сұрау</translation>
 <translation id="8362914115861174987">Аударма тілі:</translation>
 <translation id="8366770919198174997">Өнімділік азаяды, бірақ Chrome шабуылдарға төзімді болады.</translation>
+<translation id="8367705492654390392">Кез келген нәрсе сұраңыз</translation>
 <translation id="8370517070665726704">Copyright <ph name="YEAR" /> Google LLC. Барлық құқықтары қорғалған.</translation>
 <translation id="8377158135256176353">Chrome Canary-дегі Gemini-ды қосу/өшіру</translation>
 <translation id="8387459386171870978">Chrome-ды пайдалана беру</translation>

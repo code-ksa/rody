@@ -605,7 +605,8 @@ TEST_P(ChangePasswordFormFillingSubmissionHelperTest,
       CreateVerifier(form_manager.get(), completion_future.GetCallback());
 
   EXPECT_CALL(*capture_content_for_submit_form_step(), Run)
-      .WillOnce(base::test::RunOnceCallback<0>(std::nullopt));
+      .WillOnce(base::test::RunOnceCallback<0>(
+          base::unexpected("APC Capture Failed")));
 
   // Execution isn't triggered because page content capture failed.
   EXPECT_CALL(*optimization_service(), ExecuteModel).Times(0);
@@ -930,6 +931,11 @@ TEST_P(ChangePasswordFormFillingSubmissionHelperTest,
       CreateVerifier(form_manager.get(), completion_future.GetCallback());
   EXPECT_CALL(*capture_content_for_submit_form_step(), Run).Times(0);
   CompleteFormFilling(form_manager.get(), verifier.get(), std::nullopt);
+
+  CheckSubmitFormStatus(
+      logs_uploader()->GetFinalLog(),
+      QualityStatus::
+          PasswordChangeQuality_StepQuality_SubmissionStatus_FORM_FILLING_FAILED);
 
   EXPECT_TRUE(verifier->form_waiter());
   auto new_form_manager = CreateFormManagerFromFormData(

@@ -1497,6 +1497,25 @@ source_set("platform_browser_tests") {
     }
   }
 
+  if (is_win || is_linux || is_mac || is_android) {
+    sources +=
+        [ "../browser/enterprise/reporting/security_reporting_browsertest.cc" ]
+
+    deps += [
+      "////components/enterprise/browser/identifiers",
+      "//chrome/browser/enterprise/reporting/test:test_support",
+      "//chrome/browser/enterprise/test:test_support",
+      "//components/device_signals/core/browser",
+    ]
+
+    if (is_android) {
+      deps += [
+        "//components/safe_browsing/android:safe_browsing_api_handler",
+        "//components/safe_browsing/android:safe_browsing_api_handler_util",
+      ]
+    }
+  }
+
   if (is_android) {
     deps += [
       "//chrome/browser/ui/android/tab_model:test_support",
@@ -3793,7 +3812,6 @@ if (!is_android) {
       "../browser/ui/webui/webui_embedding_context_browsertest.cc",
       "../browser/ui/webui/webui_load_timer_browsertest.cc",
       "../browser/ui/webui/webui_url_hashes_browsertest.cc",
-      "../browser/ukm_worker_browsertest.cc",
       "../browser/unload_browsertest.cc",
       "../browser/user_agent/user_agent_browsertest.cc",
       "../browser/visited_url_ranking/desktop_tab_model_url_visit_data_fetcher_browsertest.cc",
@@ -4886,10 +4904,6 @@ if (!is_android) {
       }
 
       if (is_win || is_linux || is_mac) {
-        sources += [
-          "../browser/enterprise/reporting/security_reporting_browsertest.cc",
-        ]
-
         deps += [
           "//chrome/browser/enterprise/connectors/device_trust/key_management/browser/commands:test_support",
           "//chrome/browser/enterprise/connectors/device_trust/key_management/core/persistence:test_support",
@@ -5207,6 +5221,7 @@ if (!is_android) {
         "../browser/ui/views/upgrade_notification_controller_browsertest.cc",
         "../browser/ui/views/user_education/help_bubble_factory_views_browsertest.cc",
         "../browser/ui/views/web_apps/web_app_uninstall_dialog_browsertest.cc",
+        "../browser/ui/wallet/walletable_pass_bubble_controller_browsertest.cc",
         "../browser/ui/wallet/walletable_pass_save_bubble_view_browsertest.cc",
         "../browser/ui/web_applications/pwa_install_page_action_browsertest.cc",
       ]
@@ -8426,6 +8441,7 @@ test("unit_tests") {
       "//chrome/browser/ui/views/user_education",
       "//chrome/browser/ui/views/webid:test_support",
       "//chrome/browser/ui/waap:unit_tests",
+      "//chrome/browser/ui/wallet:unit_tests",
       "//chrome/browser/ui/webauthn:unit_tests",
       "//chrome/browser/ui/webid:unit_tests",
       "//chrome/browser/ui/webui:webui_util",

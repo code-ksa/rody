@@ -41,6 +41,7 @@
 <translation id="141901961143729572">તમારા વિચારો શેર કરો</translation>
 <translation id="1465192221147974788">તમારી વિન્ડો શેર કરવા માટે, સિસ્ટમના સેટિંગમાં Chromium માટે સ્ક્રીન રેકોર્ડિંગની મંજૂરી આપો.</translation>
 <translation id="1478370723027452770">Chrome for Testing માટે સહાય મેળવો</translation>
+<translation id="1496875977627931224">નમસ્તે <ph name="USER_NAME" />,<ph name="LINE_BREAK" />આજે તમારા મનમાં શું છે?</translation>
 <translation id="1497802159252041924">ઇન્સ્ટૉલ કરવામાં ભૂલ: <ph name="INSTALL_ERROR" /></translation>
 <translation id="1518627427551567882">આ પેજ સંરક્ષિત છે</translation>
 <translation id="1524282610922162960">Chromium ટૅબ શેર કરો</translation>
@@ -167,7 +168,6 @@
 <translation id="2846251086934905009">ઇન્સ્ટૉલ કરવામાં ભૂલ: ઇન્સ્ટૉલર પૂર્ણ થયું નહીં. ઇન્સ્ટોલેશન રદ કરવામાં આવ્યું છે.</translation>
 <translation id="2847479871509788944">Chromium માંથી દૂર કરો...</translation>
 <translation id="2850691299438350830">તમને Chromium પર સલામત રાખે છે અને જ્યારે તમે સાઇન ઇન થયા હો, ત્યારે Googleની અન્ય ઍપમાં તમારી સુરક્ષા બહેતર બનાવવામાં કદાચ ઉપયોગમાં લેવાઈ શકે છે</translation>
-<translation id="2856481144859256719">Google Searchમાં AI મોડનો શૉર્ટકટ હંમેશાં બતાવો</translation>
 <translation id="2885378588091291677">કાર્ય વ્યવસ્થાપક</translation>
 <translation id="2910007522516064972">&amp;Chromium વિશે</translation>
 <translation id="2915996080311180594">પછીથી ફરી શરૂ કરો</translation>
@@ -195,6 +195,7 @@
 <translation id="3103660991484857065">ઇન્સ્ટૉલર આર્કાઇવને અનકોમ્પ્રેસ કરવામાં નિષ્ફળ. કૃપા કરીને Chromium ફરીથી ડાઉનલોડ કરો.</translation>
 <translation id="310459126943037700">કામ સમાપ્ત કરવામાં નિષ્ફળ.</translation>
 <translation id="3130323860337406239">Chromium તમારા માઇક્રોફોનનો ઉપયોગ કરી રહ્યું છે.</translation>
+<translation id="3130333203120345554">નવી શોધ</translation>
 <translation id="3137969841538672700">શોધવા માટે ખેંચો</translation>
 <translation id="3144188012276422546">આ ટૅબ વધારાના સંસાધનોનો ઉપયોગ કરી રહ્યું છે. તમારા પર્ફોર્મન્સને બહેતર બનાવવા માટે, Chromiumને તેને નિષ્ક્રિય કરવા દો.</translation>
 <translation id="3149163023759831301">તમારી સ્ક્રીન શેર કરવા માટે, સિસ્ટમના સેટિંગમાં Chromium માટે સ્ક્રીન રેકોર્ડિંગની મંજૂરી આપો</translation>
@@ -271,6 +272,7 @@
 <translation id="4023601594785368013">મૂળ ભાષા: <ph name="LANGUAGE" /></translation>
 <translation id="4023845192681161785">કોઈપણ ઍપમાંથી લિંકને Chromiumમાં ખોલો. વધુમાં, સરળ ઍક્સેસ માટે તે તમારા ટાસ્કબારમાં પિન કરવામાં આવે છે.</translation>
 <translation id="4036079820698952681"><ph name="BEGIN_LINK" />વર્તમાન સેટિંગ<ph name="END_LINK" />ની જાણ કરીને Chromiumને બહેતર બનાવવામાં સહાય કરો</translation>
+<translation id="4039097928859803404">હંમેશાં AI મોડના શૉર્ટકટ બતાવો</translation>
 <translation id="4050175100176540509">નવીનતમ વર્ઝનમાં મહત્ત્વપૂર્ણ સુરક્ષા સુધારણાઓ અને નવી સુવિધાઓ ઉપલબ્ધ છે.</translation>
 <translation id="4055805654398742145">P&amp;assword Manager</translation>
 <translation id="4061696872429826774">તમારા કમ્પ્યૂટર પરના અન્ય પ્રોગ્રામ દ્વારા કોઈ એક્સ્ટેન્શન ઉમેરવામાં આવ્યું છે જેનાથી Chromiumની કામ કરવાની રીતમાં ફેરફાર થઈ શકે છે.
@@ -330,6 +332,7 @@
 <translation id="4673151026126227699">જો તમે Chromiumના વપરાશના રિપોર્ટ પણ શેર કરતા હો, તો તે રિપોર્ટમાં તમે મુલાકાત લો છો તે URLs શામેલ હોય છે</translation>
 <translation id="4677944499843243528">બીજા કમ્પ્યુટર (<ph name="HOST_NAME" />) પર પ્રોફાઇલ બીજી Chromium પ્રક્રિયા (<ph name="PROCESS_ID" />) દ્વારા ઉપયોગમાં હોય એવું લાગે છે. Chromium એ પ્રોફાઇલને લૉક કરી છે જેથી તે દૂષિત ન થઈ જાય. જો તમને ખાતરી છે કે કોઈ અન્ય પ્રક્રિયાઓ આ પ્રોફાઇલનો ઉપયોગ કરી રહી નથી, તો તમે પ્રોફાઇલને અનલૉક કરી અને Chromium ને ફરીથી લોંચ કરી શકો છો.</translation>
 <translation id="4680828127924988555">ઇન્સ્ટૉલેશનની પ્રક્રિયા રદ કરો</translation>
+<translation id="469259825538636168">Chromiumનો તમારો અમુક ડેટા હજી સુધી તમારા Google એકાઉન્ટમાં સાચવવામાં આવ્યો નથી. સાઇન આઉટ કરતા પહેલાં થોડી મિનિટ રાહ જોવાનો પ્રયાસ કરી જુઓ. જો તમે હમણાં જ સાઇન આઉટ કરશો, તો આ ડેટા ડિલીટ કરવામાં આવશે.</translation>
 <translation id="4708193446201257833">જ્યારે તમે સાઇન ઇન કર્યું હોય, ત્યારે તમે Chromiumમાં તમારા Google એકાઉન્ટમાંથી તમારા પાસવર્ડ અને વધુનો ઉપયોગ કરી શકો છો. <ph name="SHORTCUT" /> તમારા Googleની સેવાઓના સેટિંગ બદલી શકે છે.</translation>
 <translation id="4708774505295300557">કોઈએ આ કોમ્પ્યુટર પર પહેલા <ph name="ACCOUNT_EMAIL_LAST" /> તરીકે Chromiumમાં સાઇન ઇન કર્યું છે. તમારી માહિતી અલગ રાખવા માટે કૃપા કરીને નવો Chromium વપરાશકર્તા બનાવો.</translation>
 <translation id="4724676981607797757">અનસપોર્ટેડ પ્રોટોકૉલ ભૂલને કારણે ઇન્સ્ટૉલેશન નિષ્ફળ રહ્યું.</translation>
@@ -350,6 +353,7 @@
 <translation id="4994636714258228724">સ્વયંને Chromium માં ઉમેરો</translation>
 <translation id="5123973130450702873">Chromiumને તમારા હાથ ટ્રૅક કરવા માટે પરવાનગીની જરૂર છે</translation>
 <translation id="5141988424377517949">તમે તાજેતરમાં આ સાઇટની મુલાકાત લીધી નથી. Chromium દ્વારા <ph name="PERMISSION_1" />, <ph name="PERMISSION_2" />, <ph name="PERMISSION_3" />ની પરવાનગીઓ કાઢી નાખવામાં આવી.</translation>
+<translation id="5167819546851111585">આજે તમારા મનમાં શું છે?</translation>
 <translation id="5174969993834422967">તમે સામાન્ય રીતે નોટિફિકેશનને બ્લૉક કરો છો. આ સાઇટ તમને સૂચિત કરી શકે તે માટે, તમારા લોકેશન બારના જમણા ખૂણે દેખાતા નોટિફિકેશનના આઇકન પર ક્લિક કરો.</translation>
 <translation id="5174983315706567306">પર્યાપ્ત ડિસ્ક સ્પેસ નથી.</translation>
 <translation id="5187123684706427865">Chromium એકાઉન્ટને પુન:પ્રમાણીકરણની જરૂર છે</translation>
@@ -382,6 +386,7 @@
 <translation id="5496810170689441661">Chromium પાસવર્ડમાં ફેરફાર કરવાનો પ્રયાસ કરે છે. આની મંજૂરી આપવા માટે તમારો Windows પાસવર્ડ લખો.</translation>
 <translation id="5524890928877629608">શોધ વિસ્તારના સૌથી ઉપર ડાબા ખૂણે: ડાબી બાજુ <ph name="LEFT" />%, સૌથી ઉપર <ph name="TOP" />%</translation>
 <translation id="5527463683072221100">Chromiumમાં PDFs ખોલો</translation>
+<translation id="5536164441519929134">આ ટૅબ વિશે<ph name="LINE_BREAK" />પૂછો</translation>
 <translation id="5579324208890605088">સ્ટાર્ટઅપ દરમિયાન ભૂલ: કૃપા કરીને ઇન્સ્ટૉલરને નિયમિત વપરાશકર્તા તરીકે ચલાવો, ઍડમિનિસ્ટ્રેટર તરીકે નહીં.</translation>
 <translation id="5580770360767802657">ડિફૉલ્ટ તરીકે Chromiumનો ઉપયોગ કરો અને તેને પિન કરો</translation>
 <translation id="5596627076506792578">વધુ વિકલ્પો</translation>
@@ -506,6 +511,7 @@
 <translation id="6847869444787758381">Chromium વડે તમે તમારા પાસવર્ડમાં ક્યારેક ચેડાં થાય તો તેના વિશે જાણકારી મેળવી શકો છો</translation>
 <translation id="684888714667046800">ઇન્ટરનેટ સાથે કનેક્ટ કરી શકતા નથી. જો તમે કોઈ ફાયરવૉલનો ઉપયોગ કરતા હો, તો કૃપા કરીને ખાતરી કરો કે <ph name="PRODUCT_EXE_NAME" /> વ્હાઇટલિસ્ટમાં છે.</translation>
 <translation id="6857782730669500492">Chromium - <ph name="PAGE_TITLE" /></translation>
+<translation id="6859580922007887573">ચાલુ રાખવા માટે Tab કી દબાવો</translation>
 <translation id="6862030660799253820">'છબી વડે શોધ' સુવિધા વડે આ છબી શોધો</translation>
 <translation id="6873893289264747459">Chromiumને "<ph name="EXTENSION_NAME" />"માં માલવેર હોવાનું જાણવા મળ્યું છે</translation>
 <translation id="6877155553248388166">શોધ વિસ્તારના સૌથી નીચે જમણા ખૂણે: જમણી બાજુ <ph name="RIGHT" />%, સૌથી નીચે <ph name="BOTTOM" />%</translation>
@@ -591,6 +597,7 @@ Chromium તમારા સેટિંગને રિકવર શકતુ�
 <translation id="7872446069773932638">ડાઉનલોડ કરી રહ્યાં છીએ… <ph name="SECONDS" /> સેકન્ડ બાકી છે</translation>
 <translation id="7873537467422636035">જો તમે તમારો પાસફ્રેઝ ભૂલી ગયા હો અથવા આ સેટિંગ બદલવા માગતા હો, તો <ph name="BEGIN_LINK" />તમારા એકાઉન્ટમાંનો Chromium ડેટા ડિલીટ કરો<ph name="END_LINK" /></translation>
 <translation id="7877212753140190672">આ છબી વિશે પૂછો</translation>
+<translation id="7887929410013642057">હંમેશાં AI મોડના શૉર્ટકટ બતાવો</translation>
 <translation id="7888981273428720788">Chromiumને તમારા ડિફૉલ્ટ તરીકે સેટ કરો</translation>
 <translation id="7934340546140346950">જ્યારે શક્ય હોય ત્યારે Chromium અસુરક્ષિત કનેક્શનને ઑટોમૅટિક રીતે HTTPS પર અપગ્રેડ કરે છે</translation>
 <translation id="7937630085815544518">તમે Chromium માં <ph name="USER_EMAIL_ADDRESS" /> તરીકે સાઇન ઇન કર્યું હતું. ફરીથી સાઇન ઇન કરવા માટે કૃપા કરીને એ જ એકાઉન્ટનો ઉપયોગ કરો.</translation>
@@ -629,13 +636,16 @@ Chromium તમારા સેટિંગને રિકવર શકતુ�
 <translation id="8359544530202147897">તમારા Google એકાઉન્ટ <ph name="ACCOUNT_EMAIL" />માં Chromium ડેટાનો ઉપયોગ કરવાનું ચાલુ રાખવા માટે Chromium અપડેટ કરો</translation>
 <translation id="8360718212975266891">Chromiumની ભાવિ અપડેટ મેળવવા માટે, તમારે Windows 10 કે તે પછીના વર્ઝન પર અપડેટ કરવું જરૂરી રહેશે. આ કમ્પ્યુટર Windows 8નો ઉપયોગ કરે છે.</translation>
 <translation id="8362914115861174987">આ ભાષામાં અનુવાદ કરો</translation>
+<translation id="8367705492654390392">કંઈપણ પૂછો</translation>
 <translation id="8370517070665726704">કૉપિરાઇટ <ph name="YEAR" /> Google LLC. સર્વાધિકાર સુરક્ષિત.</translation>
 <translation id="8372327902843331129">તમારા બધા ડિવાઇસ પર તમારા પાસવર્ડ અને બીજું ઘણું મેળવવા માટે, Chromiumમાં સાઇન ઇન કરો. તમે સાઇન ઇન કરો તે પછી આ પાસવર્ડ તમારા Google એકાઉન્ટમાં સાચવવામાં આવશે.</translation>
 <translation id="837460953767177950">ત્યાર પછી તમારે Chromium ફરી શરૂ કરવું જરૂરી છે.</translation>
 <translation id="8397248745433792218">Chromium તેને કાઢી નાખવાનો સુઝાવ તમને આપે છે. <ph name="BEGIN_LINK" />સપોર્ટેડ એક્સ્ટેન્શન વિશે વધુ જાણો<ph name="END_LINK" /></translation>
 <translation id="8401454788024434101">આ એક્સ્ટેન્શનને તેના ડેવલપર દ્વારા અનપબ્લિશ કરવામાં આવ્યું હતું અને તે અસુરક્ષિત હોઈ શકે છે. તેને Chromiumમાંથી કાઢી નાખો જેથી તે હવેથી તમારી વ્યક્તિગત માહિતી સહિત તમે મુલાકાત લો તે સાઇટ પરનો તમારો ડેટા જોઈ કે બદલી શકે નહીં.</translation>
+<translation id="8416884904046428725">તમારા Google એકાઉન્ટમાં કેટલોક ડેટા સાચવી શકાય અને તમારા બધા ડિવાઇસ પર તેનો ઉપયોગ કરી શકાય તે પહેલાં, Chromium માટે એ તમે જ છો તેની ચકાસણી કરવી જરૂરી છે. જો તમે હમણાં જ સાઇન આઉટ કરશો, તો આ ડેટા ડિલીટ કરવામાં આવશે.</translation>
 <translation id="8417404458978023919">{0,plural, =1{એક દિવસની અંદર Chromiumને ફરીથી લૉન્ચ કરો}one{# દિવસની અંદર Chromiumને ફરીથી લૉન્ચ કરો}other{# દિવસની અંદર Chromiumને ફરીથી લૉન્ચ કરો}}</translation>
 <translation id="8438543370129609977">જ્યારે તમે 'છબી વડે શોધ' સુવિધાનો ઉપયોગ કરો, ત્યારે PDFs સહિત પેજનું શીર્ષક, URL અને કન્ટેન્ટ સર્વરને મોકલવામાં આવે છે. <ph name="LEARN_MORE" /></translation>
+<translation id="8447525028100794994">Chromiumમાં 'છબી વડે શોધ' સુવિધા વડે શોધવા વિશે વધુ જાણો</translation>
 <translation id="8453117565092476964">ઇન્સ્ટૉલર આર્કાઇવ ખરાબ અથવા અમાન્ય છે. કૃપા કરીને Chromium ફરીથી ડાઉનલોડ કરો.</translation>
 <translation id="8458614432758743027">Chromium માટે Windows 10 અથવા તે પછીનું વર્ઝન આવશ્યક છે.</translation>
 <translation id="8463672209299734063">વૈકલ્પિક: Googleને ડાયગ્નોસ્ટિક અને વપરાશનો ડેટા ઑટોમૅટિક રીતે મોકલીને ChromiumOSની સુવિધાઓ અને કાર્યપ્રદર્શનને બહેતર બનાવવામાં સહાય કરો.</translation>

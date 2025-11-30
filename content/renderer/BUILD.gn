@@ -207,11 +207,7 @@ target(link_target_type, "renderer") {
   }
 
   if (is_win) {
-    sources += [
-      "font_data/font_data_manager.cc",
-      "font_data/font_data_manager.h",
-      "renderer_main_platform_delegate_win.cc",
-    ]
+    sources += [ "renderer_main_platform_delegate_win.cc" ]
   }
 
   if (enable_cast_renderer) {
@@ -246,7 +242,6 @@ target(link_target_type, "renderer") {
     "//components/metrics",
     "//components/metrics:single_sample_metrics",
     "//components/performance_manager/scenario_api",
-    "//components/services/font_data/public/mojom",
     "//components/startup_metric_utils",
     "//components/url_formatter",
     "//components/variations:variations_mojom",
@@ -411,9 +406,6 @@ target(link_target_type, "renderer") {
       "media/win/overlay_state_service_provider.cc",
       "media/win/overlay_state_service_provider.h",
     ]
-
-    # For font_data_manager creating FreeType font instances.
-    deps += [ "//third_party:freetype_buildflags" ]
   }
 
   if (is_linux || is_chromeos || is_android) {

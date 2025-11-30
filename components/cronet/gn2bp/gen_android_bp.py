@@ -506,10 +506,6 @@ def add_rustversion_deps(module, _):
 _builtin_deps = {
     '//buildtools/third_party/libunwind:libunwind':
     always_disable,
-    # This is a binary module that generates C++ binding files, Skip this
-    # dependency completely as we construct the modules differently.
-    '//third_party/rust/cxxbridge_cmd/v1:cxxbridge':
-    always_disable,
     # rustc_print_cfg is used to print rustc compiler default assumption
     # for a specific CPU architecture (e.g. target_feature="ssse3"). Those
     # features only changes from one CPU architecture to another. It's used
@@ -899,6 +895,7 @@ class Module:
     self.transitive_generated_headers_modules = collections.defaultdict(set)
     self.cargo_env_compat = None
     self.cargo_pkg_version = None
+    self.whole_program_vtables = False
 
   def variant(self, arch_name):
     return self if arch_name == 'common' else self.target[arch_name]
@@ -976,6 +973,8 @@ class Module:
     self._output_field(output, 'static_inline_library')
     self._output_field(output, 'cargo_env_compat')
     self._output_field(output, 'cargo_pkg_version')
+    if self.whole_program_vtables:
+      self._output_field(output, 'whole_program_vtables')
     if self.rtti:
       self._output_field(output, 'rtti')
     target_out = []
@@ -1264,7 +1263,7 @@ def get_protoc_module_name(gn):
   return label_to_module_name(protoc_gn_target_name)
 
 
-def create_rust_cxx_modules(_, target):
+def create_rust_cxx_modules(blueprint, gn, target, is_test_target):
   """Generate genrules for a CXX GN target
 
     GN actions are used to dynamically generate files during the build. The
@@ -1281,11 +1280,24 @@ def create_rust_cxx_modules(_, target):
     Returns:
         The source and headers genrule modules.
   """
+
+  def _find_cxx_bridge_binary(deps: Set[str]) -> str:
+    for dep in deps:
+      if re.search(
+          r"^//third_party/rust/cxxbridge_cmd/v.*:cxxbridge(__testing)?$", dep):
+        return dep
+    raise Exception(
+        f"Failed to find a dependency on cxxbridge host binary! Target name: {target.name}, deps: {deps}",
+    )
+
+  cxx_bridge_module_name = create_modules_from_target(
+      blueprint, gn, _find_cxx_bridge_binary(target.deps), target.type,
+      is_test_target)[0].name
   header_genrule = Module("cc_genrule",
                           label_to_module_name(target.name) + "_header",
                           target.name)
-  header_genrule.tools = {"cxxbridge"}
-  header_genrule.cmd = "$(location cxxbridge) $(in) --header > $(out)"
+  header_genrule.tools = {cxx_bridge_module_name}
+  header_genrule.cmd = f"$(location {cxx_bridge_module_name}) $(in) --header > $(out)"
   header_genrule.srcs = {gn_utils.label_to_path(src) for src in target.sources}
   # The output of the cc_genrule is the input + ".h" suffix, this is because
   # the input to a CXX genrule is just one source file.
@@ -1296,8 +1308,8 @@ def create_rust_cxx_modules(_, target):
 
   cc_genrule = Module("cc_genrule", label_to_module_name(target.name),
                       target.name)
-  cc_genrule.tools = {"cxxbridge"}
-  cc_genrule.cmd = "$(location cxxbridge) $(in) > $(out)"
+  cc_genrule.tools = {cxx_bridge_module_name}
+  cc_genrule.cmd = f"$(location {cxx_bridge_module_name}) $(in) > $(out)"
   cc_genrule.srcs = {gn_utils.label_to_path(src) for src in target.sources}
   cc_genrule.genrule_srcs = {f":{cc_genrule.name}"}
   # The output of the cc_genrule is the input + ".cc" suffix, this is because
@@ -2910,7 +2922,7 @@ def create_modules_from_target(blueprint, gn, gn_target_name, parent_gn_type,
     modules = (module, )
   elif target.type == 'action_foreach':
     if target.script == "//third_party/rust/cxx/chromium_integration/run_cxxbridge.py":
-      modules = create_rust_cxx_modules(blueprint, target)
+      modules = create_rust_cxx_modules(blueprint, gn, target, is_test_target)
     else:
       modules = create_action_foreach_modules(blueprint, gn, target,
                                               is_test_target)
@@ -2999,7 +3011,7 @@ def create_modules_from_target(blueprint, gn, gn_target_name, parent_gn_type,
       module.target['host'].compile_multilib = '64'
 
     if module.type in ("rust_bindgen", "rust_ffi_static", "cc_genrule",
-                       "cc_library_static", "cc_binary"):
+                       "cc_library_static", "cc_binary", "rust_binary"):
       # If we don't add this, then some types of AOSP builds fail due to an
       # issue with proc_macro2 - see https://crbug.com/392704960.
       # Note: technically we only need this on modules that ultimately depend
@@ -3413,6 +3425,7 @@ def create_cc_defaults_module():
   ]
   defaults.build_file_path = ""
   defaults.include_build_directory = False
+  defaults.whole_program_vtables = True
   defaults.c_std = 'gnu11'
   # Chromium builds do not add a dependency for headers found inside the
   # sysroot, so they are added globally via defaults.

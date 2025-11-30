@@ -174,17 +174,12 @@ IN_PROC_BROWSER_TEST_F(PageStabilityMetricsTest, NetworkAndMainThreadIdle) {
       1);
 }
 
-// TODO(crbug.com/462631893): Re-enable this test on Mac.
-#if BUILDFLAG(IS_MAC)
-#define MAYBE_Paint DISABLED_Paint
-#else
-#define MAYBE_Paint Paint
-#endif
-IN_PROC_BROWSER_TEST_F(PageStabilityMetricsTest, MAYBE_Paint) {
+IN_PROC_BROWSER_TEST_F(PageStabilityMetricsTest, Paint) {
   base::HistogramTester histogram_tester;
 
   ASSERT_TRUE(
       content::NavigateToURL(web_contents(), GetPageStabilityTestURL()));
+  content::SimulateEndOfPaintHoldingOnPrimaryMainFrame(web_contents());
 
   mojo::Remote<mojom::PageStabilityMonitor> monitor =
       CreatePageStabilityMonitor();
@@ -232,7 +227,7 @@ IN_PROC_BROWSER_TEST_F(PageStabilityMetricsTest, MAYBE_Paint) {
       kActorRendererPaintStabilityTimeToFirstInteractionContentfulPaintMetricName,
       1);
   histogram_tester.ExpectTotalCount(
-      kActorRendererPaintTabilityTimeBetweenInteractionContentfulPaintsMetricName,
+      kActorRendererPaintStabilityTimeBetweenInteractionContentfulPaintsMetricName,
       0);
 
   Respond("NETWORK DONE");
@@ -248,16 +243,15 @@ IN_PROC_BROWSER_TEST_F(PageStabilityMetricsTest, MAYBE_Paint) {
   content::SimulateMouseClickOrTapElementWithId(web_contents(), "btnPaint");
   content::SimulateMouseClickOrTapElementWithId(web_contents(), "btnPaint");
 
-  // Navigate to a different page to cause the RenderFrame to be destroyed.
-  ASSERT_TRUE(content::NavigateToURL(
-      web_contents(), embedded_test_server()->GetURL("/title1.html")));
+  // Wait until timeout to flush the metrics.
+  Sleep(features::kGlicActorPageStabilityTimeout.Get());
 
   ASSERT_TRUE(EnsureHistogramsRecorded(
       histogram_tester,
-      {kActorRendererPaintTabilityTimeBetweenInteractionContentfulPaintsMetricName,
+      {kActorRendererPaintStabilityTimeBetweenInteractionContentfulPaintsMetricName,
        kActorRendererPaintStabilitySubsequentInteractionContentfulPaintCountMetricName}));
   histogram_tester.ExpectTotalCount(
-      kActorRendererPaintTabilityTimeBetweenInteractionContentfulPaintsMetricName,
+      kActorRendererPaintStabilityTimeBetweenInteractionContentfulPaintsMetricName,
       1);
   histogram_tester.ExpectUniqueSample(
       kActorRendererPaintStabilitySubsequentInteractionContentfulPaintCountMetricName,
@@ -378,7 +372,7 @@ IN_PROC_BROWSER_TEST_F(PageStabilityMetricsTest, RenderFrameGoingAway) {
       kActorRendererPaintStabilityTimeToFirstInteractionContentfulPaintMetricName,
       0);
   histogram_tester.ExpectTotalCount(
-      kActorRendererPaintTabilityTimeBetweenInteractionContentfulPaintsMetricName,
+      kActorRendererPaintStabilityTimeBetweenInteractionContentfulPaintsMetricName,
       0);
 }
 

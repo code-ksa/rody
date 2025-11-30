@@ -695,6 +695,14 @@ PromptInTab に設定した場合は、ユーザーの認証が期限切れに�
 <translation id="1523587744262636189">ポート 10080（ブロックの解除は 2022 年 4 月 1 日まで可能）</translation>
 <translation id="1523774894176285446">設定したウェブサイトに対して起動する代替ブラウザ。</translation>
 <translation id="152657506688053119">デフォルトの検索プロバイダが使用する代替 URL のリスト</translation>
+<translation id="1526766414933532012">ユーザーが <ph name="PRIVACY_SANDBOX_NAME" /> の広告測定設定を変更できるようにするかどうかを管理するポリシーです。
+
+このポリシーを無効に設定した場合、ユーザーは広告測定設定を変更できません。
+このポリシーを有効に設定するか未設定のままにした場合、ユーザーはデバイスで <ph name="PRIVACY_SANDBOX_NAME" /> の広告測定設定を有効または無効にすることができます。
+
+このポリシーを設定するには、<ph name="PRIVACY_SANDBOX_PROMPT_ENABLED_POLICY_NAME" /> ポリシーを無効に設定する必要があります。
+
+Attribution Reporting API のサポート終了により、このポリシーは <ph name="PRODUCT_NAME" /> バージョン 144 で非推奨になりました。</translation>
 <translation id="1530812829012954197">ホスト ブラウザに次の URL パターンを常に表示する</translation>
 <translation id="1532928374875633053">ウィンドウの配置に関する権限を自動的に許可するサイトの URL パターンのリストを指定できます。これらのサイトでは、デバイスの画面に関する情報の取得や、その情報を使用したウィンドウの表示と配置、特定の画面での全画面表示のリクエストといった機能が有効になります。
 
@@ -2394,6 +2402,7 @@ URL パターンは、<ph name="DIRECT_SOCKETS_PRIVATE_NETWORK_ACCESS_ALLOWED_FO
 <translation id="2731627323327011390">ARC アプリで <ph name="PRODUCT_OS_NAME" /> の証明書を使用できないようにする</translation>
 <translation id="273678600057164019">システムの DNS 解決をネットワーク プロセス内で実行する。</translation>
 <translation id="2737917415184832294">更新版のダウンロードに HTTPS を使用する</translation>
+<translation id="2738525271405092369">組み込みの <ph name="GOOGLE_AI_MODE_PRODUCT_NAME" /> とのコンテンツの共有を許可しない。</translation>
 <translation id="2739213523971537320">ログイン画面でタップ仮想キーボードを無効にする</translation>
 <translation id="2742843273354638707">[新しいタブ] ページと <ph name="PRODUCT_OS_NAME" /> のアプリ ランチャーで、Chrome ウェブストア アプリとフッターのリンクを非表示にします。
 
@@ -5309,6 +5318,21 @@ JavaScript の最適化ポリシーの例外は、サイトの詳細レベル（
 
       未設定の場合、Gemini の紹介画面は企業の管理対象ユーザーに対してはスキップされ、管理対象外ユーザーには表示されます。</translation>
 <translation id="4783415902268741066">ブラウザのサイドパネルにデフォルトの検索エンジンの最新の検索結果ページを表示することを許可します</translation>
+<translation id="4784457904946078535">このポリシーでは、<ph name="PRODUCT_NAME" /> のサイドパネルやタブでページやファイルのコンテンツを <ph name="GOOGLE_AI_MODE_PRODUCT_NAME" /> と共有できるようにするかどうかを制御します。
+
+なお、このポリシーはウェブ上の <ph name="GOOGLE_AI_MODE_PRODUCT_NAME" /> には影響しません。このポリシーは、ユーザーが <ph name="PRODUCT_NAME" /> の使用時に情報を共有するかどうかのみを制御します。
+
+0 / 未設定 = ユーザーはページやファイルのコンテンツを <ph name="GOOGLE_AI_MODE_PRODUCT_NAME" /> と共有できます。
+
+1 = ユーザーはページやファイルのコンテンツを <ph name="GOOGLE_AI_MODE_PRODUCT_NAME" /> と共有できません。コンテキストを共有するためのエントリ ポイントは無効になるか、非表示になります。
+
+<ph name="GOOGLE_SEARCH_PRODUCT_NAME" /> がユーザーのデフォルトの検索エンジンでない場合、この機能は無効になっているため、このポリシーは無視されます。
+
+このポリシーは、<ph name="AI_MODE_SETTINGS_POLICY_NAME" /> ポリシーとは関係なく動作します。<ph name="AI_MODE_SETTINGS_POLICY_NAME" /> ポリシーはアドレスバーまたは新しいタブページの検索ボックスのエントリ ポイントのみを制御し、このポリシーはサイドパネルやタブでのコンテキストの共有を制御します。
+
+また、このポリシーは、<ph name="GEMINI_SETTINGS_POLICY_NAME" /> を使用して無効にできる組み込みの <ph name="GOOGLE_GEMINI_PRODUCT_NAME" /> にも影響しません。
+
+生成 AI 機能のデータ処理について詳しくは、https://support.google.com/chrome/a?p=generative_ai_settings をご覧ください。</translation>
 <translation id="4786784434769279324">パソコンがアイドル状態になったときに行う動作</translation>
 <translation id="4787763197941188108">デフォルトの印刷ページサイズをオーバーライドします。
 
@@ -5686,6 +5710,14 @@ Chrome 114 までは、このポリシーを使用するには <ph name="SYNC_DI
 <translation id="5063480226653192405">使用状況</translation>
 <translation id="5067143124345820993">ログイン ユーザーのホワイト リスト</translation>
 <translation id="50689955292091946">ログイン画面でユーザー補助仮想キーボードを有効にする</translation>
+<translation id="5069453818168036580">このポリシーでは、ユーザーが <ph name="PRIVACY_SANDBOX_NAME" /> のサイトによる広告の提案の設定を無効にできるかどうかを制御します。
+
+このポリシーを無効に設定した場合、ユーザーがサイトによる広告の提案の設定をオフにすることはできません。
+このポリシーを有効に設定するか未設定のままにした場合、ユーザーはデバイスで <ph name="PRIVACY_SANDBOX_NAME" /> のサイトによる広告の提案の設定をオンまたはオフにすることができます。
+
+このポリシーを設定するには、<ph name="PRIVACY_SANDBOX_PROMPT_ENABLED_POLICY_NAME" /> ポリシーを無効に設定する必要があります。
+
+Protected Audience API のサポートを終了により、このポリシーは <ph name="PRODUCT_NAME" /> バージョン 144 で非推奨になりました。</translation>
 <translation id="5069522005630249098">この設定により、<ph name="LACROS_NAME" /> が無効になった後、どれだけのユーザーデータが保持されるかが決まります。
 
       このポリシーを <ph name="LACROS_BACKWARD_MIGRATION_NONE" /> に設定するか未設定のままにした場合、過去に遡ったデータの移行は行われません。
@@ -6130,11 +6162,6 @@ Chrome 114 までは、このポリシーを使用するには <ph name="SYNC_DI
       <ph name="AUTO_SELECT_ALL_SCREENS_NAME" /> プロパティが <ph name="GET_DISPLAY_MEDIA_SET_NAME" /> リクエストで定義されている場合、ユーザーの明示的な許可なしに、すべてのスクリーン サーフェスが自動的にキャプチャされます。
       ポリシーを未設定のままにした場合、すべてのウェブ アプリケーションで <ph name="AUTO_SELECT_ALL_SCREENS_NAME" /> の使用が許可されません。
 プライバシー保護を強化するため、<ph name="PRODUCT_NAME" /> バージョン 116 以降、このポリシーで動的リフレッシュはサポートされなくなります。これにより、セッション開始時に許可しない限り、ログイン後に他のページでスクリーンがキャプチャされないようにすることができます。</translation>
-<translation id="5351946114524094311">このポリシーを設定した場合、指定したすべてのデータタイプが <ph name="CHROME_SYNC_NAME" /> とローミング プロファイルの同期から除外されます。これにより、ローミング プロファイルのサイズを抑えたり、<ph name="CHROME_SYNC_NAME" /> サーバーにアップロードされるデータのタイプを制限したりできます。
-
-      現在、このポリシーで指定できるデータタイプは次のとおりです: "apps"、"autofill"、"bookmarks"、"extensions"、"preferences"、"passwords"、"payments"、"productComparison"、"readingList"、"savedTabGroups"、"tabs"、"themes"、"typedUrls"、"wifiConfigurations"。データタイプの名前では大文字と小文字が区別されます。
-
-      注: 動的なポリシー更新は <ph name="PRODUCT_NAME" /> バージョン 123 以降でのみサポートされます。"autofill" を無効にすると、"payments" も無効になります。"typedUrls" はすべての閲覧履歴を指します。</translation>
 <translation id="5361167871898066799">物理キーボードの自動修正機能を制御する</translation>
 <translation id="5361708558735884308">このポリシーでは、<ph name="URL_BLOCKLIST_POLICY_NAME" /> の例外としてアクセスを許可する URL のリストを指定できます。リストの指定形式については、このポリシーの説明をご覧ください。このポリシーは、たとえば <ph name="URL_BLOCKLIST_POLICY_NAME" /> で「*」と設定してすべてのリクエストをブロックし、限定された一部の URL のみアクセスを許可する場合に使用します。つまり、特定のスキームや、他のドメインのサブドメイン、ポート、具体的なパスについて例外を設定します。設定の際は、https://support.google.com/chrome/a?p=url_blocklist_filter_format で指定された形式を使用します。URL のブロックや許可は、最も具体的なフィルタによって決定されます。<ph name="URL_ALLOWLIST_POLICY_NAME" /> ポリシーは、<ph name="URL_BLOCKLIST_POLICY_NAME" /> より優先されます。このポリシーで指定できる URL は最大 1,000 件です。
 
@@ -7158,6 +7185,7 @@ https://wiki.samba.org/index.php/Samba_4.6_Features_added/changed#Kerberos_clien
 <translation id="6011969832398368671">サイトがファイルとディレクトリへの書き込みアクセスをユーザーに要求することを許可する</translation>
 <translation id="601234435141599215">Linux 仮想マシンへのポート転送を許可する</translation>
 <translation id="6012952794649558174">デフォルトのブラウザ処理を使用する。</translation>
+<translation id="6013875085491664033">組み込みの <ph name="GOOGLE_AI_MODE_PRODUCT_NAME" /> とのコンテンツの共有を有効にする</translation>
 <translation id="6015281292796053435">このポリシーでは、セーフ ブラウジングの警告数、セーフ ブラウジングの警告のクリック数といったセーフ ブラウジングに関する情報について、レポートを作成するかどうかを管理します。
 
       ポリシー <ph name="CLOUD_REPORTING_ENABLED_POLICY_NAME" /> を未設定のままにするか無効にすると、このポリシーは無視されます。
@@ -8999,6 +9027,7 @@ EphemeralNetworkPolicies 機能がデフォルトで有効になると、この�
 <ph name="PRODUCT_OS_NAME" /> デバイスでは、システムのタイムゾーンを使用してこれらの期間を適用します。
 
 重要な注意事項: このポリシーの設定が他の電源管理設定（<ph name="POWER_MANAGEMENT_IDLE_SETTINGS_POLICY_NAME" /> など）と競合する場合、意図したとおりに適用されないことがあります。設定した停止期間が適切に適用されるように、これらのポリシーを設定してください。</translation>
+<translation id="7196583864907169857">組み込みの <ph name="GOOGLE_AI_MODE_PRODUCT_NAME" /> とのコンテンツの共有を許可する。</translation>
 <translation id="7196944905905233325"><ph name="PRODUCT_NAME" /> で <ph name="UIA_NAME" /> ユーザー補助フレームワーク プロバイダを有効にして、ユーザー補助ツールで使用できるようにします。このポリシーは、企業の管理者がブラウザの <ph name="UIA_NAME" /> ユーザー補助フレームワーク プロバイダのデプロイを管理できるように、<ph name="PRODUCT_NAME" /> で 1 年の移行期間にわたりサポートされます。<ph name="UIA_NAME" /> ユーザー補助フレームワークを使用してブラウザと連携するユーザー補助ツールやその他のツールでは、ブラウザの <ph name="UIA_NAME" /> プロバイダに対応するために更新が必要になる場合があります。影響を受けるツールの更新をベンダーと協力して提供するまでの間、管理者はこのポリシーを使用して、ブラウザの <ph name="UIA_NAME" /> プロバイダを一時的に無効にする（以前の動作に戻す）ことができます。false に設定した場合、<ph name="PRODUCT_NAME" /> では <ph name="MSAA_NAME" /> プロバイダのみが有効になります。新しい <ph name="UIA_NAME" /> ユーザー補助フレームワークを使用してブラウザと連携するユーザー補助ツールやその他のツールは、<ph name="MS_WIN_NAME" /> の互換性 shim を介してブラウザと通信します。true に設定した場合、<ph name="PRODUCT_NAME" /> では <ph name="MSAA_NAME" /> プロバイダに加えて <ph name="UIA_NAME" /> プロバイダも有効になります。新しい <ph name="UIA_NAME" /> ユーザー補助フレームワークを使用してブラウザと連携するユーザー補助やその他のツールは、ブラウザと直接通信します。未設定のままにした場合、プロバイダの有効化と無効化には <ph name="PRODUCT_NAME" /> のバリエーション フレームワークが使用されます。このポリシー設定のサポートは <ph name="PRODUCT_NAME" /> 146 で終了します。</translation>
 <translation id="7198134478421755850">拡張機能</translation>
 <translation id="7199304109870655950">Chrome リモート デスクトップ ホストのリモート アクセス オプションを設定します。
@@ -10973,6 +11002,14 @@ JavaScript の最適化を無効にした場合（このポリシーの値を 2 
       このポリシーを無効に設定した場合、悪質な疑いのある不明なコードに対して <ph name="PRODUCT_NAME" /> のブラウザ プロセス内での読み込みが許可されるため、<ph name="PRODUCT_NAME" /> のセキュリティと安定性が低下します。このポリシーは、<ph name="PRODUCT_NAME" /> のブラウザ プロセス内で実行する必要のあるサードパーティ ソフトウェアとの間で互換性の問題が発生する場合にのみ無効にしてください。
 
       注: 詳しくはプロセス対応ポリシー（https://chromium.googlesource.com/chromium/src/+/HEAD/docs/design/sandbox.md#Process-mitigation-policies）をご覧ください。</translation>
+<translation id="8672039014434141545">ユーザーが <ph name="PRIVACY_SANDBOX_NAME" /> の広告トピック設定を変更できるようにするかどうかを管理するポリシーです。
+
+このポリシーを無効に設定した場合、ユーザーは広告トピック設定を変更できません。
+このポリシーを有効に設定するか未設定のままにした場合、ユーザーはデバイスで <ph name="PRIVACY_SANDBOX_NAME" /> の広告トピック設定を有効または無効にすることができます。
+
+このポリシーを設定するには、<ph name="PRIVACY_SANDBOX_PROMPT_ENABLED_POLICY_NAME" /> ポリシーを無効に設定する必要があります。
+
+Topics API のサポート終了により、このポリシーは <ph name="PRODUCT_NAME" /> バージョン 144 で非推奨になりました。</translation>
 <translation id="8672321184841719703">自動更新の対象バージョンを指定</translation>
 <translation id="867410340948518937">U2F（Universal Second Factor）</translation>
 <translation id="8676959842615154675">このポリシーを有効に設定した場合、リモート アクセス ホストは、そのホストが関連付けられているローカル ユーザーの名前と、ホストの所有者として登録されている Google アカウントの名前（たとえば、ホストの所有者が「johndoe@example.com」の場合は「johndoe」）を比較します。ホストの所有者の名前と、ホストが関連付けられているローカル ユーザーの名前が異なる場合、このホストは起動しません。所有者の Google アカウントが必ず特定のドメインと関連付けられるようにするには、このポリシーを <ph name="REMOTE_ACCESS_HOST_DOMAIN_POLICY_NAME" /> と一緒に使用してください。

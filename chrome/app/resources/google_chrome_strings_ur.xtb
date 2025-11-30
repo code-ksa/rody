@@ -168,7 +168,6 @@
 <translation id="2841525013647267359">اس سے ترجمہ کریں</translation>
 <translation id="2846251086934905009">انسٹالر سے متعلق خرابی: انسٹالر مکممل نہیں ہوا۔ انسٹالر کو منسوخ کر دیا گیا۔</translation>
 <translation id="2853415089995957805">‏Chrome ان صفحات کو پیشگی لوڈ کرتا ہے جن کا آپ ممکنہ طور پر ملاحظہ کر سکتے ہیں، تاکہ وہ آپ کے ملاحظہ کرتے وقت مزید تیزی سے لوڈ ہو سکیں</translation>
-<translation id="2856481144859256719">‏‫Google تلاش کے شارٹ کٹ میں ہمیشہ AI وضع دکھائیں</translation>
 <translation id="2857540653560290388">‏Chrome شروع ہو رہا ہے…</translation>
 <translation id="286025080868315611">‏Chrome کے کچھ ڈاؤن لوڈز کو مسدود کرنے کی وجہ جانیں</translation>
 <translation id="2861074815332034794">‏Chrome اپ ڈیٹ کیا جا رہا ہے (<ph name="PROGRESS_PERCENT" />)</translation>
@@ -566,6 +565,7 @@ Google Chrome آپ کی ترتیبات کو بازیافت کرنے سے قاص�
 <translation id="7285616922384953075">‏<ph name="MANAGER" /> ‫Chrome کا نظم کرتا ہے</translation>
 <translation id="7288567540154601580">ٹیبز اور ایکسٹینشز</translation>
 <translation id="7296210096911315575">استعمال اور حفاظت سے متعلق اہم معلومات</translation>
+<translation id="7302361266603927550">‏آپ کا کچھ Chrome ڈیٹا ابھی تک آپ کے Google اکاؤنٹ میں محفوظ نہیں ہوا ہے۔ سائن آؤٹ کرنے سے پہلے کچھ منٹ انتظار کر کے دیکھیں۔ اگر آپ ابھی سائن آؤٹ کرتے ہیں تو یہ ڈیٹا حذف ہو جائے گا۔</translation>
 <translation id="7308322188646931570">‏Chrome کو فائلیں ڈاؤن لوڈ کرنے کیلئے اسٹوریج تک رسائی درکار ہے</translation>
 <translation id="7339898014177206373">نئی ونڈو</translation>
 <translation id="7352651011704765696">کچھ غلط ہو گیا</translation>
@@ -622,6 +622,7 @@ Google Chrome آپ کی ترتیبات کو بازیافت کرنے سے قاص�
 <translation id="7801699035218095297">‏Google Chrome پاس ورڈز کاپی کرنے کی کوشش کر رہا ہے۔ اس کی اجازت دینے کے لیے اپنا Windows پاس ورڈ ٹائپ کریں۔</translation>
 <translation id="7804364787702057554">‏‫Chrome میں آپ کا اکاؤنٹ</translation>
 <translation id="7808348361785373670">‏Chrome سے ہٹائیں…</translation>
+<translation id="7827099906024714326">‏آپ کے Google اکاؤنٹ میں کچھ ڈیٹا کو محفوظ کرنے اور آپ کے تمام آلات پر اس کا استعمال کرنے سے پہلے Chrome کو اس بات کی توثیق کرنے کی ضرورت ہے کہ یہ آپ ہی ہیں۔ اگر آپ ابھی سائن آؤٹ کرتے ہیں تو یہ ڈیٹا حذف ہو جائے گا۔</translation>
 <translation id="7845233973568007926">انسٹال کرنے کا شکریہ۔ آپ کو <ph name="BUNDLE_NAME" /> استعمال کرنے سے پہلے اپنا کمپیوٹر لازمی طور سے ری اسٹارٹ کرنا چاہیے۔</translation>
 <translation id="7849037457735762883">‏جہاں آپ نے چھوڑا تھا وہیں سے جاری رکھیں: جب بھی آپ ری سٹارٹ کریں گے Chrome آپ کے ٹیبز کو بحال کر سکتا ہے۔ اسے آن کرنے کے لیے، اس پر جائیں</translation>
 <translation id="7872446069773932638">ڈاؤن لوڈ ہو رہی ہے… <ph name="SECONDS" /> سیکنڈ(سیکنڈز) باقی ہے</translation>
@@ -667,6 +668,7 @@ Google Chrome آپ کی ترتیبات کو بازیافت کرنے سے قاص�
 <translation id="835927394551949760">‏Google سے پوچھیں</translation>
 <translation id="8362914115861174987">اس میں ترجمہ کریں</translation>
 <translation id="8366770919198174997">‏اس سے کارکردگی کم ہو جاتی ہے لیکن Chrome حملوں کا مزید مزاحم ہو جاتا ہے</translation>
+<translation id="8367705492654390392">کچھ بھی پوچھیں</translation>
 <translation id="8370517070665726704">‏کاپی رائٹ<ph name="YEAR" /> Google LLC۔ جملہ حقوق محفوظ ہیں۔</translation>
 <translation id="8377158135256176353">‏‫Chrome Canary میں Gemini کو ٹوگل کریں</translation>
 <translation id="8387459386171870978">‏Chrome کا استعمال جاری رکھیں</translation>

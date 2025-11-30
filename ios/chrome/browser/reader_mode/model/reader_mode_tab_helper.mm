@@ -4,6 +4,7 @@
 
 #import "ios/chrome/browser/reader_mode/model/reader_mode_tab_helper.h"
 
+#import "base/functional/callback_helpers.h"
 #import "base/ios/block_types.h"
 #import "base/time/time.h"
 #import "components/infobars/core/infobar.h"
@@ -99,7 +100,7 @@ ReaderModeTabHelper::~ReaderModeTabHelper() {
   DeactivateReader(
       ReaderModeDeactivationReason::kHostTabDestructionDeactivated);
   for (auto& observer : observers_) {
-    observer.ReaderModeTabHelperDestroyed(this);
+    observer.ReaderModeTabHelperDestroyed(this, reader_mode_web_state_.get());
   }
 }
 

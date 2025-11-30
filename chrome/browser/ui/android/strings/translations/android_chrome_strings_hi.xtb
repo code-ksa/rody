@@ -223,7 +223,6 @@ Chrome के अनुभव को बेहतर बनाने के ल�
 <translation id="1959679933317802873">कॉन्टेंट का इंतज़ार किया जा रहा है</translation>
 <translation id="1960290143419248813">Chrome अपडेट, अब Android के इस वर्शन पर काम नहीं करते हैं.</translation>
 <translation id="1962061488333185936"><ph name="TAB_TITLE" />, चुने गए टैब में से एक ऐसा टैब जिसमें ऑडियो चल रहा है</translation>
-<translation id="1963056249988316027">पहचान की पुष्टि करने वाली सुविधा चालू है, लेकिन यह आपकी पहचान की पुष्टि नहीं कर पा रही है</translation>
 <translation id="1963976881984600709">स्टैंडर्ड सुरक्षा मोड</translation>
 <translation id="1966710179511230534">कृपया अपने साइन के विवरण अपडेट करें.</translation>
 <translation id="1969037871259811890">ब्राउज़िंग डेटा मिटाने का मतलब यह नहीं है कि आपको Google खाते से साइन आउट कर दिया जाएगा. ऐसा करने के लिए, <ph name="BEGIN_LINK1" />Chrome से साइन आउट करें<ph name="END_LINK1" />.</translation>
@@ -601,7 +600,6 @@ Chrome के अनुभव को बेहतर बनाने के ल�
 <translation id="3623240789707551553">{DOMAIN_COUNT,plural, =1{+ 1 साइट}one{+ # साइट}other{+ # साइटें}}</translation>
 <translation id="3625870480639975468">ज़ूम रीसेट करें</translation>
 <translation id="3631987586758005671"><ph name="DEVICE_NAME" /> के साथ शेयर किया जा रहा है</translation>
-<translation id="363484704507524488">डिवाइस चोरी होने पर डेटा को सुरक्षित रखने से जुड़ी सेटिंग में जाकर, पहचान की पुष्टि करने वाली सुविधा को मैनेज किया जा सकता है. <ph name="BEGIN_LINK" />सेटिंग पर जाएं<ph name="END_LINK" /></translation>
 <translation id="3635073343384702370">पासवर्ड सेव करने पर ही, Chrome आपके पासवर्ड की जांच कर सकता है</translation>
 <translation id="3636940436873918441">पसंदीदा भाषाएं</translation>
 <translation id="3637744895182738742">अगर आपको अपना लंबा पासवर्ड याद नहीं है या आपको यह सेटिंग बदलनी है, तो <ph name="BEGIN_LINK" />अपने खाते से Chrome का डेटा मिटाएं<ph name="END_LINK" />.</translation>
@@ -1131,7 +1129,6 @@ Chrome के अनुभव को बेहतर बनाने के ल�
 <translation id="5869522115854928033">सेव किए गए पासवर्ड</translation>
 <translation id="5870416898561279542">डुप्लीकेट या <ph name="DAYS_INACTIVE" /> दिनों से इस्तेमाल नहीं किए गए टैब या ग्रुप को यहां मूव कर दिया जाता है <ph name="AUTODELETE_SECTION" />. <ph name="DECLUTTER_SETTINGS_TITLE" /> में जाकर, इसे किसी भी समय बदला जा सकता है.</translation>
 <translation id="587735546353481577">किसी साइट को फ़ॉलो करने के लिए, उस साइट पर जाएं, Chrome मेन्यू को खोलें, और 'फ़ॉलो करें' पर टैप करें.</translation>
-<translation id="5883855034004058011">कई बार गलत बायोमेट्रिक्स का इस्तेमाल करने की वजह से, पुष्टि नहीं हो सकी. फिर से कोशिश करने के लिए, अपने डिवाइस को लॉक और अनलॉक करें.</translation>
 <translation id="5885378508678660271">सूचनाएं <ph name="SEPARATOR" /> Chrome ने इस साइट के लिए यह अनुमति हटा दी है, क्योंकि यह सुरक्षित नहीं है</translation>
 <translation id="5899667542927581604">कोई पासकी शीट बंद नहीं की गई</translation>
 <translation id="5907542076239273525">बुकमार्क को <ph name="FOLDER_NAME" /> में सेव किया गया</translation>
@@ -1340,7 +1337,7 @@ Chrome के अनुभव को बेहतर बनाने के ल�
 <translation id="670498945988402717">कल जांच की गई</translation>
 <translation id="6710213216561001401">पिछला</translation>
 <translation id="671481426037969117"><ph name="FQDN" /> इस्तेमाल करने का समय खत्म हो गया. यह कल फिर से शुरू होगा.</translation>
-<translation id="671928215901716392">लॉक स्‍क्रीन</translation>
+<translation id="6716434912087331834">नई विंडो को वापस लाने के लिए, ऐक्टिव विंडो की कुल संख्या <ph name="MAX_WINDOW_COUNT_MINUS_ONE" /> या इससे कम करें. इनऐक्टिव विंडो छह महीनों बाद मिटा दी जाती हैं.</translation>
 <translation id="6723740634201835758">अपने Google खाते में</translation>
 <translation id="6734310707649923383">अपने विज़िट किए हुए पेजों को देखा जा सकता है या उन्हें अपने इतिहास से मिटाया जा सकता है</translation>
 <translation id="6737429434215739253"><ph name="TAB_TITLE" />, पिन किया गया ऐसा गुप्त टैब जिसका कॉन्टेंट रिकॉर्ड किया जा रहा है</translation>
@@ -1658,6 +1655,7 @@ Chrome के अनुभव को बेहतर बनाने के ल�
 <translation id="7942131818088350342"><ph name="PRODUCT_NAME" /> पुराना है.</translation>
 <translation id="7944772052836377867">सिंक को आपकी पहचान की पुष्टि करनी है</translation>
 <translation id="7951102827450076904">डाउनलोड की गई PDF फ़ाइलों को हमेशा अपने-आप खोलने की अनुमति दें</translation>
+<translation id="7952479614398473176">नई विंडो खोलने के लिए, ऐक्टिव विंडो की कुल संख्या <ph name="MAX_WINDOW_COUNT_MINUS_ONE" /> या इससे कम करें.</translation>
 <translation id="7957413488482743710">वर्चुअल कार्ड आपके असली कार्ड की पहचान ज़ाहिर नहीं होने देता है. इससे, आपको धोखाधड़ी से बचने में मदद मिलती है. <ph name="BEGIN_LINK1" />वर्चुअल कार्ड के बारे में ज़्यादा जानें<ph name="END_LINK1" /></translation>
 <translation id="7959485987650214982">इस डिवाइस पर खोले गए टैब</translation>
 <translation id="7961926449547174351">आपने डिवाइस के स्टोरेज का ऐक्सेस बंद कर दिया है. इसे चालू करने के लिए, कृपया सेटिंग पेज पर जाएं.</translation>
@@ -1872,6 +1870,7 @@ Chrome के अनुभव को बेहतर बनाने के ल�
 <translation id="8840953339110955557">यह पेज ऑनलाइन वर्शन से अलग हो सकता है.</translation>
 <translation id="8847988622838149491">यूएसबी</translation>
 <translation id="8849001918648564819">छिपा हुआ</translation>
+<translation id="8849164661359544855"><ph name="URL" /> को यह अनुमति चाहिए कि वह अपने-आप 'पिक्चर में पिक्चर' मोड में जा पाए</translation>
 <translation id="8854223127042600341">ऑफ़लाइन सेव की गई अपनी फ़ाइलें देखें</translation>
 <translation id="885480114717186641"><ph name="HOST_NAME" /> के लिए, डेस्कटॉप साइट का अनुरोध किया जा सकता है</translation>
 <translation id="8856607253650333758">जानकारी पाएं</translation>

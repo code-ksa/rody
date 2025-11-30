@@ -254,11 +254,6 @@ inline constexpr char kAnnotatorModeName[] = "Enable annotator tool";
 inline constexpr char kAnnotatorModeDescription[] =
     "Enables the tool for annotating across the OS.";
 
-inline constexpr char kAriaElementReflectionName[] =
-    "Enable ARIA element reflection";
-inline constexpr char kAriaElementReflectionDescription[] =
-    "Enable setting ARIA relationship attributes that reference other elements "
-    "directly without an IDREF";
 
 inline constexpr char kAutoRevokeSuspiciousNotificationName[] =
     "Auto-revoke suspicious notification";
@@ -360,6 +355,10 @@ inline constexpr char kStylusHandwritingWinDescription[] =
 inline constexpr char kPermissionsAndroidClapperLoudName[] = "Clapper Loud";
 inline constexpr char kPermissionsAndroidClapperLoudDescription[] =
     "Enables the loud version of the Clapper permission prompt.";
+
+inline constexpr char kPermissionsAndroidClapperQuietName[] = "Clapper Quiet";
+inline constexpr char kPermissionsAndroidClapperQuietDescription[] =
+    "Enables the quiet version of the Clapper permission prompt.";
 
 inline constexpr char kCryptographyComplianceCnsaName[] =
     "Cryptography Compliance (CNSA)";
@@ -1348,15 +1347,6 @@ inline constexpr char kGlicActorAutofillName[] = "Glic actor autofill";
 inline constexpr char kGlicActorAutofillDescription[] =
     "Enables autofill actions for the Glic actor. Specific fillable types may "
     "also need to be enabled.";
-inline constexpr char kActorFormFillingServiceEnableAddressName[] =
-    "Actor Form Filling Service Enable Address";
-inline constexpr char kActorFormFillingServiceEnableAddressDescription[] =
-    "Enables the address type to be filled by Actor Form Filling Service.";
-inline constexpr char kActorFormFillingServiceEnableCreditCardName[] =
-    "Actor Form Filling Service Enable Credit Card";
-inline constexpr char kActorFormFillingServiceEnableCreditCardDescription[] =
-    "Enables the credit card type to be filled by the Actor Form Filling "
-    "Service.";
 inline constexpr char kGlicCaptureRegionDescription[] =
     "Enables Glic to capture a region of the screen.";
 inline constexpr char kGlicCaptureRegionName[] = "Glic Capture Region";
@@ -3698,11 +3688,6 @@ inline constexpr char kQuickAppAccessTestUIName[] =
 inline constexpr char kQuickAppAccessTestUIDescription[] =
     "Show an app in the quick app access area at the start of the session";
 
-inline constexpr char kQuickDeleteAndroidSurveyName[] =
-    "HaTS for Quick Delete on Android";
-inline constexpr char kQuickDeleteAndroidSurveyDescription[] =
-    "Enables HaTS survey for Quick Delete on Android.";
-
 inline constexpr char kQuickShareV2Name[] = "Quick Share v2";
 inline constexpr char kQuickShareV2Description[] =
     "Enables Quick Share v2, which defaults Quick Share to 'Your Devices' "
@@ -5255,13 +5240,6 @@ inline constexpr char kBackgroundNotPerceptibleBindingName[] =
 inline constexpr char kBackgroundNotPerceptibleBindingDescription[] =
     "If enabled, not perceptible binding put processes to the background cpu "
     "cgroup";
-
-inline constexpr char kBiometricAuthIdentityCheckName[] =
-    "Enables android identity check for eligible features";
-inline constexpr char kBiometricAuthIdentityCheckDescription[] =
-    "The feature makes biometric reauthentication mandatory before passwords "
-    "filling or before other actions that are or should be protected by "
-    "biometric checks.";
 
 inline constexpr char kBoardingPassDetectorName[] = "Boarding Pass Detector";
 inline constexpr char kBoardingPassDetectorDescription[] =
@@ -7097,8 +7075,6 @@ inline constexpr char kEnableExternalDisplayHdr10Description[] =
 inline constexpr char kDriveFsMirroringName[] =
     "Enable local to Drive mirror sync";
 
-inline constexpr char kDriveFsShowCSEFilesName[] =
-    "Enable listing of CSE files";
 inline constexpr char kDriveFsShowCSEFilesDescription[] =
     "Enable listing of CSE files in DriveFS, which will result in these files "
     "being visible in the Files App's Google Drive item.";

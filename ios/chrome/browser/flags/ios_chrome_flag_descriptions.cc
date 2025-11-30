@@ -339,6 +339,10 @@ const char kComposeboxImmersiveSRPName[] =
 const char kComposeboxImmersiveSRPDescription[] =
     "When enabled, the composebox will open SRPs in an embedded web view.";
 
+const char kComposeboxMenuTitleName[] = "ComposeboxMenuTitle";
+const char kComposeboxMenuTitleDescription[] =
+    "Enables the ComposeboxMenuTitle feature.";
+
 const char kComposeboxTabPickerVariationName[] =
     "Enable tab picker variation in the composebox";
 const char kComposeboxTabPickerVariationDescription[] =
@@ -491,6 +495,10 @@ const char kDownloadServiceForegroundSessionDescription[] =
 const char kEditPasswordsInSettingsName[] = "Edit passwords in settings";
 const char kEditPasswordsInSettingsDescription[] =
     "Enables password editing in settings.";
+
+const char kEnableACPrefetchName[] = "Enable AC Prefetch";
+const char kEnableACPrefetchDescription[] =
+    "Ensures that account capabilities are prefetched and cached.";
 
 const char kEnableASWebAuthenticationSessionName[] =
     "Enable ASWebAuthenticationSession";
@@ -671,6 +679,10 @@ const char kGeminiNavigationPromoDescription[] =
 const char kGeminiOnboardingCardsName[] = "GeminiOnboardingCards";
 const char kGeminiOnboardingCardsDescription[] =
     "Enables the discovery onboarding cards for new Gemini users.";
+
+const char kGeminiPersonalizationName[] = "GeminiPersonalization";
+const char kGeminiPersonalizationDescription[] =
+    "Enables the GeminiPersonalization feature.";
 
 const char kHandleMdmErrorsForDasherAccountsName[] =
     "Mdm error handling for dasher accounts";
@@ -855,6 +867,12 @@ const char kIOSTrustedVaultNotificationDescription[] =
     "When enabled and when the trusted vault key is missing, the provisional "
     "notification will be delivered.";
 
+const char kIOSWebContextMenuNewTitleName[] =
+    "Use the new title for the Web context menu";
+const char kIOSWebContextMenuNewTitleDescription[] =
+    "Enables actions in context menu title instead of customized action for "
+    "web context menu.";
+
 const char kIPHPriceNotificationsWhileBrowsingName[] =
     "Price Tracking IPH Display";
 const char kIPHPriceNotificationsWhileBrowsingDescription[] =
@@ -1020,11 +1038,6 @@ const char kLensUnaryApisWithHttpTransportEnabledName[] =
 const char kLensUnaryApisWithHttpTransportEnabledDescription[] =
     "Enables the unary APIs with HTTP transport.";
 
-const char kLensUnaryClientDataHeaderEnabledName[] =
-    "Lens unary client data header enabled";
-const char kLensUnaryClientDataHeaderEnabledDescription[] =
-    "Enables the client data header for unary request.";
-
 const char kLensUnaryHttpTransportEnabledName[] =
     "Lens unary HTTP transport enabled";
 const char kLensUnaryHttpTransportEnabledDescription[] =
@@ -1156,11 +1169,6 @@ const char kNtpComposeboxUsesChromeComposeClientDescription[] =
 const char kOmniboxDRSPrototypeName[] = "Enable the Omnibox DRS prototype";
 const char kOmniboxDRSPrototypeDescription[] =
     "Enables the omnibox dynamic response system prototype";
-
-const char kOmniboxGeminiPrototypeProviderName[] =
-    "Omnibox Gemini Prototype Provider";
-const char kOmniboxGeminiPrototypeProviderDescription[] =
-    "Enables a prototype provider that suggests a query on omnibox focus.";
 
 const char kOmniboxGroupingFrameworkForTypedSuggestionsName[] =
     "Omnibox Grouping Framework for Typed Suggestions";
@@ -1516,16 +1524,6 @@ const char kSendTabToSelfIOSPushNotificationsDescription[] =
 const char kSetUpListShortenedDurationName[] = "Set Up List Shortened Duration";
 const char kSetUpListShortenedDurationDescription[] =
     "Reduces the Set Up List duration in the NTP to the selected parameter.";
-
-const char kShareExtensionForMultiprofileName[] =
-    "Enable Share Extension for multiprofile";
-const char kShareExtensionForMultiprofileDescription[] =
-    "When enabled, returning users will see the new per-account share "
-    "extension implementation";
-
-const char kShareInWebContextMenuIOSName[] = "Share in web context menu";
-const char kShareInWebContextMenuIOSDescription[] =
-    "Enables the Share button in the web context menu in iOS 16.0 and above.";
 
 const char kSharedHighlightingIOSName[] = "Enable Shared Highlighting features";
 const char kSharedHighlightingIOSDescription[] =

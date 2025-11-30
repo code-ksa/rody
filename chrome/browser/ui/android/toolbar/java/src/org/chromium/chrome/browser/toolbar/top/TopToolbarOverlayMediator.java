@@ -281,7 +281,8 @@ public class TopToolbarOverlayMediator {
                     public void onControlsPositionChanged(int controlsPosition) {
                         if (ChromeFeatureList.sBcivBottomControls.isEnabled()) {
                             updateOffsetTag(mBrowserControlsOffsetTagsInfo);
-                            if (ChromeFeatureList.sAndroidAnimatedProgressBarInViz.isEnabled()) {
+                            if (ChromeFeatureList.sAndroidAnimatedProgressBarInBrowser
+                                    .isEnabled()) {
                                 updateProgress();
                             }
                         }
@@ -429,7 +430,9 @@ public class TopToolbarOverlayMediator {
     /** Update the state of the composited progress bar. */
     private void updateProgress() {
         // Tablets have their own version of a progress "spinner".
-        if (isTablet()) return;
+        if (!ChromeFeatureList.sAndroidAnimatedProgressBarInBrowser.isEnabled() && isTablet()) {
+            return;
+        }
 
         if (mModel.get(TopToolbarOverlayProperties.PROGRESS_BAR_INFO) == null) {
             mModel.set(

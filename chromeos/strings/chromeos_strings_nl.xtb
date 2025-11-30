@@ -74,6 +74,7 @@
 <translation id="1274654146705270731">sinaasappelen</translation>
 <translation id="1275718070701477396">Geselecteerd</translation>
 <translation id="1290331692326790741">Zwak signaal</translation>
+<translation id="1292474106138697109">Weergave van Tools voor lesgroepen</translation>
 <translation id="1300115153046603471">APN is van het type standaard en <ph name="ATTACH" />.</translation>
 <translation id="1301069673413256657">GSM</translation>
 <translation id="1301340234286078471">Converteren</translation>
@@ -1046,6 +1047,7 @@ Generatieve AI kan fouten maken, ook in informatie over mensen, dus dubbelcheck 
 <translation id="5596627076506792578">Meer opties</translation>
 <translation id="5600027863942488546">De toets <ph name="KEY_NAME" /> is getest</translation>
 <translation id="5606865426897221650">Tab</translation>
+<translation id="5612205513582918357">Tools voor lesgroepen deelt je scherm met <ph name="RECEIVER_NAME" /></translation>
 <translation id="5613201299517339763">Je bent uitgelogd</translation>
 <translation id="5620281292257375798">Alleen voor intern gebruik</translation>
 <translation id="5628106863521633649">Beschikbare talen</translation>
@@ -1635,7 +1637,6 @@ Download het transcriptiemodel (maximaal 100 MB) om deze transcripties te krijg
 <translation id="8167413449582155132">Achtergrond mogelijk gemaakt door AI van Google</translation>
 <translation id="8171020708598805594">Maak automatisch transcripties, krijg samenvattingen van opnamen met AI van Google en doorzoek audio. Maak opnamen, ook als je geen verbinding met internet hebt.</translation>
 <translation id="8179976553408161302">Enter</translation>
-<translation id="8181979490873420600">Scherm delen in Tools voor lesgroepen</translation>
 <translation id="8183975772394450380">strand</translation>
 <translation id="819278132617411009">AI van Google gebruiken om productiever te zijn</translation>
 <translation id="8200772114523450471">Doorgaan</translation>

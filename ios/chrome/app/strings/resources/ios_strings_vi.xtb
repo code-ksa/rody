@@ -596,7 +596,6 @@
 <translation id="3277021493514034324">Đã sao chép địa chỉ trang web</translation>
 <translation id="3280562213547448728">Tìm kiếm bằng giọng nói</translation>
 <translation id="3289505634533552500">Tìm kiếm bằng giọng nói</translation>
-<translation id="3293080634164207409">Thêm thẻ</translation>
 <translation id="3295904109373959849">Lưới nhóm thẻ</translation>
 <translation id="3302837541200840455"><ph name="TAB_TITLE" />, hoạt động mới</translation>
 <translation id="3305294846493618482">xem thêm</translation>
@@ -1284,6 +1283,7 @@
 <translation id="5902752768726620872">{count,plural, =1{{count} thẻ mới}other{{count} thẻ mới}}</translation>
 <translation id="5911030830365207728">Google Dịch</translation>
 <translation id="5922999516621365983">Kéo thẻ vào đây để ghim.</translation>
+<translation id="5930982343430790032">{COUNT,plural, =1{Thêm tối đa 1 tệp, thẻ hoặc hình ảnh}other{Thêm tối đa {COUNT} tệp, thẻ hoặc hình ảnh}}</translation>
 <translation id="5936006948844852401">Quản lý bộ nhớ</translation>
 <translation id="5936065461722368675">Dịch toàn bộ trang</translation>
 <translation id="5937560539988385583">Đã dịch trang</translation>
@@ -1539,6 +1539,7 @@
 <translation id="6761393919622941301">Âm thanh</translation>
 <translation id="6770452996697898492">[ĐÃ ĐẶT CHỖ]</translation>
 <translation id="6779455296366983087">Hệ thống sẽ xoá dữ liệu duyệt web</translation>
+<translation id="6782531425936234573">Xuất dữ liệu</translation>
 <translation id="6791425686608802741">Nhấn vào "Thêm thẻ vào nhóm mới"</translation>
 <translation id="6794476726485507147">Chọn ngày và giờ bạn muốn nhận thông báo nhắc nhở truy cập lại trang này</translation>
 <translation id="6795481620482106033">Dữ liệu không hợp lệ</translation>
@@ -1872,6 +1873,7 @@
 <translation id="8032569120109842252">Đang theo dõi</translation>
 <translation id="8035133914807600019">Thư mục mới...</translation>
 <translation id="8035412398498507358">Ảnh</translation>
+<translation id="8037713009824540257">Thêm trang web</translation>
 <translation id="8040407350301524547">Để biết các lựa chọn về tuyến đường, hãy nhấn vào "Xem đường đi".</translation>
 <translation id="804427445359061970">Tại đây, bạn sẽ thấy các thẻ mà bạn mở trên những thiết bị khác</translation>
 <translation id="8058655154417507695">Năm hết hạn</translation>

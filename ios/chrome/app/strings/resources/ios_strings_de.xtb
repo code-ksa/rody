@@ -596,7 +596,6 @@
 <translation id="3277021493514034324">Websiteadresse kopiert</translation>
 <translation id="3280562213547448728">Sprachsuche</translation>
 <translation id="3289505634533552500">Sprachsuche</translation>
-<translation id="3293080634164207409">Tabs hinzufügen</translation>
 <translation id="3295904109373959849">Tabgruppenraster</translation>
 <translation id="3302837541200840455">„<ph name="TAB_TITLE" />“, neue Aktivität</translation>
 <translation id="3305294846493618482">mehr</translation>
@@ -1284,6 +1283,7 @@ Handoff muss auch im Abschnitt „Allgemein“ deiner Einstellungen aktiviert se
 <translation id="5902752768726620872">{count,plural, =1{{count} neuer Tab}other{{count} neue Tabs}}</translation>
 <translation id="5911030830365207728">Google Übersetzer</translation>
 <translation id="5922999516621365983">Ziehe den Tab zum Anpinnen hierher.</translation>
+<translation id="5930982343430790032">{COUNT,plural, =1{Du kannst maximal 1 Datei, Tab oder Bild hinzufügen}other{Du kannst maximal {COUNT} Dateien, Tabs oder Bilder hinzufügen}}</translation>
 <translation id="5936006948844852401">Speicher verwalten</translation>
 <translation id="5936065461722368675">Ganze Seite übersetzen</translation>
 <translation id="5937560539988385583">Seite übersetzt</translation>
@@ -1872,6 +1872,7 @@ Handoff muss auch im Abschnitt „Allgemein“ deiner Einstellungen aktiviert se
 <translation id="8032569120109842252">Folge ich</translation>
 <translation id="8035133914807600019">Neuer Ordner…</translation>
 <translation id="8035412398498507358">Fotos</translation>
+<translation id="8037713009824540257">Website hinzufügen</translation>
 <translation id="8040407350301524547">Tippe für Routenoptionen auf „Route berechnen“.</translation>
 <translation id="804427445359061970">Hier werden deine Tabs von anderen Geräten angezeigt</translation>
 <translation id="8058655154417507695">Ablaufjahr</translation>

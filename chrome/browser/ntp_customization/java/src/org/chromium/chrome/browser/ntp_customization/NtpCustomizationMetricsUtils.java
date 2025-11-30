@@ -22,6 +22,10 @@ public class NtpCustomizationMetricsUtils {
     static final String HISTOGRAM_NTP_CUSTOMIZATION_PREFIX = "NewTabPage.Customization";
 
     @VisibleForTesting
+    static final String HISTOGRAM_NTP_CUSTOMIZATION_ALL_CARDS_ENABLED =
+            HISTOGRAM_NTP_CUSTOMIZATION_PREFIX + ".AllCardsEnabled";
+
+    @VisibleForTesting
     static final String HISTOGRAM_NTP_CUSTOMIZATION_MVT_ENABLED =
             HISTOGRAM_NTP_CUSTOMIZATION_PREFIX + ".MvtEnabled";
 
@@ -74,6 +78,10 @@ public class NtpCustomizationMetricsUtils {
 
     @VisibleForTesting
     static final String HISTOGRAM_THEME_CHROME_COLOR_ID = HISTOGRAM_THEME_CHROME_COLOR + ".Click";
+
+    @VisibleForTesting
+    static final String HISTOGRAM_CHROME_COLOR_TURN_ON_DAILY_REFRESH =
+            HISTOGRAM_THEME_CHROME_COLOR + ".TurnOnDailyRefresh";
 
     /**
      * Records the type of theme selected for the New Tab Page background. This is logged once on
@@ -133,6 +141,16 @@ public class NtpCustomizationMetricsUtils {
                 HISTOGRAM_NTP_CUSTOMIZATION_PREFIX + name,
                 moduleType,
                 ModuleDelegate.ModuleType.NUM_ENTRIES);
+    }
+
+    /**
+     * Records the visibility of all NTP cards as controlled by the toggle in the bottom sheet.
+     *
+     * @param isEnabled True if all cards are enabled (visible).
+     */
+    public static void recordAllCardsToggledInConfiguration(boolean isEnabled) {
+        RecordHistogram.recordBooleanHistogram(
+                HISTOGRAM_NTP_CUSTOMIZATION_ALL_CARDS_ENABLED, isEnabled);
     }
 
     /**
@@ -207,5 +225,15 @@ public class NtpCustomizationMetricsUtils {
     public static void recordChromeColorId(@NtpThemeColorId int themeColorId) {
         RecordHistogram.recordEnumeratedHistogram(
                 HISTOGRAM_THEME_CHROME_COLOR_ID, themeColorId, NtpThemeColorId.NUM_ENTRIES);
+    }
+
+    /**
+     * Records whether the daily refresh for Chrome Colors is turned on or off.
+     *
+     * @param isTurnedOn Whether daily refresh for Chrome Colors is turned on.
+     */
+    public static void recordChromeColorTurnOnDailyRefresh(boolean isTurnedOn) {
+        RecordHistogram.recordBooleanHistogram(
+                HISTOGRAM_CHROME_COLOR_TURN_ON_DAILY_REFRESH, isTurnedOn);
     }
 }

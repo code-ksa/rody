@@ -565,10 +565,6 @@ BASE_FEATURE(kDriveFsBulkPinningExperiment, base::FEATURE_DISABLED_BY_DEFAULT);
 BASE_FEATURE(kFeatureManagementDriveFsBulkPinning,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
-// Enables partial support of CSE files on ChromeOS: users will be able to see
-// the files and open in web apps, but not to open/read/write CSE files locally.
-BASE_FEATURE(kDriveFsShowCSEFiles, base::FEATURE_ENABLED_BY_DEFAULT);
-
 // Enables authenticating to Wi-Fi networks using EAP-GTC.
 BASE_FEATURE(kEapGtcWifiAuthentication, base::FEATURE_DISABLED_BY_DEFAULT);
 
@@ -1174,7 +1170,7 @@ BASE_FEATURE(kInternalServerSideSpeechRecognitionUSMModelFinch,
 BASE_FEATURE(kIppFirstSetupForUsbPrinters, base::FEATURE_DISABLED_BY_DEFAULT);
 
 // Enables Romaji/Kana mode switch for Japanese VK.
-BASE_FEATURE(kJapaneseInputModeSwitchInVK, base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kJapaneseInputModeSwitchInVK, base::FEATURE_ENABLED_BY_DEFAULT);
 
 BASE_FEATURE(kJupiterScreensaver, base::FEATURE_ENABLED_BY_DEFAULT);
 
@@ -2029,10 +2025,6 @@ BASE_FEATURE(kUseAuthPanelInSession, base::FEATURE_ENABLED_BY_DEFAULT);
 // This features toggles `AuthHub` is used as authentication backend by
 // `AuthPanel` on ChromeOS.
 BASE_FEATURE(kAuthPanelUsingAuthHub, base::FEATURE_DISABLED_BY_DEFAULT);
-
-// This features controls whether or not passwordless setup is enabled, such as
-// having a pin-only config.
-BASE_FEATURE(kAllowPasswordlessSetup, base::FEATURE_ENABLED_BY_DEFAULT);
 
 // This features controls whether or not we'll show the legacy WebAuthNDialog,
 // that lives in ash/in_session_auth/auth_dialog_contents_view or
@@ -3594,10 +3586,6 @@ bool IsUseAuthPanelInSessionEnabled() {
 
 bool IsAuthPanelUsingAuthHub() {
   return base::FeatureList::IsEnabled(kAuthPanelUsingAuthHub);
-}
-
-bool IsAllowPasswordlessSetupEnabled() {
-  return base::FeatureList::IsEnabled(kAllowPasswordlessSetup);
 }
 
 bool IsLocalAuthenticationWithPinEnabled() {

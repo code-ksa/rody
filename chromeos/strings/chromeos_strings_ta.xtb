@@ -74,6 +74,7 @@
 <translation id="1274654146705270731">ஆரஞ்சுகள்</translation>
 <translation id="1275718070701477396">தேர்ந்தெடுக்கப்பட்டது</translation>
 <translation id="1290331692326790741">வலுவற்ற சிக்னல்</translation>
+<translation id="1292474106138697109">வகுப்புக் கருவிகள் காட்சி</translation>
 <translation id="1300115153046603471">இந்த APN இயல்பு மற்றும் <ph name="ATTACH" /> வகையைச் சேர்ந்தது.</translation>
 <translation id="1301069673413256657">GSM</translation>
 <translation id="1301340234286078471">மாற்றம்</translation>
@@ -1046,6 +1047,7 @@
 <translation id="5596627076506792578">கூடுதல் விருப்பங்கள்</translation>
 <translation id="5600027863942488546"><ph name="KEY_NAME" /> பட்டன் சோதனை செய்யப்பட்டது</translation>
 <translation id="5606865426897221650">Tab</translation>
+<translation id="5612205513582918357">வகுப்புக் கருவிகள் உங்கள் திரையை <ph name="RECEIVER_NAME" /> உடன் பகிர்கிறது</translation>
 <translation id="5613201299517339763">வெளியேறிவிட்டீர்கள்</translation>
 <translation id="5620281292257375798">அகப் பயன்பாட்டிற்கானது</translation>
 <translation id="5628106863521633649">கிடைக்கும் மொழிகள்</translation>
@@ -1635,7 +1637,6 @@
 <translation id="8167413449582155132">Google AI உருவாக்கிய பின்புலம்</translation>
 <translation id="8171020708598805594">டிரான்ஸ்கிரிப்ஷன்களைத் தானாக உருவாக்கலாம், Google AI மூலம் ரெக்கார்டிங்கின் சுருக்க விவரங்களைப் பெறலாம், ஆடியோவைத் தேடலாம். இணைய இணைப்பு இல்லாதபோதும் ரெக்கார்டிங்குகளை உருவாக்கலாம்.</translation>
 <translation id="8179976553408161302">Enter</translation>
-<translation id="8181979490873420600">வகுப்புக் கருவிகள் திரைப் பகிர்வு</translation>
 <translation id="8183975772394450380">கடற்கரை</translation>
 <translation id="819278132617411009">பணிச் செயல்திறனை அதிகரிக்க Google AIயைப் பயன்படுத்துங்கள்</translation>
 <translation id="8200772114523450471">மீண்டும் தொடங்கு</translation>

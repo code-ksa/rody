@@ -210,7 +210,7 @@ void ManualFillingControllerImpl::OnOptionSelected(
   UMA_HISTOGRAM_BOOLEAN(
       kUmaAccessoryActionSelectedForNonCredentialFieldWithoutSuggestions,
       is_non_credential_field_without_suggestions);
-  UMA_HISTOGRAM_ENUMERATION("KeyboardAccessory.AccessoryActionSelected",
+  UMA_HISTOGRAM_ENUMERATION("KeyboardAccessory.AccessoryActionSelected2",
                             selected_action, AccessoryAction::COUNT);
   AccessoryController* controller = GetControllerForAction(selected_action);
   if (!controller) {
@@ -335,7 +335,7 @@ bool ManualFillingControllerImpl::ShouldShowAccessoryForLastFocusedFieldType()
 
     // Even if there are suggestions, don't show on textareas.
     case FocusedFieldType::kFillableTextArea:
-      return false;  // TODO(crbug.com/40628376): true on long-press.
+      return false;
 
     // Sometimes autocomplete entries may be set when the focus is on an unknown
     // or unfillable field.

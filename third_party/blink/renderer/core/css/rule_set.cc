@@ -942,19 +942,24 @@ void RuleSet::AddFontFeatureValuesRule(StyleRuleFontFeatureValues* rule,
       CascadeLayered<StyleRuleFontFeatureValues>(rule, layer));
 }
 
-void RuleSet::AddPositionTryRule(StyleRulePositionTry* rule) {
+void RuleSet::AddPositionTryRule(StyleRulePositionTry* rule,
+                                 const CascadeLayer* layer) {
   need_compaction_ = true;
-  position_try_rules_.push_back(rule);
+  position_try_rules_.push_back(
+      CascadeLayered<StyleRulePositionTry>(rule, layer));
 }
 
-void RuleSet::AddFunctionRule(StyleRuleFunction* rule) {
+void RuleSet::AddFunctionRule(StyleRuleFunction* rule,
+                              const CascadeLayer* layer) {
   need_compaction_ = true;
-  function_rules_.push_back(rule);
+  function_rules_.push_back((CascadeLayered<StyleRuleFunction>(rule, layer)));
 }
 
-void RuleSet::AddViewTransitionRule(StyleRuleViewTransition* rule) {
+void RuleSet::AddViewTransitionRule(StyleRuleViewTransition* rule,
+                                    const CascadeLayer* layer) {
   need_compaction_ = true;
-  view_transition_rules_.push_back(rule);
+  view_transition_rules_.push_back(
+      CascadeLayered<StyleRuleViewTransition>(rule, layer));
 }
 
 void RuleSet::AddChildRules(StyleRule* parent_rule,
@@ -1005,15 +1010,12 @@ void RuleSet::AddChildRules(StyleRule* parent_rule,
       AddCounterStyleRule(counter_style_rule, cascade_layer);
     } else if (auto* view_transition_rule =
                    DynamicTo<StyleRuleViewTransition>(rule)) {
-      view_transition_rule->SetCascadeLayer(cascade_layer);
-      AddViewTransitionRule(view_transition_rule);
+      AddViewTransitionRule(view_transition_rule, cascade_layer);
     } else if (auto* position_try_rule =
                    DynamicTo<StyleRulePositionTry>(rule)) {
-      position_try_rule->SetCascadeLayer(cascade_layer);
-      AddPositionTryRule(position_try_rule);
+      AddPositionTryRule(position_try_rule, cascade_layer);
     } else if (auto* function_rule = DynamicTo<StyleRuleFunction>(rule)) {
-      function_rule->SetCascadeLayer(cascade_layer);
-      AddFunctionRule(function_rule);
+      AddFunctionRule(function_rule, cascade_layer);
     } else if (auto* supports_rule = DynamicTo<StyleRuleSupports>(rule)) {
       if (supports_rule->ConditionIsSupported()) {
         AddChildRules(parent_rule, supports_rule->ChildRules(), medium, mixins,

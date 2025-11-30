@@ -2,11 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifdef UNSAFE_BUFFERS_BUILD
-// TODO(crbug.com/351564777): Remove this and convert code to safer constructs.
-#pragma allow_unsafe_buffers
-#endif
-
 #include "gpu/command_buffer/client/test_shared_image_interface.h"
 
 #include <GLES2/gl2.h>
@@ -152,27 +147,6 @@ gfx::GpuMemoryBufferHandle TestSharedImageInterface::CreateGMBHandle(
 
   return handle;
 }
-
-// static
-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
-gfx::GpuMemoryBufferHandle TestSharedImageInterface::CreatePixmapHandle(
-    const gfx::Size& size,
-    viz::SharedImageFormat format) {
-  gfx::NativePixmapHandle native_pixmap_handle;
-  for (int i = 0; i < format.NumberOfPlanes(); i++) {
-    size_t height_in_pixels = format.GetPlaneSize(i, size).height();
-    CHECK(height_in_pixels);
-    size_t stride =
-        viz::SharedMemoryRowSizeForSharedImageFormat(format, i, size.width())
-            .value();
-    native_pixmap_handle.planes.emplace_back(
-        stride, 0, height_in_pixels * stride,
-        base::ScopedFD(open("/dev/zero", O_RDWR)));
-  }
-
-  return gfx::GpuMemoryBufferHandle(std::move(native_pixmap_handle));
-}
-#endif
 
 scoped_refptr<ClientSharedImage> TestSharedImageInterface::CreateSharedImage(
     const SharedImageInfo& si_info,
@@ -443,6 +417,33 @@ TestSharedImageInterface::CreateSharedImageWithAsyncMapControl(
       buffer_usage, holder_);
   return image;
 }
+
+#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
+scoped_refptr<ClientSharedImage>
+TestSharedImageInterface::CreateNativePixmapBackedSharedImage(
+    const SharedImageInfo& si_info,
+    SurfaceHandle surface_handle,
+    gfx::BufferUsage buffer_usage) {
+  const auto& format = si_info.meta.format;
+  const auto& size = si_info.meta.size;
+
+  gfx::NativePixmapHandle native_pixmap_handle;
+  for (int i = 0; i < format.NumberOfPlanes(); i++) {
+    size_t height_in_pixels = format.GetPlaneSize(i, size).height();
+    CHECK(height_in_pixels);
+    size_t stride =
+        viz::SharedMemoryRowSizeForSharedImageFormat(format, i, size.width())
+            .value();
+    native_pixmap_handle.planes.emplace_back(
+        stride, 0, height_in_pixels * stride,
+        base::ScopedFD(open("/dev/zero", O_RDWR)));
+  }
+
+  return CreateSharedImage(
+      si_info, surface_handle, buffer_usage,
+      gfx::GpuMemoryBufferHandle(std::move(native_pixmap_handle)));
+}
+#endif  // BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
 
 bool TestSharedImageInterface::CheckSharedImageExists(
     const Mailbox& mailbox) const {

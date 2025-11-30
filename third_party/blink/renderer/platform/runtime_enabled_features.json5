@@ -2134,6 +2134,11 @@
       status: "stable",
     },
     {
+      // crbug.com/420857717
+      name: "EmojiMonochromeRendering",
+      status: "experimental"
+    },
+    {
       name: "EmphasisMarkShapeCache",
       status: "stable",
     },
@@ -4399,9 +4404,9 @@
     },
     {
       // Spec: https://wicg.github.io/sanitizer-api/
-      // Tracking bug: crbug.com/40138584
+      // Tracking bug: crbug.com/356601280
       name: "SanitizerAPI",
-      status: "experimental",
+      status: "test",
     },
     {
       // https://wicg.github.io/webcomponents/proposals/Scoped-Custom-Element-Registries
@@ -4495,6 +4500,11 @@
     // and its caller.
     {
       name: "ScrollTopLeftInterop",
+      status: "stable",
+    },
+    // Only consider unique case-insensitive scroll-to-text fragments.
+    {
+      name: "ScrollToTextFragmentUniqueFragments",
       status: "stable",
     },
     // Allows CSS styling of browser search results.
@@ -5467,6 +5477,14 @@
     {
       name: "UserDefinedEntryPointTiming",
       status: "experimental",
+    },
+    {
+      name: "UserMediaElement",
+      status: "experimental",
+      origin_trial_feature_name: "UserMediaElement",
+      origin_trial_os: ["win", "mac", "linux", "fuchsia", "chromeos", "android"],
+      base_feature_status: "enabled",
+      copied_from_base_feature_if: "overridden",
     },
     {
       // Fix for https://crbug.com/421314614

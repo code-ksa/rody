@@ -24,15 +24,11 @@ BASE_DECLARE_FEATURE(kActorLogin);
 BASE_DECLARE_FEATURE(kActorLoginFieldVisibilityCheck);
 BASE_DECLARE_FEATURE(kActorLoginFillingHeuristics);
 BASE_DECLARE_FEATURE(kActorLoginLocalClassificationModel);
-// Enables proper name formatting for android apps in settings
-BASE_DECLARE_FEATURE(kActorLoginPermissionsForAndroid);
 BASE_DECLARE_FEATURE(kActorLoginReauthTaskRefocus);
 // Enables logging quality for actor login.
 BASE_DECLARE_FEATURE(kActorLoginQualityLogs);
 // Enables finding and filling forms in same-site iframes for actor login.
 BASE_DECLARE_FEATURE(kActorLoginSameSiteIframeSupport);
-// Enables Actor Login permissions UI in Password Manager settings
-BASE_DECLARE_FEATURE(kEnableActorLoginPermissions);
 #endif  // !BUILDFLAG(IS_ANDROID) && !BUILDFLAG(IS_IOS)
 
 #if BUILDFLAG(IS_ANDROID)
@@ -201,12 +197,6 @@ BASE_DECLARE_FEATURE(kTriggerPasswordResyncAfterDeletingUndecryptablePasswords);
 
 // Starts passwords resync when undecryptable passwords are detected.
 BASE_DECLARE_FEATURE(kTriggerPasswordResyncWhenUndecryptablePasswordsDetected);
-
-#if BUILDFLAG(IS_ANDROID)
-// The feature flag for the Identity Check feature. The feature makes biometric
-// authentication mandatory before password filling in untrusted locations.
-BASE_DECLARE_FEATURE(kBiometricAuthIdentityCheck);
-#endif  // BUILDFLAG(IS_ANDROID)
 
 // Improves PSL matching capabilities by utilizing PSL-extension list from
 // affiliation service. It fixes problem with incorrect password suggestions on

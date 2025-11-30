@@ -223,7 +223,6 @@
 <translation id="1959679933317802873">កំពុងរង់ចាំ​ខ្លឹមសារ</translation>
 <translation id="1960290143419248813">កំណែថ្មីៗ​របស់ Chrome មិន​អាចប្រើជាមួយកំណែ Android នេះ​ទៀតទេ</translation>
 <translation id="1962061488333185936"><ph name="TAB_TITLE" />, ផ្ទាំង​ដែលឮ​សំឡេង​ដែលបាន​ជ្រើសរើស​ច្រើន</translation>
-<translation id="1963056249988316027">Identity Check ត្រូវបានបើក និងមិនអាចផ្ទៀងផ្ទាត់ថាជាអ្នកបានទេ</translation>
 <translation id="1963976881984600709">ការការពារ​ស្តង់ដារ</translation>
 <translation id="1966710179511230534">សូមធ្វើបច្ចុប្បន្នភាពព័ត៌មានលំអិតការចូលរបស់អ្នក</translation>
 <translation id="1969037871259811890">ការលុប​ទិន្នន័យរុករក​របស់អ្នក​មិនធ្វើ​ឱ្យអ្នក​ចេញពី​គណនី Google របស់​អ្នកទេ។ ដើម្បី​ធ្វើ​ដូច្នេះ សូម<ph name="BEGIN_LINK1" />ចេញ​ពីគណនីលើ Chrome<ph name="END_LINK1" />។</translation>
@@ -601,7 +600,6 @@
 <translation id="3623240789707551553">{DOMAIN_COUNT,plural, =1{+ គេហទំព័រ 1}other{+ គេហទំព័រ #}}</translation>
 <translation id="3625870480639975468">កំណត់ការពង្រីកឡើងវិញ</translation>
 <translation id="3631987586758005671">កំពុងចែករំលែកទៅ <ph name="DEVICE_NAME" /></translation>
-<translation id="363484704507524488">អ្នកអាចគ្រប់គ្រង Identity Check នៅក្នុងការកំណត់ការការពារចោរលួច។ <ph name="BEGIN_LINK" />ចូលទៅកាន់ការកំណត់<ph name="END_LINK" /></translation>
 <translation id="3635073343384702370">Chrome អាចពិនិត្យពាក្យសម្ងាត់របស់អ្នក នៅពេលអ្នករក្សាទុកពាក្យសម្ងាត់ទាំងនោះ</translation>
 <translation id="3636940436873918441">ភាសា​ដែលចង់ប្រើ</translation>
 <translation id="3637744895182738742">ប្រសិនបើអ្នក​ភ្លេចឃ្លាសម្ងាត់​របស់អ្នក ឬ​ចង់ប្ដូរ​ការកំណត់​នេះ សូម<ph name="BEGIN_LINK" />លុប​ទិន្នន័យ Chrome នៅក្នុង​គណនី​របស់អ្នក<ph name="END_LINK" />។</translation>
@@ -1131,7 +1129,6 @@
 <translation id="5869522115854928033">ពាក្យសម្ងាត់ដែលបានរក្សាទុក</translation>
 <translation id="5870416898561279542">ក្រុមនិង​ផ្ទាំងស្ទួន ឬ​ក្រុមនិង​ផ្ទាំង​ដែលមិន​បានប្រើ​រយៈពេល <ph name="DAYS_INACTIVE" /> ថ្ងៃ​ត្រូវបាន​ផ្លាស់ទី​មកទីនេះ<ph name="AUTODELETE_SECTION" />។ អ្នក​អាច​ផ្លាស់ប្ដូរ​លក្ខណៈនេះ​នៅពេលណាក៏បាននៅ​ក្នុង<ph name="DECLUTTER_SETTINGS_TITLE" />។</translation>
 <translation id="587735546353481577">ដើម្បីតាមដានគេហទំព័រណាមួយ សូមចូលទៅកាន់គេហទំព័រនោះ រួចបើកម៉ឺនុយ Chrome បន្ទាប់មកចុច "តាមដាន"។</translation>
-<translation id="5883855034004058011">ការផ្ទៀងផ្ទាត់ដោយប្រើជីវមាត្រមិនបានសម្រេចច្រើនដងពេក។ សូមចាក់សោ រួចដោះសោឧបករណ៍របស់អ្នក ដើម្បីព្យាយាមម្ដងទៀត។</translation>
 <translation id="5885378508678660271">ការ​ជូនដំណឹង <ph name="SEPARATOR" /> Chrome បានដក​ការអនុញ្ញាត​ទាំងនេះ​ចេញ ដោយសារ​គេហទំព័រ​នេះមាន​គ្រោះថ្នាក់</translation>
 <translation id="5899667542927581604">មិនបានបិទ​សន្លឹក​កូដសម្ងាត់ទេ</translation>
 <translation id="5907542076239273525">បាន​រក្សាទុក​ចំណាំទៅ <ph name="FOLDER_NAME" /></translation>
@@ -1340,7 +1337,7 @@
 <translation id="670498945988402717">បានពិនិត្យមើល​កាលពីម្សិលមិញ</translation>
 <translation id="6710213216561001401">មុន</translation>
 <translation id="671481426037969117">កម្មវិធី​កំណត់​ម៉ោង <ph name="FQDN" /> របស់អ្នកបានបញ្ចប់​​ហើយ។ វានឹង​ចាប់ផ្ដើម​ឡើងវិញនៅថ្ងៃស្អែក។</translation>
-<translation id="671928215901716392">ចាក់សោរ</translation>
+<translation id="6716434912087331834">ដើម្បីស្ដារ​វិនដូថ្មី សូម​កាត់បន្ថយ​ចំនួន​វិនដូ​សរុប​ដែលសកម្ម​មកត្រឹម <ph name="MAX_WINDOW_COUNT_MINUS_ONE" /> ឬ​តិចជាងនេះ។ វិនដូ​អសកម្ម​ត្រូវបានលុប​ក្រោយ​ពេល 6 ខែ។</translation>
 <translation id="6723740634201835758">នៅក្នុង​គណនី Google របស់អ្នក</translation>
 <translation id="6734310707649923383">អ្នកអាច​មើលឃើញ​ទំព័រ​ដែលអ្នក​បានចូលមើល ឬ​លុប​ទំព័រ​ទាំងនោះ​ចេញពី​ប្រវត្តិ​របស់អ្នក</translation>
 <translation id="6737429434215739253"><ph name="TAB_TITLE" />, ផ្ទាំងឯកជន​ដែលបាន​ខ្ទាស់​ដែលកំពុងថត</translation>
@@ -1658,6 +1655,7 @@
 <translation id="7942131818088350342"><ph name="PRODUCT_NAME" /> ហួសសម័យហើយ</translation>
 <translation id="7944772052836377867">សមកាលកម្ម​ត្រូវការ​ផ្ទៀងផ្ទាត់​ថាជាអ្នក</translation>
 <translation id="7951102827450076904">បើក PDF ដែលបានទាញយកជានិច្ច</translation>
+<translation id="7952479614398473176">ដើម្បីបើក​វិនដូថ្មី សូម​កាត់បន្ថយ​ចំនួន​វិនដូ​សរុប​ដែលសកម្ម​មកត្រឹម <ph name="MAX_WINDOW_COUNT_MINUS_ONE" /> ឬ​តិចជាងនេះ។</translation>
 <translation id="7957413488482743710">កាត​និម្មិត​លាក់​កាត​ពិតប្រាកដ​របស់អ្នក ដើម្បីជួយ​ការពារ​អ្នក​ពី​ការគៃបន្លំ​ដែលអាចកើតមាន។ <ph name="BEGIN_LINK1" />ស្វែងយល់បន្ថែមអំពីកាតនិម្មិត<ph name="END_LINK1" /></translation>
 <translation id="7959485987650214982">ផ្ទាំងនៅលើឧបករណ៍នេះ</translation>
 <translation id="7961926449547174351">អ្នកបានបិទការចូលប្រើទំហំ​ផ្ទុក សូមចូលទៅកាន់ការកំណត់ ដើម្បីបើកវា។</translation>
@@ -1872,6 +1870,7 @@
 <translation id="8840953339110955557">ទំព័រ​នេះ​អាច​នឹង​ខុស​​ពី​កំណែ​លើ​អ៊ីនធឺណិត។</translation>
 <translation id="8847988622838149491">USB</translation>
 <translation id="8849001918648564819">លាក់</translation>
+<translation id="8849164661359544855"><ph name="URL" /> ចង់ចូល​មុខងារ​រូបក្នុងរូប​ដោយស្វ័យប្រវត្តិ</translation>
 <translation id="8854223127042600341">មើល​ឯកសារ​ពេលគ្មានអ៊ីនធឺណិត​របស់អ្នក</translation>
 <translation id="885480114717186641">អ្នកអាចស្នើសុំគេហទំព័រសម្រាប់កុំព្យូទ័រសម្រាប់ <ph name="HOST_NAME" /></translation>
 <translation id="8856607253650333758">យក​ការពណ៌នា</translation>

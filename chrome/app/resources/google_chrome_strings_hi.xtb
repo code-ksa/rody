@@ -164,7 +164,6 @@
 <translation id="2841525013647267359">इस भाषा का अनुवाद पाएं</translation>
 <translation id="2846251086934905009">इंस्टॉल करने में गड़बड़ी हुई: इंस्टॉल करने की प्रोसेस पूरी नहीं हो सकी. इंस्टॉल करने की प्रोसेस रद्द की गई.</translation>
 <translation id="2853415089995957805">Chrome उन पेजों को पहले से लोड कर देता है जिन पर आपके जाने की संभावना हो. ऐसा इसलिए है, ताकि जब आप उन पर जाएं, तो वे ज़्यादा तेज़ी से लोड हो जाएं</translation>
-<translation id="2856481144859256719">Google Search के शॉर्टकट में एआई मोड हमेशा दिखाएं</translation>
 <translation id="2857540653560290388">Chrome लॉन्च हो रहा है...</translation>
 <translation id="286025080868315611">जानें कि Chrome कुछ फ़ाइलों को डाउनलोड होने से क्यों रोकता है</translation>
 <translation id="2861074815332034794">Chrome को अपडेट किया जा रहा है (<ph name="PROGRESS_PERCENT" />)</translation>
@@ -271,6 +270,7 @@
 <translation id="4022972681110646219">स्क्रीन का अनुवाद करें</translation>
 <translation id="4023601594785368013">सोर्स की भाषा: <ph name="LANGUAGE" /></translation>
 <translation id="4035053306113201399">अपडेट लागू करने के लिए, ChromeOS को रीस्टार्ट करना होगा.</translation>
+<translation id="4039097928859803404">एआई मोड के शॉर्टकट हमेशा दिखाएं</translation>
 <translation id="4050175100176540509">महत्‍वपूर्ण सुरक्षा सुधार और नई सुविधाएं नवीनतम वर्शन में उपलब्‍ध हैं.</translation>
 <translation id="4053720452172726777">Google Chrome को पसंद के मुताबिक बनाएं और कंट्रोल करें</translation>
 <translation id="408393047846373801">अपने सभी डिवाइसों से पासवर्ड वगैरह ऐक्सेस करने के लिए, Chrome में साइन इन करें. इसके बाद, यह पासवर्ड आपके Google खाते में सेव हो जाएगा.</translation>
@@ -352,6 +352,7 @@
 <translation id="4970880042055371251">ChromeOS वर्शन</translation>
 <translation id="4990567037958725628">Google Chrome कैनरी</translation>
 <translation id="5003967926796347400">“Google Password Manager” पर क्लिक करें</translation>
+<translation id="5043786843026425788">Chrome में Google Lens का इस्तेमाल करके कॉन्टेंट खोजने के बारे में ज़्यादा जानें</translation>
 <translation id="504867494566807945">किसी भी ऐप्लिकेशन से Chrome में लिंक खोलें. साथ ही, आसानी से ऐक्सेस करने के लिए, इसे टास्कबार में पिन करें.</translation>
 <translation id="5114340746415930644">अपने खाते <ph name="USER_EMAIL" /> में Chrome का डेटा सेव करने और इस्तेमाल करने के लिए, अपना लंबा पासवर्ड डालें</translation>
 <translation id="5120334927898581447">Google की अन्य सेवाओं में साइन इन करते समय, Chrome में साइन इन करें</translation>
@@ -525,6 +526,7 @@ Google Chrome आपकी सेटिंग बहाल नहीं कर �
 <translation id="683440813066116847">mDNS ट्रैफ़िक की अनुमति देने के लिए Google Chrome Canary के लिए इनबाउंड नियम.</translation>
 <translation id="6841242485723266823">Chrome प्रोफ़ाइलें डेटा को अलग-अलग रखने में आपकी मदद करती हैं. अभी नई प्रोफ़ाइल जोड़ें.</translation>
 <translation id="684888714667046800">इंटरनेट से कनेक्ट नहीं किया जा सका. अगर आपने फ़ायरवॉल का इस्तेमाल किया है, तो कृपया पक्का करें कि <ph name="PRODUCT_EXE_NAME" /> को अनुमति वाली सूची में शामिल किया गया हो.</translation>
+<translation id="6859580922007887573">जारी रखने के लिए Tab दबाएं</translation>
 <translation id="6877155553248388166">खोज वाली जगह में सबसे नीचे का दायां कोना: दाईं ओर से <ph name="RIGHT" />%, सबसे नीचे से <ph name="BOTTOM" />%</translation>
 <translation id="6881299373831449287">Chrome को अपडेट किया जा रहा है</translation>
 <translation id="6885412569789873916">Chrome बीटा ऐप्लिकेशन</translation>
@@ -562,6 +564,7 @@ Google Chrome आपकी सेटिंग बहाल नहीं कर �
 <translation id="7285616922384953075"><ph name="MANAGER" />, Chrome को मैनेज करते हैं</translation>
 <translation id="7288567540154601580">टैब और एक्सटेंशन</translation>
 <translation id="7296210096911315575">इस्तेमाल और सुरक्षा से जुड़ी ज़रूरी जानकारी</translation>
+<translation id="7302361266603927550">आपके Chrome का कुछ डेटा, अब तक आपके Google खाते में सेव नहीं किया गया है. साइन आउट करने से पहले कुछ मिनट इंतज़ार करें. अभी साइन आउट करने पर यह डेटा मिट जाएगा.</translation>
 <translation id="7308322188646931570">Chrome को फ़ाइलें डाउनलोड करने के लिए मेमोरी एक्‍सेस की ज़रूरत होगी</translation>
 <translation id="7339898014177206373">नई विंडो</translation>
 <translation id="7352651011704765696">कुछ गलत हुआ</translation>
@@ -618,10 +621,12 @@ Google Chrome आपकी सेटिंग बहाल नहीं कर �
 <translation id="7801699035218095297">Google Chrome, पासवर्ड कॉपी करने की कोशिश कर रहा है. इसकी अनुमति देने के लिए Windows का पासवर्ड डालें.</translation>
 <translation id="7804364787702057554">Chrome में आपका खाता</translation>
 <translation id="7808348361785373670">Chrome से नि‍कालें...</translation>
+<translation id="7827099906024714326">आपके Google खाते में डेटा सेव करने और सभी डिवाइसों पर उसका इस्तेमाल करने से पहले, Chrome को आपकी पहचान की पुष्टि करनी होगी. अभी साइन आउट करने पर यह डेटा मिट जाएगा.</translation>
 <translation id="7845233973568007926">इंस्टॉल करने के लिए धन्यवाद. <ph name="BUNDLE_NAME" /> का इस्तेमाल करने से पहले, कंप्यूटर को रीस्टार्ट करना ज़रूरी है.</translation>
 <translation id="7849037457735762883">वहीं से काम जारी रखें जहां आपने छोड़ा था: हर बार रीस्टार्ट करने पर Chrome आपके टैब वापस ला सकता है. इसे चालू करने के लिए, यहां जाएं</translation>
 <translation id="7872446069773932638">डाउनलोड हो रहा है... <ph name="SECONDS" /> सेकंड बचे हैं</translation>
 <translation id="7886087451482920026">Google Lens की मदद से टेक्स्ट चुनें</translation>
+<translation id="7887929410013642057">एआई मोड के शॉर्टकट हमेशा दिखाएं</translation>
 <translation id="7890208801193284374">अगर आप कंप्यूटर शेयर करते हैं, तो दोस्त और परिवार अलग-अलग ब्राउज़ कर सकते हैं और Chrome को जैसा चाहें सेट कर सकते हैं.</translation>
 <translation id="7896673875602241923">इस कंप्यूटर पर पहले किसी और ने <ph name="ACCOUNT_EMAIL_LAST" /> के रूप में Chrome में साइन इन किया है. अपनी जानकारी अलग रखने के लिए कृपया नया 'Chrome उपयोगकर्ता' बनाएं.</translation>
 <translation id="7904985524660297937">Google Chrome में Gemini आज़माएं</translation>
@@ -663,6 +668,7 @@ Google Chrome आपकी सेटिंग बहाल नहीं कर �
 <translation id="835927394551949760">Google से पूछें</translation>
 <translation id="8362914115861174987">इस भाषा में अनुवाद पाएं</translation>
 <translation id="8366770919198174997">इससे परफ़ॉर्मेंस कम होती है, लेकिन Chrome की सायबर हमलों से बचने की क्षमता बढ़ जाती है</translation>
+<translation id="8367705492654390392">किसी भी विषय के बारे में पूछें</translation>
 <translation id="8370517070665726704">कॉपीराइट <ph name="YEAR" /> Google LLC. सर्वाधिकार सुरक्षित.</translation>
 <translation id="8377158135256176353">Chrome कैनरी में Gemini को टॉगल करें</translation>
 <translation id="8387459386171870978">Chrome को इस्तेमाल करना जारी रखें</translation>

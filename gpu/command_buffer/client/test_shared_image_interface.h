@@ -42,14 +42,6 @@ class TestSharedImageInterface : public SharedImageInterface {
       const viz::SharedImageFormat& format,
       const gfx::Size& size);
 
-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
-  // TODO(blundell): Fold this inside of a TestSII::CreateSI() variant and have
-  // test clients that need the handle grab it from the created SI.
-  static gfx::GpuMemoryBufferHandle CreatePixmapHandle(
-      const gfx::Size& size,
-      viz::SharedImageFormat format);
-#endif  // BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
-
   // for default-args overloads
   using SharedImageInterface::CreateSharedImage;
 
@@ -143,6 +135,14 @@ class TestSharedImageInterface : public SharedImageInterface {
       gfx::BufferUsage buffer_usage,
       bool premapped,
       const ClientSharedImage::AsyncMapInvokedCallback& callback);
+
+#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
+  // Creates a mappable SI backed by a NativePixmapHandle.
+  scoped_refptr<ClientSharedImage> CreateNativePixmapBackedSharedImage(
+      const SharedImageInfo& si_info,
+      SurfaceHandle surface_handle,
+      gfx::BufferUsage buffer_usage);
+#endif  // BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
 
   void CreateSharedImagePool(
       const SharedImagePoolId& pool_id,

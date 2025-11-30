@@ -536,14 +536,15 @@ class CORE_EXPORT RuleSet final : public GarbageCollected<RuleSet> {
   FontFeatureValuesRules() const {
     return font_feature_values_rules_;
   }
-  const HeapVector<Member<StyleRuleViewTransition>>& ViewTransitionRules()
-      const {
+  const HeapVector<CascadeLayered<StyleRuleViewTransition>>&
+  ViewTransitionRules() const {
     return view_transition_rules_;
   }
-  const HeapVector<Member<StyleRulePositionTry>>& PositionTryRules() const {
+  const HeapVector<CascadeLayered<StyleRulePositionTry>>& PositionTryRules()
+      const {
     return position_try_rules_;
   }
-  const HeapVector<Member<StyleRuleFunction>>& FunctionRules() const {
+  const HeapVector<CascadeLayered<StyleRuleFunction>>& FunctionRules() const {
     return function_rules_;
   }
   base::span<const RuleData> SlottedPseudoElementRules() const {
@@ -678,9 +679,9 @@ class CORE_EXPORT RuleSet final : public GarbageCollected<RuleSet> {
   void AddFontPaletteValuesRule(StyleRuleFontPaletteValues*);
   void AddFontFeatureValuesRule(StyleRuleFontFeatureValues*,
                                 const CascadeLayer*);
-  void AddPositionTryRule(StyleRulePositionTry*);
-  void AddFunctionRule(StyleRuleFunction*);
-  void AddViewTransitionRule(StyleRuleViewTransition*);
+  void AddPositionTryRule(StyleRulePositionTry*, const CascadeLayer*);
+  void AddFunctionRule(StyleRuleFunction*, const CascadeLayer*);
+  void AddViewTransitionRule(StyleRuleViewTransition*, const CascadeLayer*);
 
   bool MatchMediaForAddRules(const MediaQueryEvaluator& evaluator,
                              const MediaQuerySet* media_queries);
@@ -804,13 +805,13 @@ class CORE_EXPORT RuleSet final : public GarbageCollected<RuleSet> {
   HeapVector<Member<StyleRuleFontPaletteValues>> font_palette_values_rules_;
   HeapVector<CascadeLayered<StyleRuleFontFeatureValues>>
       font_feature_values_rules_;
-  HeapVector<Member<StyleRuleViewTransition>> view_transition_rules_;
+  HeapVector<CascadeLayered<StyleRuleViewTransition>> view_transition_rules_;
   HeapVector<CascadeLayered<StyleRuleKeyframes>> keyframes_rules_;
   HeapVector<CascadeLayered<StyleRuleProperty>> property_rules_;
   HeapVector<CascadeLayered<StyleRuleCounterStyle>> counter_style_rules_;
-  HeapVector<Member<StyleRulePositionTry>> position_try_rules_;
+  HeapVector<CascadeLayered<StyleRulePositionTry>> position_try_rules_;
+  HeapVector<CascadeLayered<StyleRuleFunction>> function_rules_;
   HeapVector<MediaQuerySetResult> media_query_set_results_;
-  HeapVector<Member<StyleRuleFunction>> function_rules_;
 
   // State of route matching when this RuleSet was built.
   Member<RouteMatchState> route_match_state_;

@@ -693,6 +693,15 @@ public class WebContentsAccessibilityImpl extends AccessibilityNodeProviderCompa
                 };
     }
 
+    private void maybeUnregisterReceiver() {
+        if (mIsBroadcastReceiverRegistered) {
+            if (mBroadcastReceiver != null) {
+                ContextUtils.getApplicationContext().unregisterReceiver(mBroadcastReceiver);
+            }
+            mIsBroadcastReceiverRegistered = false;
+        }
+    }
+
     // WindowEventObserver
 
     @Override
@@ -715,17 +724,11 @@ public class WebContentsAccessibilityImpl extends AccessibilityNodeProviderCompa
             // When the native code was initialized, also record performance metrics unregister
             // our broadcast receiver.
             if (isNativeInitialized()) {
-                if (mIsBroadcastReceiverRegistered) {
-                    if (ContentFeatureMap.isEnabled(
-                            ACCESSIBILITY_MANAGE_BROADCAST_RECEIVER_ON_BACKGROUND)) {
-                        sSequencedTaskRunner.execute(
-                                () ->
-                                        ContextUtils.getApplicationContext()
-                                                .unregisterReceiver(mBroadcastReceiver));
-                    } else {
-                        ContextUtils.getApplicationContext().unregisterReceiver(mBroadcastReceiver);
-                    }
-                    mIsBroadcastReceiverRegistered = false;
+                if (ContentFeatureMap.isEnabled(
+                        ACCESSIBILITY_MANAGE_BROADCAST_RECEIVER_ON_BACKGROUND)) {
+                    sSequencedTaskRunner.execute(() -> maybeUnregisterReceiver());
+                } else {
+                    maybeUnregisterReceiver();
                 }
                 mHistogramRecorder.recordAccessibilityPerformanceHistograms();
                 // When we are in an initialized state, accessibility may be disabled. In that
@@ -828,7 +831,6 @@ public class WebContentsAccessibilityImpl extends AccessibilityNodeProviderCompa
             WindowEventObserverManager.from(mDelegate.getWebContents()).removeObserver(this);
             mDelegate.getWebContents().removeUserData(WebContentsAccessibilityImpl.class);
         }
-        mBroadcastReceiver = null;
         TraceEvent.end("WebContentsAccessibilityImpl.destroy");
     }
 

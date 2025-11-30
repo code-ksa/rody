@@ -9,6 +9,7 @@
 #include "build/build_config.h"
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/browser_dialogs.h"
+#include "chrome/browser/ui/browser_window.h"
 #include "chrome/browser/ui/browser_finder.h"
 #include "chrome/browser/ui/browser_navigator.h"
 #include "chrome/browser/ui/browser_navigator_params.h"
@@ -38,13 +39,19 @@ DevToolsConnectionDialog::DevToolsConnectionDialog(
     return;
   }
 
+  if (browser->window()) {
+    browser->window()->Activate();
+  }
+
   views::Widget* widget = chrome::ShowBrowserModal(
       browser,
       ui::DialogModel::Builder()
           .SetTitle(
               l10n_util::GetStringUTF16(IDS_DEV_TOOLS_CONNECTION_DIALOG_TITLE))
           .AddParagraph(
-              ui::DialogModelLabel(IDS_DEV_TOOLS_CONNECTION_DIALOG_MESSAGE))
+              ui::DialogModelLabel(IDS_DEV_TOOLS_CONNECTION_DIALOG_MESSAGE_PART_1))
+          .AddParagraph(
+            ui::DialogModelLabel(IDS_DEV_TOOLS_CONNECTION_DIALOG_MESSAGE_PART_2))
           .AddOkButton(base::BindOnce(&DevToolsConnectionDialog::OnAccept,
                                       base::Unretained(this)),
                        ui::DialogModel::Button::Params()

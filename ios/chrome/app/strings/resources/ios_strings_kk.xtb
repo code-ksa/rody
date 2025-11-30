@@ -596,7 +596,6 @@
 <translation id="3277021493514034324">Сайт мекенжайы көшірілді</translation>
 <translation id="3280562213547448728">Дауыспен іздеу</translation>
 <translation id="3289505634533552500">Дауыспен іздеу</translation>
-<translation id="3293080634164207409">Қойындылар қосу</translation>
 <translation id="3295904109373959849">Қойындылар топтарының торы</translation>
 <translation id="3302837541200840455"><ph name="TAB_TITLE" />, жаңа әрекет</translation>
 <translation id="3305294846493618482">тағы</translation>
@@ -1284,6 +1283,7 @@ Handoff функциясы параметрлердің жалпы бөлімі�
 <translation id="5902752768726620872">{count,plural, =1{{count} жаңа қойынды}other{{count} жаңа қойынды}}</translation>
 <translation id="5911030830365207728">Google Translate</translation>
 <translation id="5922999516621365983">Қойындыны бекіту үшін осы жерге сүйреңіз.</translation>
+<translation id="5930982343430790032">{COUNT,plural, =1{1 файл, қойынды немесе сурет қосуға болады.}other{Ең көбі {COUNT} файл, қойынды немесе сурет қосуға болады.}}</translation>
 <translation id="5936006948844852401">Жадты басқару</translation>
 <translation id="5936065461722368675">Тұтас бетті аудару</translation>
 <translation id="5937560539988385583">Бет аударылды.</translation>
@@ -1539,6 +1539,7 @@ Handoff функциясы параметрлердің жалпы бөлімі�
 <translation id="6761393919622941301">Аудио</translation>
 <translation id="6770452996697898492">[БРОНДАЛДЫ]</translation>
 <translation id="6779455296366983087">Браузерді пайдалану деректері жойылады</translation>
+<translation id="6782531425936234573">Деректерді экспорттау</translation>
 <translation id="6791425686608802741">"Қойындыны жаңа топқа қосу" түймесін түртіңіз.</translation>
 <translation id="6794476726485507147">Бұл бетке қайта кіру туралы еске салғыш хабарландыруын алу үшін күн мен уақытты таңдаңыз.</translation>
 <translation id="6795481620482106033">Деректер жарамсыз</translation>
@@ -1872,6 +1873,7 @@ Handoff функциясы параметрлердің жалпы бөлімі�
 <translation id="8032569120109842252">Жазылғансыз</translation>
 <translation id="8035133914807600019">Жаңа қалта…</translation>
 <translation id="8035412398498507358">Photos</translation>
+<translation id="8037713009824540257">Сайт қосу</translation>
 <translation id="8040407350301524547">Бағыт опциялары үшін "Бағыттарды алу" түймесін түртіңіз.</translation>
 <translation id="804427445359061970">Басқа құрылғылардағы қойындыларды осы жерден табасыз</translation>
 <translation id="8058655154417507695">Жарамдылық мерзімі бітетін жыл</translation>

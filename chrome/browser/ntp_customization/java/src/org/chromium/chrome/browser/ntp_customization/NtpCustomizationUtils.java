@@ -16,6 +16,7 @@ import static org.chromium.chrome.browser.ntp_customization.NtpCustomizationCoor
 import static org.chromium.chrome.browser.ntp_customization.NtpCustomizationCoordinator.BottomSheetType.THEME;
 import static org.chromium.chrome.browser.ntp_customization.NtpCustomizationCoordinator.BottomSheetType.THEME_COLLECTIONS;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -37,6 +38,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.browser.customtabs.CustomTabsIntent;
 
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.color.DynamicColorsOptions;
 
 import org.chromium.base.Callback;
@@ -239,6 +241,19 @@ public class NtpCustomizationUtils {
 
         @ColorInt int color = getCustomizedPrimaryColorFromSharedPreference();
         return (color != NtpThemeColorInfo.COLOR_NOT_SET) ? color : null;
+    }
+
+    /**
+     * Applies the primary color to the given activity using DynamicColors API.
+     *
+     * @param activity The Activity instance to apply the new primary theme color.
+     * @param primaryColor The primary theme color to apply.
+     */
+    public static void applyDynamicColorToActivity(Activity activity, @ColorInt int primaryColor) {
+        DynamicColorsOptions.Builder builder = new DynamicColorsOptions.Builder();
+        builder.setContentBasedSource(primaryColor);
+        DynamicColorsOptions dynamicColorsOptions = builder.build();
+        DynamicColors.applyToActivityIfAvailable(activity, dynamicColorsOptions);
     }
 
     /** Loads the NtpThemeColorInfo from the SharedPreference, null otherwise. */
@@ -583,6 +598,24 @@ public class NtpCustomizationUtils {
     public static void removeCustomizedPrimaryColorFromSharedPreference() {
         SharedPreferencesManager prefsManager = ChromeSharedPreferences.getInstance();
         prefsManager.removeKey(ChromePreferenceKeys.NTP_CUSTOMIZATION_PRIMARY_COLOR);
+    }
+
+    /**
+     * Sets whether daily refresh for Chrome Color is enabled to the SharedPreference.
+     *
+     * @param enabled Whether daily refresh should be enabled.
+     */
+    public static void setIsChromeColorDailyRefreshEnabledToSharedPreference(boolean enabled) {
+        SharedPreferencesManager prefsManager = ChromeSharedPreferences.getInstance();
+        prefsManager.writeBoolean(
+                ChromePreferenceKeys.NTP_CUSTOMIZATION_CHROME_COLOR_DAILY_REFRESH_ENABLED, enabled);
+    }
+
+    /** Gets whether daily refresh for Chrome Color is enabled from the SharedPreference. */
+    public static boolean getIsChromeColorDailyRefreshEnabledFromSharedPreference() {
+        SharedPreferencesManager prefsManager = ChromeSharedPreferences.getInstance();
+        return prefsManager.readBoolean(
+                ChromePreferenceKeys.NTP_CUSTOMIZATION_CHROME_COLOR_DAILY_REFRESH_ENABLED, false);
     }
 
     /**

@@ -21,6 +21,10 @@ class CONTENT_EXPORT PipScreenCaptureCoordinatorImpl {
  public:
   static PipScreenCaptureCoordinatorImpl* GetInstance();
 
+  static void AddCapture(
+      PipScreenCaptureCoordinatorProxy::CaptureInfo capture_info);
+  static void RemoveCapture(const base::UnguessableToken& session_id);
+
   class Observer : public base::CheckedObserver {
    public:
     // Called with the NativeWindowId of the PiP window when it is
@@ -45,9 +49,7 @@ class CONTENT_EXPORT PipScreenCaptureCoordinatorImpl {
   void OnPipClosed();
 
   std::optional<NativeWindowId> PipWindowId() const;
-
-  void AddCapture(PipScreenCaptureCoordinatorProxy::CaptureInfo capture_info);
-  void RemoveCapture(const base::UnguessableToken& session_id);
+  std::vector<PipScreenCaptureCoordinatorProxy::CaptureInfo> Captures() const;
 
   std::unique_ptr<PipScreenCaptureCoordinatorProxy> CreateProxy();
 
@@ -57,6 +59,9 @@ class CONTENT_EXPORT PipScreenCaptureCoordinatorImpl {
   void ResetForTesting();
 
  private:
+  void AddCaptureOnUIThread(
+      PipScreenCaptureCoordinatorProxy::CaptureInfo capture_info);
+  void RemoveCaptureOnUIThread(const base::UnguessableToken& session_id);
   friend class base::NoDestructor<PipScreenCaptureCoordinatorImpl>;
   PipScreenCaptureCoordinatorImpl();
 

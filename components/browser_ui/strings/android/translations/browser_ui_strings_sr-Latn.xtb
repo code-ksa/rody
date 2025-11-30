@@ -115,6 +115,7 @@
 <translation id="2241587408274973373">Kartice na stranici nove kartice</translation>
 <translation id="2241634353105152135">Samo jednom</translation>
 <translation id="2253414712144136228"><ph name="NAME_OF_LIST_ITEM" /> Uklonite</translation>
+<translation id="2281098328019574668">Dobijajte obaveštenja o uvidima koji poboljšavaju doživljaj u Chrome-u</translation>
 <translation id="228293613124499805">Većina sajtova koje posećujete verovatno čuva podatke na uređaju, često radi poboljšanja doživljaja tako što čuva podešavanja ili informacije koje delite sa sajtom. Preporučujemo da ovo podešavanje ostane uključeno.</translation>
 <translation id="2289270750774289114">Pitaj kada sajt želi da otkrije Bluetooth uređaje u blizini (preporučeno)</translation>
 <translation id="2315043854645842844">Operativni sistem ne podržava izbor sertifikata za klijenta.</translation>
@@ -225,6 +226,7 @@ Napredna zaštita kontroliše ova Chrome podešavanja:
 <translation id="3368138297038111198">Deli se prozor</translation>
 <translation id="3386292677130313581">Pitaj pre nego što dozvoliš sajtovima da znaju lokaciju (preporučeno)</translation>
 <translation id="3403537308306431953"><ph name="ZOOM_LEVEL" />%%</translation>
+<translation id="3435896845095436175">Omogući</translation>
 <translation id="344449859752187052">Kolačići treće strane su blokirani</translation>
 <translation id="3448554387819310837">Kada je uključeno, sajtovi mogu da traže da koriste kameru. Kada je isključeno, sajtovi ne mogu da koriste kameru.</translation>
 <translation id="3491678231052507920">Sajtovi obično koriste uređaje i podatke virtuelne realnosti da biste mogli da ulazite u sesije virtuelne realnosti</translation>
@@ -243,6 +245,7 @@ Napredna zaštita kontroliše ova Chrome podešavanja:
 <translation id="3611658447322220736">Nedavno zatvoreni sajtovi mogu da završe slanje i prijem podataka</translation>
 <translation id="3619294456800709762">Sajtovi mogu automatski da uđu u sliku u slici</translation>
 <translation id="3628308229821498208">Predložene pretrage</translation>
+<translation id="3632460243282703117">Prati</translation>
 <translation id="363748948745453283">Koristi se približna lokacija</translation>
 <translation id="3641456520301071208">Sajtovi mogu da vam traže lokaciju</translation>
 <translation id="3658847490588580244">Donja tabela podrazumevanog pregledača</translation>
@@ -338,6 +341,7 @@ Napredna zaštita kontroliše ova Chrome podešavanja:
 <translation id="4635969503923889910">Ne dozvoljavaj sajtovima da koriste NFC uređaje</translation>
 <translation id="4644713492825682049">Izbriši i resetuj</translation>
 <translation id="4645575059429386691">Ovim upravlja tvoj roditelj</translation>
+<translation id="4652266463001779298">Nije dozvoljeno</translation>
 <translation id="4663373278480897665">Kamera je dozvoljena</translation>
 <translation id="4670064810192446073">Virtuelna realnost</translation>
 <translation id="4672315773691449562">Dodirnite aplikaciju Pregledač, pa Chrome</translation>
@@ -571,6 +575,7 @@ Napredna zaštita kontroliše ova Chrome podešavanja:
 <translation id="7260727271532453612">Odobrene su dozvole <ph name="PERMISSION_1" /> i <ph name="PERMISSION_2" /></translation>
 <translation id="7276071417425470385">Kada je uključeno, sajtovi mogu da traže da koriste uređaje virtuelne realnosti. Kada je isključeno, sajtovi ne mogu da koriste uređaje virtuelne realnosti.</translation>
 <translation id="728412880473384942">Sajtovi su brži, ali manje bezbedni</translation>
+<translation id="7324836168971967994">Saveti prilagođeni samo za vas</translation>
 <translation id="7366415735885268578">Dodajte sajt</translation>
 <translation id="7368695150573390554">Svi oflajn podaci će biti izbrisani</translation>
 <translation id="7369678931043226462">Prilagodite donju tabelu stranice nove kartice otvorenu do polovine ekrana</translation>
@@ -629,6 +634,7 @@ Napredna zaštita kontroliše ova Chrome podešavanja:
 <translation id="7990211076305263060">Kada je uključeno, sajtovi mogu da traže da koriste mikrofon. Kad je isključeno, sajtovi ne mogu da koriste mikrofon.</translation>
 <translation id="8007176423574883786">Isključeno je za ovaj uređaj</translation>
 <translation id="802154636333426148">Preuzimanje nije uspelo</translation>
+<translation id="8033047164036749181">Pratite za obaveštenja sa ovog sajta</translation>
 <translation id="8042586301629853791">Sortiraj prema:</translation>
 <translation id="8051193500142930381">Funkcije kojima je potrebna kamera neće raditi</translation>
 <translation id="8056330801132235235">Podrazumevano za Chrome</translation>

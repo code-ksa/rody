@@ -7,6 +7,7 @@
 #import "base/apple/bundle_locations.h"
 #import "base/functional/bind.h"
 #import "base/functional/callback.h"
+#import "base/functional/callback_helpers.h"
 #import "base/metrics/histogram_functions.h"
 #import "base/path_service.h"
 #import "base/system/sys_info.h"
@@ -313,7 +314,7 @@ void OptimizationGuideService::RemoveObserverForOptimizationTargetModel(
 void OptimizationGuideService::ExecuteModel(
     optimization_guide::ModelBasedCapabilityKey feature,
     const google::protobuf::MessageLite& request_metadata,
-    const std::optional<base::TimeDelta>& execution_timeout,
+    const optimization_guide::ModelExecutionOptions& options,
     optimization_guide::OptimizationGuideModelExecutionResultCallback
         callback) {
   DCHECK_CURRENTLY_ON(web::WebThread::UI);
@@ -331,8 +332,7 @@ void OptimizationGuideService::ExecuteModel(
     return;
   }
   model_execution_manager_->ExecuteModel(
-      feature, request_metadata, execution_timeout,
-      /*log_ai_data_request=*/nullptr,
-      optimization_guide::ModelExecutionServiceType::kDefault,
+      feature, request_metadata, options.execution_timeout,
+      /*log_ai_data_request=*/nullptr, options.service_type,
       std::move(callback));
 }

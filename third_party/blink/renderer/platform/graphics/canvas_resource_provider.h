@@ -57,7 +57,7 @@ PLATFORM_EXPORT BASE_DECLARE_FEATURE(kCanvas2DReclaimUnusedResources);
 class CanvasRenderingContext2D;
 class CanvasResource;
 class CanvasResourceSharedImage;
-class CanvasResourceProviderBitmap;
+class Canvas2DResourceProviderBitmap;
 class CanvasResourceProviderExternalBitmap;
 class CanvasResourceProviderSharedImage;
 class MemoryManagedPaintCanvas;
@@ -384,12 +384,14 @@ class PLATFORM_EXPORT CanvasResourceProvider
   std::optional<cc::PaintRecord> last_recording_;
 };
 
-// * Renders to a Skia RAM-backed bitmap.
-// * Mailboxing is not supported : cannot be directly composited.
-class PLATFORM_EXPORT CanvasResourceProviderBitmap
+// Renders canvas2D ops to a Skia RAM-backed bitmap. Mailboxing is not
+// supported : cannot be directly composited. For usage by (Offscreen)Canvas2D
+// as a last-case resort when it is not possible to create
+// CanvasResourceProviderSharedImage.
+class PLATFORM_EXPORT Canvas2DResourceProviderBitmap
     : public CanvasResourceProvider {
  public:
-  ~CanvasResourceProviderBitmap() override = default;
+  ~Canvas2DResourceProviderBitmap() override = default;
 
   bool IsValid() const override { return GetSkSurface(); }
   bool IsAccelerated() const override { return false; }
@@ -405,24 +407,24 @@ class PLATFORM_EXPORT CanvasResourceProviderBitmap
                    int x,
                    int y) override;
 
-  static std::unique_ptr<CanvasResourceProvider> CreateBitmapProviderForTesting(
+  static std::unique_ptr<CanvasResourceProvider> CreateForTesting(
       gfx::Size size,
       const Canvas2DColorParams& color_params,
       ShouldInitialize initialize_provider,
       Delegate* delegate = nullptr);
 
  protected:
-  CanvasResourceProviderBitmap(ResourceProviderType type,
-                               gfx::Size size,
-                               viz::SharedImageFormat format,
-                               SkAlphaType alpha_type,
-                               const gfx::ColorSpace& color_space);
+  Canvas2DResourceProviderBitmap(ResourceProviderType type,
+                                 gfx::Size size,
+                                 viz::SharedImageFormat format,
+                                 SkAlphaType alpha_type,
+                                 const gfx::ColorSpace& color_space);
 
  private:
   friend class CanvasRenderingContext2D;
   friend class OffscreenCanvasRenderingContext2D;
 
-  static std::unique_ptr<CanvasResourceProviderBitmap> CreateBitmapProvider(
+  static std::unique_ptr<Canvas2DResourceProviderBitmap> Create(
       gfx::Size size,
       viz::SharedImageFormat format,
       SkAlphaType alpha_type,
@@ -430,11 +432,11 @@ class PLATFORM_EXPORT CanvasResourceProviderBitmap
       ShouldInitialize initialize_provider,
       Delegate* delegate = nullptr);
 
-  CanvasResourceProviderBitmap(gfx::Size size,
-                               viz::SharedImageFormat format,
-                               SkAlphaType alpha_type,
-                               const gfx::ColorSpace& color_space,
-                               Delegate* delegate);
+  Canvas2DResourceProviderBitmap(gfx::Size size,
+                                 viz::SharedImageFormat format,
+                                 SkAlphaType alpha_type,
+                                 const gfx::ColorSpace& color_space,
+                                 Delegate* delegate);
 
   scoped_refptr<CanvasResource> ProduceCanvasResource(FlushReason) override {
     // Production of CanvasResources is used with direct compositing, which is
@@ -447,7 +449,7 @@ class PLATFORM_EXPORT CanvasResourceProviderBitmap
 // * Renders to a Skia RAM-backed bitmap via an external (client-supplied) draw.
 // * Mailboxing is not supported : cannot be directly composited.
 class PLATFORM_EXPORT CanvasResourceProviderExternalBitmap
-    : public CanvasResourceProviderBitmap {
+    : public CanvasResourceProvider {
  public:
   CanvasResourceProviderExternalBitmap(gfx::Size size,
                                        viz::SharedImageFormat format,
@@ -456,6 +458,30 @@ class PLATFORM_EXPORT CanvasResourceProviderExternalBitmap
 
   ~CanvasResourceProviderExternalBitmap() override = default;
 
+  bool IsValid() const override { return GetSkSurface(); }
+  bool IsAccelerated() const override { return false; }
+  bool SupportsDirectCompositing() const override { return false; }
+  bool IsSingleBuffered() const override { return false; }
+  scoped_refptr<StaticBitmapImage> Snapshot(
+      ImageOrientation = ImageOrientationEnum::kDefault) override {
+    NOTREACHED();
+  }
+
+  void RasterRecord(cc::PaintRecord last_recording) override;
+  bool WritePixels(const SkImageInfo& orig_info,
+                   const void* pixels,
+                   size_t row_bytes,
+                   int x,
+                   int y) override {
+    NOTREACHED();
+  }
+
+  scoped_refptr<CanvasResource> ProduceCanvasResource(FlushReason) override {
+    // Production of CanvasResources is used with direct compositing, which is
+    // not supported by this class.
+    return nullptr;
+  }
+  sk_sp<SkSurface> CreateSkSurface() const override;
   scoped_refptr<StaticBitmapImage> DoExternalDrawAndSnapshot(
       base::FunctionRef<void(MemoryManagedPaintCanvas&)> draw_callback,
       ImageOrientation orientation) override;

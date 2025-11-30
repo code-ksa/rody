@@ -464,10 +464,6 @@ class BrowserAutofillManager : public AutofillManager {
   bool ShouldShowScanCreditCard(const FormStructure& form,
                                 const AutofillField& trigger_field);
 
-  // Examines `form` and returns true if it is in a non-secure context or its
-  // action attribute targets a HTTP url.
-  bool IsFormNonSecure(const FormStructure& form) const;
-
   // Checks whether JavaScript cleared an autofilled value within
   // kLimitBeforeRefill after the filling and records metrics for this. This
   // method should be called after we learned that JavaScript modified an
@@ -507,6 +503,7 @@ class BrowserAutofillManager : public AutofillManager {
       const FormFieldData& field,
       AutofillSuggestionTriggerSource trigger_source,
       SuggestionsContext context,
+      base::TimeTicks suggestion_generation_start_time,
       std::vector<std::pair<SuggestionGenerator::SuggestionDataSource,
                             std::vector<SuggestionGenerator::SuggestionData>>>
           suggestion_data);
@@ -519,6 +516,7 @@ class BrowserAutofillManager : public AutofillManager {
       const FieldGlobalId& field_id,
       AutofillSuggestionTriggerSource trigger_source,
       SuggestionsContext context,
+      base::TimeTicks suggestion_generation_start_time,
       std::vector<SuggestionGenerator::ReturnedSuggestions>
           returned_suggestions);
 
@@ -544,18 +542,21 @@ class BrowserAutofillManager : public AutofillManager {
   void GenerateSuggestionsAndMaybeShowUIPhase1(
       const FormData& form,
       const FormFieldData& field,
-      AutofillSuggestionTriggerSource trigger_source);
+      AutofillSuggestionTriggerSource trigger_source,
+      base::TimeTicks suggestion_generator_start_time);
   void GenerateSuggestionsAndMaybeShowUIPhase2(
       const FormData& form,
       const FormFieldData& field,
       AutofillSuggestionTriggerSource trigger_source,
       SuggestionsContext context,
+      base::TimeTicks suggestion_generator_start_time,
       std::vector<std::string> plus_addresses);
   void GenerateSuggestionsAndMaybeShowUIPhase3(
       const FormData& form,
       const FormFieldData& field,
       AutofillSuggestionTriggerSource trigger_source,
       SuggestionsContext context,
+      base::TimeTicks suggestion_generator_start_time,
       std::vector<std::string> plus_addresses,
       std::vector<std::string> one_time_passwords);
 
@@ -587,6 +588,7 @@ class BrowserAutofillManager : public AutofillManager {
       const FieldGlobalId& field_id,
       AutofillSuggestionTriggerSource trigger_source,
       const SuggestionsContext& context,
+      base::TimeTicks suggestion_generation_start_time,
       bool show_suggestions,
       std::vector<Suggestion> suggestions);
 
@@ -662,10 +664,6 @@ class BrowserAutofillManager : public AutofillManager {
 
   // This is always non-nullopt except very briefly during Reset().
   std::optional<MetricsState> metrics_ = std::make_optional<MetricsState>(this);
-
-  // If this is true, we consider the form to be secure. (Only use this for
-  // testing purposes).
-  std::optional<bool> consider_form_as_secure_for_testing_;
 
   // A copy of the currently interacted form data.
   std::optional<FormData> pending_form_data_;

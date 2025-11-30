@@ -142,9 +142,6 @@ enum class TipsSafeBrowsingExperimentType {
 // Feature flag to enable Shared Highlighting (Link to Text).
 BASE_DECLARE_FEATURE(kSharedHighlightingIOS);
 
-// Feature flag to enable Share button in web context menu in iOS.
-BASE_DECLARE_FEATURE(kShareInWebContextMenuIOS);
-
 // Feature flag to log metrics for the edit menu.
 BASE_DECLARE_FEATURE(kIOSBrowserEditMenuMetrics);
 
@@ -763,10 +760,6 @@ BASE_DECLARE_FEATURE(kChromeStartupParametersAsync);
 // incognito.
 BASE_DECLARE_FEATURE(kYoutubeIncognito);
 
-// Feature flag to have share extension item shared per profile.
-// DO NOT CHECK DIRECTLY, use IsShareExtensionForMultiprofileEnabled().
-BASE_DECLARE_FEATURE(kShareExtensionForMultiprofile);
-
 // Feature param to specify whether the youtube incognito handling is done
 // without the incognito interstitial.
 extern const char
@@ -1197,5 +1190,11 @@ BASE_DECLARE_FEATURE(kAIMEligibilityRefreshNTPModules);
 
 // Returns true if the AIMEligibilityRefreshNTPModules feature is enabled.
 bool IsAIMEligibilityRefreshNTPModulesEnabled();
+
+// Enables the IOSWebContextMenuNewTitle feature.
+BASE_DECLARE_FEATURE(kIOSWebContextMenuNewTitle);
+
+// Returns true if the IOSWebContextMenuNewTitle feature is enabled.
+bool IsIOSWebContextMenuNewTitleEnabled();
 
 #endif  // IOS_CHROME_BROWSER_SHARED_PUBLIC_FEATURES_FEATURES_H_

@@ -163,12 +163,10 @@ chromium-metrics-reviews@google.com.
   <variant name=".PopupBlocked"/>
   <variant name=".PromptHatsCameraCustomInvitation"/>
   <variant name=".PromptHatsCameraGenericInvitation"/>
-  <variant name=".PromptHatsClearBrowsingData"/>
   <variant name=".PromptHatsLocationCustomInvitation"/>
   <variant name=".PromptHatsLocationGenericInvitation"/>
   <variant name=".PromptHatsMicrophoneCustomInvitation"/>
   <variant name=".PromptHatsMicrophoneGenericInvitation"/>
-  <variant name=".PromptHatsQuickDelete"/>
   <variant name=".ReaderMode"/>
   <variant name=".ReloadPage"/>
   <variant name=".SafetyTip"/>
@@ -4576,6 +4574,46 @@ chromium-metrics-reviews@google.com.
   </summary>
 </histogram>
 
+<histogram name="Android.PasswordEcho.SettingReadTime.{SettingType}"
+    units="microseconds" expires_after="2026-09-30">
+  <owner>shahinmd@google.com</owner>
+  <owner>ashleynewson@chromium.org</owner>
+  <summary>
+    Records the time taken to read the password echo setting(s) from the system
+    server during initialization. The {SettingType} token specifies the type of
+    setting read.
+
+    Only emitted once when the embedding application's instance of
+    PasswordEchoSettingState is created. The metric recorded (either the split
+    or the legacy setting) depends on the state of the Aconfig feature flag for
+    splitting the password echo settings.
+
+    This is recorded only on Android, where the timer is always high-resolution.
+  </summary>
+  <token key="SettingType">
+    <variant name="Legacy"/>
+    <variant name="Split"/>
+  </token>
+</histogram>
+
+<histogram name="Android.PasswordEcho.SettingStateInitializationTime"
+    units="microseconds" expires_after="2026-09-30">
+  <owner>shahinmd@google.com</owner>
+  <owner>ashleynewson@chromium.org</owner>
+  <summary>
+    Records the total time taken for the PasswordEchoSettingState class to
+    complete its initialization. This time includes operations like reading the
+    Aconfig feature flag state, registering the necessary ContentObserver(s) for
+    monitoring setting changes, and the initial read of the relevant system
+    setting value(s).
+
+    Only emitted once when the embedding application's instance of
+    PasswordEchoSettingState is created.
+
+    This is recorded only on Android, where the timer is always high-resolution.
+  </summary>
+</histogram>
+
 <histogram name="Android.Pdf.AssistContent.GetAssistantPackageResult"
     enum="BooleanSuccess" expires_after="2025-09-07">
   <owner>salg@google.com</owner>
@@ -7516,6 +7554,17 @@ chromium-metrics-reviews@google.com.
     Records whether an invocation of a JavaScript method exposed through
     WebView's Java Bridge happened on a page's main frame or one of its sub
     frames. Recorded for each invocation of such methods.
+  </summary>
+</histogram>
+
+<histogram name="Android.WebView.JsInjection.RenderFrameCreatedTime" units="ms"
+    expires_after="2026-06-01">
+  <owner>peconn@chromium.org</owner>
+  <owner>webview-team@google.com</owner>
+  <summary>
+    The time it takes to execute JsCommunicationHost::RenderFrameCreated.
+    Recorded whenever a render frame is created in a WebContents that has a
+    JsCommunicationHost attached (in other words, in Android WebView).
   </summary>
 </histogram>
 

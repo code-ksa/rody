@@ -68,6 +68,9 @@ std::string DataToString(NSData* data) {
   // Barrier closure that should run after initial processing finishes for all
   // supported credential types.
   base::RepeatingClosure _allCredentialTypesProcessedClosure;
+
+  // Count of different credential types that are present on the import list.
+  NSInteger _presentCredentialTypesCount;
 }
 
 - (instancetype)initWithDelegate:(id<CredentialImporterDelegate>)delegate
@@ -125,12 +128,17 @@ std::string DataToString(NSData* data) {
 - (void)finishImportWithSelectedPasswordIds:
     (const std::vector<int>&)selectedPasswordIds {
   __weak __typeof(_delegate) weakDelegate = _delegate;
+  base::RepeatingClosure allCredentialTypesImportedClosure =
+      base::BarrierClosure(_presentCredentialTypesCount, base::BindOnce(^{
+                             [weakDelegate onImportFinished];
+                           }));
+
   if (_passwords.count > 0) {
     _passwordImporter->ContinueImport(
         selectedPasswordIds,
         base::BindOnce(^(const password_manager::ImportResults& results) {
           [weakDelegate onPasswordsImported:results];
-        }));
+        }).Then(allCredentialTypesImportedClosure));
   }
   if (_passkeys.count > 0) {
     // TODO(crbug.com/450982128): Pass chosen ids from the conflict UI.
@@ -138,7 +146,7 @@ std::string DataToString(NSData* data) {
         /*selected_conflicting_passkey_ids=*/{},
         base::BindOnce(^(int passkeysImported) {
           [weakDelegate onPasskeysImported:passkeysImported];
-        }));
+        }).Then(allCredentialTypesImportedClosure));
   }
 }
 
@@ -151,6 +159,8 @@ std::string DataToString(NSData* data) {
                                             passkeys {
   _passwords = passwords;
   _passkeys = passkeys;
+  _presentCredentialTypesCount =
+      (passwords.count > 0 ? 1 : 0) + (passkeys.count > 0 ? 1 : 0);
   [_delegate showImportScreenWithPasswordCount:passwords.count
                                   passkeyCount:passkeys.count];
 }
@@ -171,6 +181,13 @@ std::string DataToString(NSData* data) {
     // the fields. `_passwordImporter` will handle the invalid URL internally.
     password_manager::CSVPassword::Status status =
         password_manager::CSVPassword::Status::kOK;
+
+    // URL field is optional, so it might be nil. Pass as empty and continue.
+    if (!password.URL) {
+      csvPasswords.emplace_back(password_manager::CSVPassword(
+          /*invalid_url=*/"", username, passwordStr, note, status));
+      continue;
+    }
 
     // Password manager expects urls to be in HTTP or HTTPS scheme. The imported
     // password might not contain it and e.g. just be an eTLD+1. Try adding the

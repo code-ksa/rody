@@ -429,6 +429,19 @@ chromium-metrics-reviews@google.com.
   </summary>
 </histogram>
 
+<histogram name="NewTabPage.Customization.AllCardsEnabled"
+    enum="BooleanEnabled" expires_after="2026-12-01">
+  <owner>jhimawan@google.com</owner>
+  <owner>clank-app-team@google.com</owner>
+  <owner>clank-start@google.com</owner>
+  <summary>
+    Android: Records when the all cards switch is toggled on or off. The
+    histogram is logged each time a user clicks the toggle switch in the NTP
+    customization bottom sheet. Each press of the toggle switch is counted as a
+    separate count.
+  </summary>
+</histogram>
+
 <histogram name="NewTabPage.Customization.BottomSheet.Shown"
     enum="NtpCustomizationBottomSheetType" expires_after="2026-04-26">
   <owner>hanxi@chromium.org</owner>
@@ -471,7 +484,7 @@ chromium-metrics-reviews@google.com.
   </summary>
 </histogram>
 
-<histogram name="NewTabPage.Customization.Theme.ChromeColor.ColorId"
+<histogram name="NewTabPage.Customization.Theme.ChromeColor.Click"
     enum="NtpThemeColorId" expires_after="2026-05-24">
   <owner>hanxi@chromium.org</owner>
   <owner>yyanting@google.com</owner>
@@ -480,6 +493,18 @@ chromium-metrics-reviews@google.com.
     Records the last color ID of the Chrome theme colors that was selected by
     the user from the Chrome Colors bottom sheet. This metric is logged when the
     bottom sheet is closed. This metric is logged on Android only.
+  </summary>
+</histogram>
+
+<histogram name="NewTabPage.Customization.Theme.ChromeColor.TurnOnDailyRefresh"
+    enum="BooleanEnabled" expires_after="2026-05-28">
+  <owner>hanxi@chromium.org</owner>
+  <owner>yyanting@google.com</owner>
+  <owner>clank-start@google.com</owner>
+  <summary>
+    Records whether the user toggles on or off daily refresh for Chrome Colors.
+    This metric is logged when the Chrome Colors bottom sheet is closed. This
+    metric is logged on Android only.
   </summary>
 </histogram>
 

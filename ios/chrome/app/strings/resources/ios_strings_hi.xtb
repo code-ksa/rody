@@ -596,7 +596,6 @@
 <translation id="3277021493514034324">साइट का पता कॉपी किया गया</translation>
 <translation id="3280562213547448728">वॉइस सर्च</translation>
 <translation id="3289505634533552500">वॉइस सर्च</translation>
-<translation id="3293080634164207409">टैब जोड़ें</translation>
 <translation id="3295904109373959849">टैब ग्रुप का ग्रिड</translation>
 <translation id="3302837541200840455"><ph name="TAB_TITLE" />, नई गतिविधि</translation>
 <translation id="3305294846493618482">पूरा यूआरएल देखें</translation>
@@ -1284,6 +1283,7 @@ Handoff को Settings के General अनुभाग में भी स�
 <translation id="5902752768726620872">{count,plural, =1{{count} नया टैब}one{{count} नया टैब}other{{count} नए टैब}}</translation>
 <translation id="5911030830365207728">Google Translate</translation>
 <translation id="5922999516621365983">टैब पिन करने के लिए, उसे खींचें और यहां छोड़ें.</translation>
+<translation id="5930982343430790032">{COUNT,plural, =1{ज़्यादा से ज़्यादा 1 फ़ाइल, टैब या इमेज जोड़ें}one{ज़्यादा से ज़्यादा {COUNT} फ़ाइल, टैब या इमेज जोड़ें}other{ज़्यादा से ज़्यादा {COUNT} फ़ाइलें, टैब या इमेज जोड़ें}}</translation>
 <translation id="5936006948844852401">स्टोरेज मैनेज करें</translation>
 <translation id="5936065461722368675">पूरे पेज का अनुवाद करें</translation>
 <translation id="5937560539988385583">पेज का अनुवाद हो गया</translation>
@@ -1539,6 +1539,7 @@ Handoff को Settings के General अनुभाग में भी स�
 <translation id="6761393919622941301">ऑडियो</translation>
 <translation id="6770452996697898492">[बुक किया गया]</translation>
 <translation id="6779455296366983087">आपका ब्राउज़िंग डेटा मिटा दिया जाएगा</translation>
+<translation id="6782531425936234573">डेटा एक्सपोर्ट करें</translation>
 <translation id="6791425686608802741">"टैब को नए ग्रुप में जोड़ें" पर टैप करें</translation>
 <translation id="6794476726485507147">इस पेज पर वापस आने के लिए, रिमाइंडर पाने की तारीख और समय चुनें</translation>
 <translation id="6795481620482106033">अमान्य डेटा</translation>
@@ -1872,6 +1873,7 @@ Handoff को Settings के General अनुभाग में भी स�
 <translation id="8032569120109842252">फ़ॉलो कर रहे हैं</translation>
 <translation id="8035133914807600019">नया फ़ोल्‍डर…</translation>
 <translation id="8035412398498507358">Photos</translation>
+<translation id="8037713009824540257">साइट जोड़ें</translation>
 <translation id="8040407350301524547">रास्ते के विकल्पों के लिए, “निर्देश पाएं” पर टैप करें.</translation>
 <translation id="804427445359061970">आपको दूसरे डिवाइस पर खोले गए टैब यहां मिलेंगे</translation>
 <translation id="8058655154417507695">समाप्ति वर्ष</translation>

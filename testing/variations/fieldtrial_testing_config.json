@@ -948,10 +948,12 @@
                 {
                     "name": "EnabledReadabilityDistillerWithNoTriggering",
                     "params": {
+                        "heuristic_min_content_length": "160",
+                        "heuristic_min_score": "50",
                         "min_content_length": "100",
-                        "show_cpa": "false",
+                        "show_cpa": "true",
                         "use_distiller": "true",
-                        "use_heuristic": "false"
+                        "use_heuristic": "true"
                     },
                     "enable_features": [
                         "ReaderModeDistillInApp",
@@ -3391,6 +3393,9 @@
                         "CheckVisibilityInChangePasswordFormWaiter",
                         "DisableFillingOnPageLoadForLeakedCredentials",
                         "StopLoginCheckOnFailedLogin"
+                    ],
+                    "disable_features": [
+                        "DownloadModelForPasswordChange"
                     ]
                 }
             ]
@@ -3408,7 +3413,6 @@
                 {
                     "name": "Enabled",
                     "enable_features": [
-                        "DownloadModelForPasswordChange",
                         "ReduceRequirementsForPasswordChange"
                     ]
                 }
@@ -6354,25 +6358,6 @@
                     "name": "Disabled_RepeatableQueries",
                     "disable_features": [
                         "OrganicRepeatableQueries"
-                    ]
-                }
-            ]
-        }
-    ],
-    "ClearBrowsingDataAndroidSurvey": [
-        {
-            "platforms": [
-                "android"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "params": {
-                        "en_site_id": "TmqhVJ5cH0tK1KeaPYj0StW6qFe8",
-                        "probability": "0.0075"
-                    },
-                    "enable_features": [
-                        "ClearBrowsingDataAndroidSurvey"
                     ]
                 }
             ]
@@ -11118,6 +11103,33 @@
                     },
                     "enable_features": [
                         "FontDataServiceAllWebContents"
+                    ]
+                }
+            ]
+        }
+    ],
+    "FontDataServiceLinux": [
+        {
+            "platforms": [
+                "linux"
+            ],
+            "experiments": [
+                {
+                    "name": "Fontations_Enabled",
+                    "params": {
+                        "typeface": "Fontations"
+                    },
+                    "enable_features": [
+                        "FontDataServiceLinux"
+                    ]
+                },
+                {
+                    "name": "Freetype_Enabled",
+                    "params": {
+                        "typeface": "Freetype"
+                    },
+                    "enable_features": [
+                        "FontDataServiceLinux"
                     ]
                 }
             ]
@@ -16285,6 +16297,22 @@
             ]
         }
     ],
+    "NTPPopularSites": [
+        {
+            "platforms": [
+                "android",
+                "ios"
+            ],
+            "experiments": [
+                {
+                    "name": "Version7",
+                    "params": {
+                        "version": "7"
+                    }
+                }
+            ]
+        }
+    ],
     "NavigationThrottleRegistryAttributeCache": [
         {
             "platforms": [
@@ -18167,6 +18195,24 @@
             ]
         }
     ],
+    "PasskeyUnlockManager": [
+        {
+            "platforms": [
+                "chromeos",
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "PasskeyUnlockManager"
+                    ]
+                }
+            ]
+        }
+    ],
     "PasswordFormGroupedAffiliations": [
         {
             "platforms": [
@@ -18616,6 +18662,21 @@
                     ],
                     "disable_features": [
                         "MemoryCacheChangeStrongReferencePruneDelay"
+                    ]
+                }
+            ]
+        }
+    ],
+    "PerformDefaultBrowserCheckValidations": [
+        {
+            "platforms": [
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "PerformDefaultBrowserCheckValidations"
                     ]
                 }
             ]
@@ -20038,39 +20099,19 @@
             ]
         }
     ],
-    "ProcessRankPolicyAndroid": [
+    "ProcessRankPolicyAndroid2": [
         {
             "platforms": [
                 "android"
             ],
             "experiments": [
                 {
-                    "name": "EnabledSubframePriorityContribution_20251027",
+                    "name": "EnabledAll_20251127",
                     "enable_features": [
-                        "SubframePriorityContribution"
-                    ],
-                    "disable_features": [
                         "ChangeUnfocusedPriority",
                         "ProcessRankPolicyAndroid",
                         "ProtectedTabsAndroid",
                         "SubframeImportance"
-                    ]
-                }
-            ]
-        },
-        {
-            "platforms": [
-                "android"
-            ],
-            "experiments": [
-                {
-                    "name": "EnabledAll_20251027",
-                    "enable_features": [
-                        "ChangeUnfocusedPriority",
-                        "ProcessRankPolicyAndroid",
-                        "ProtectedTabsAndroid",
-                        "SubframeImportance",
-                        "SubframePriorityContribution"
                     ]
                 }
             ]
@@ -20121,6 +20162,42 @@
                     "disable_features": [
                         "ProfilePickerTextVariations",
                         "ShowProfilePickerToAllUsersExperiment"
+                    ]
+                }
+            ]
+        }
+    ],
+    "ProfileExperimentsM1FrictionReduction": [
+        {
+            "platforms": [
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Control",
+                    "disable_features": [
+                        "ProfileCreationFrictionReductionExperimentPrefillNameRequirement",
+                        "ProfileCreationFrictionReductionExperimentRemoveSigninStep",
+                        "ProfileCreationFrictionReductionExperimentSkipCustomizeProfile"
+                    ]
+                }
+            ]
+        }
+    ],
+    "ProfileExperimentsM1Usability": [
+        {
+            "platforms": [
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Control",
+                    "disable_features": [
+                        "OpenAllProfilesFromProfilePickerExperiment"
                     ]
                 }
             ]
@@ -20409,25 +20486,6 @@
                     "name": "Enabled",
                     "enable_features": [
                         "QuicLongerIdleConnectionTimeout"
-                    ]
-                }
-            ]
-        }
-    ],
-    "QuickDeleteAndroidSurvey": [
-        {
-            "platforms": [
-                "android"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "params": {
-                        "probability": "0.015",
-                        "trigger_id": "GtpVWQGxM0tK1KeaPYj0QBUXAQ9v"
-                    },
-                    "enable_features": [
-                        "QuickDeleteAndroidSurvey"
                     ]
                 }
             ]
@@ -23880,6 +23938,23 @@
             ]
         }
     ],
+    "SigninPromoLimitsExperiment": [
+        {
+            "platforms": [
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Control",
+                    "disable_features": [
+                        "SigninPromoLimitsExperiment"
+                    ]
+                }
+            ]
+        }
+    ],
     "SimpleCachePrioritizedCaching": [
         {
             "platforms": [
@@ -24580,25 +24655,6 @@
                     "name": "Enabled",
                     "enable_features": [
                         "StringWidthCache"
-                    ]
-                }
-            ]
-        }
-    ],
-    "SubframePriorityContribution": [
-        {
-            "platforms": [
-                "android_webview",
-                "chromeos",
-                "linux",
-                "mac",
-                "windows"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "enable_features": [
-                        "SubframePriorityContribution"
                     ]
                 }
             ]
@@ -25882,6 +25938,24 @@
                         "IPH_SignInBenefits",
                         "ReplaceSyncPromosWithSignInPromos",
                         "SyncEnableContactInfoDataTypeForCustomPassphraseUsers"
+                    ]
+                }
+            ]
+        }
+    ],
+    "UnoPhase2FollowUpDesktop": [
+        {
+            "platforms": [
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "SpellcheckSeparateLocalAndAccountDictionaries",
+                        "UnoPhase2FollowUp"
                     ]
                 }
             ]
@@ -27206,6 +27280,25 @@
                     "name": "Enabled",
                     "enable_features": [
                         "WebOtpBackendAuto"
+                    ]
+                }
+            ]
+        }
+    ],
+    "WebProtectDlpScanPastedImages": [
+        {
+            "platforms": [
+                "chromeos",
+                "fuchsia",
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "DlpScanPastedImages"
                     ]
                 }
             ]

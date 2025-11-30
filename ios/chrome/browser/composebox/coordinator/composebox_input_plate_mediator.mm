@@ -274,6 +274,17 @@ CreateInputDataFromAnnotatedPageContent(
     return;
   }
 
+  // Check file size.
+  NSURL* nsURL = net::NSURLWithGURL(PDFFileURL);
+  NSError* error = nil;
+  NSNumber* fileSize =
+      [[nsURL resourceValuesForKeys:@[ NSURLFileSizeKey ]
+                              error:&error] objectForKey:NSURLFileSizeKey];
+  if (fileSize && [fileSize unsignedLongLongValue] > kMaxPDFFileSize) {
+    [self.delegate showSnackbarForItemUploadDidFail];
+    return;
+  }
+
   ComposeboxInputItem* item = [[ComposeboxInputItem alloc]
       initWithComposeboxInputItemType:ComposeboxInputItemType::
                                           kComposeboxInputItemTypeFile
@@ -308,6 +319,14 @@ CreateInputDataFromAnnotatedPageContent(
 
   if (_composeboxQueryController) {
     _composeboxQueryController->DeleteFile(item.token);
+    if (base::FeatureList::IsEnabled(
+            omnibox::kComposeboxUsesChromeComposeClient) &&
+        _items.count <= 1) {
+      // Reload suggestions to reflect the updated context. This is done only
+      // when there is one or no attachment, as multi-attachment contextual
+      // suggestions are not currently supported.
+      [self.delegate reloadAutocompleteSuggestions];
+    }
   }
 
   if (base::FeatureList::IsEnabled(kComposeboxAutoattachTab) &&
@@ -363,7 +382,7 @@ CreateInputDataFromAnnotatedPageContent(
       _composeboxQueryController->ClearFiles();
     }
     [_items removeAllObjects];
-    [self.consumer setItems:_items];
+    [self updateConsumerItems];
   }
   [self updateCompactModeIfNeeded];
 }
@@ -438,7 +457,10 @@ CreateInputDataFromAnnotatedPageContent(
                       }];
     } else {
       [_webStateDeferredExecutor webState:webState
-                        executeOnceLoaded:^{
+                        executeOnceLoaded:^(BOOL success) {
+                          if (!success) {
+                            return;
+                          }
                           [weakSelf attachWebStateContent:webState
                                                     token:token
                                              hasCachedAPC:NO];
@@ -469,6 +491,7 @@ CreateInputDataFromAnnotatedPageContent(
   _latestTabSelectionMapping[token] = webState->GetUniqueIdentifier();
 
   [self updateConsumerItems];
+  [self updateConsumerActionsState];
 
   if (_faviconLoader) {
     __weak __typeof(self) weakSelf = self;
@@ -639,9 +662,14 @@ CreateInputDataFromAnnotatedPageContent(
     case contextual_search::FileUploadStatus::kValidationFailed:
     case contextual_search::FileUploadStatus::kUploadExpired:
       item.state = ComposeboxInputItemState::kError;
+      [self.delegate showSnackbarForItemUploadDidFail];
+      [self removeItem:item];
       break;
     case contextual_search::FileUploadStatus::kProcessingSuggestSignalsReady:
-      [self.delegate reloadAutocompleteSuggestions];
+      // Avoid reloading when suggest inputs are invalid (e.g. empty).
+      if (AreLensSuggestInputsReady([self suggestInputs])) {
+        [self.delegate reloadAutocompleteSuggestions];
+      }
       break;
     case contextual_search::FileUploadStatus::kNotUploaded:
     case contextual_search::FileUploadStatus::kProcessing:
@@ -931,7 +959,7 @@ CreateInputDataFromAnnotatedPageContent(
 - (BOOL)updateOptionToAttachCurrentTab {
   web::WebState* webState = _webStateList->GetActiveWebState();
   if (!webState) {
-    [_consumer setCanAttachCurrentTab:NO];
+    [_consumer hideAttachCurrentTabAction:YES];
     return NO;
   }
 
@@ -942,15 +970,34 @@ CreateInputDataFromAnnotatedPageContent(
       alreadyProcessedIDs.contains(webState->GetUniqueIdentifier());
 
   BOOL canAttachTab = !isNTP && !alreadyProcessed;
-  [_consumer setCanAttachCurrentTab:canAttachTab];
+  [_consumer hideAttachCurrentTabAction:!canAttachTab];
   return canAttachTab;
 }
 
+/// Updates the consumer actions enabled/disable state.
+- (void)updateConsumerActionsState {
+  BOOL hasTabOrFile = NO;
+  for (ComposeboxInputItem* item in _items) {
+    if (item.type == ComposeboxInputItemType::kComposeboxInputItemTypeTab ||
+        item.type == ComposeboxInputItemType::kComposeboxInputItemTypeFile) {
+      hasTabOrFile = YES;
+      break;
+    }
+  }
+  [self.consumer disableCreateImageActions:hasTabOrFile];
+
+  // TODO(crbug.com/454832175): Disable tabs and files actions in image creation
+  // mode.
+  BOOL isImageCreation = NO;
+  [self.consumer disableAttachTabActions:isImageCreation];
+  [self.consumer disableAttachFileActions:isImageCreation];
+}
 /// Updates the consumer items and maybe trigger AIM.
 - (void)updateConsumerItems {
   DCHECK_CALLED_ON_VALID_SEQUENCE(_sequenceChecker);
   [self.consumer setItems:_items];
   [self updateOptionToAttachCurrentTab];
+  [self updateConsumerActionsState];
 
   if (_items.count > 0) {
     if (!_AIModeEnabled) {
@@ -959,17 +1006,14 @@ CreateInputDataFromAnnotatedPageContent(
           recordAiModeActivationSource:AiModeActivationSource::kImplicit];
     }
     [self.consumer setAIModeEnabled:YES];
-  } else if (base::FeatureList::IsEnabled(
-                 omnibox::kComposeboxUsesChromeComposeClient)) {
-    [self.delegate reloadAutocompleteSuggestions];
   }
 }
 
 - (void)updateCompactModeIfNeeded {
   BOOL compactModeAllowed = IsComposeboxCompactModeEnabled();
   BOOL requiresExpansion = _isMultiline || _AIModeEnabled;
-  BOOL isCompactMode = !requiresExpansion && compactModeAllowed;
-  [self.consumer setIsCompactMode:isCompactMode];
+  BOOL compact = !requiresExpansion && compactModeAllowed;
+  [self.consumer setCompact:compact];
 }
 
 #pragma mark - TextFieldViewContainingHeightDelegate

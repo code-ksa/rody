@@ -10,6 +10,7 @@
 #include "base/functional/bind.h"
 #include "base/location.h"
 #include "base/task/sequenced_task_runner.h"
+#include "base/test/metrics/histogram_tester.h"
 #include "base/test/task_environment.h"
 #include "base/test/test_future.h"
 #include "components/legion/attestation_handler.h"
@@ -202,6 +203,7 @@ class SecureChannelImplTest : public ::testing::Test {
   void SetUpHandshakeAndAttestation();
 
   base::test::TaskEnvironment task_environment_;
+  base::HistogramTester histogram_tester_;
 
   std::unique_ptr<SecureChannelImpl> secure_channel_;
 
@@ -268,6 +270,23 @@ TEST_F(SecureChannelImplTest, WriteAndEstablishSessionSucceeds) {
   const auto& result = future.Get();
   ASSERT_TRUE(result.has_value());
   EXPECT_EQ(BytesToString(result.value()), "secret response");
+
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendAttestationRequestLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendAttestationRequestLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Error", 0);
 }
 
 // Tests that a closed channel is reported through the response callback.
@@ -296,9 +315,8 @@ TEST_F(SecureChannelImplTest, AttestationErrorFailsWrite) {
       .WillOnce(Return(expected_attestation_request.attest_request()));
   EXPECT_CALL(*transport_,
               Send(EqualsSessionRequest(expected_attestation_request)))
-      .WillOnce([&]() {
-        response_callback_.Run(attestation_session_response);
-      });
+      .WillOnce(
+          [&]() { response_callback_.Run(attestation_session_response); });
   EXPECT_CALL(*attestation_handler_, VerifyAttestationResponse(_))
       .WillOnce(Return(false));
 
@@ -309,6 +327,21 @@ TEST_F(SecureChannelImplTest, AttestationErrorFailsWrite) {
   const auto& result = future.Get();
   ASSERT_FALSE(result.has_value());
   EXPECT_EQ(result.error(), ErrorCode::kAttestationFailed);
+
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendAttestationRequestLatency.Error", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Success", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Success", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Error", 0);
 }
 
 // Tests a transport-level error during the attestation phase of session
@@ -338,6 +371,21 @@ TEST_F(SecureChannelImplTest, TransportErrorDuringAttestationFailsRequest) {
   const auto& result = future.Get();
   ASSERT_FALSE(result.has_value());
   EXPECT_EQ(result.error(), ErrorCode::kAttestationFailed);
+
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Success", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Success", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendAttestationRequestLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Error", 0);
 }
 
 // Tests a transport-level error during the handshake phase of session
@@ -385,6 +433,21 @@ TEST_F(SecureChannelImplTest, TransportErrorDuringHandshakeFailsRequest) {
   const auto& result = future.Get();
   ASSERT_FALSE(result.has_value());
   EXPECT_EQ(result.error(), ErrorCode::kHandshakeFailed);
+
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendAttestationRequestLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Success", 0);
 }
 
 // Tests a transport-level error after the session is established.
@@ -430,6 +493,19 @@ TEST_F(SecureChannelImplTest, GetAttestationRequestFails) {
   const auto& result = future.Get();
   ASSERT_FALSE(result.has_value());
   EXPECT_EQ(result.error(), ErrorCode::kAttestationFailed);
+
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Error", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Success", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Success", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Success", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Error", 0);
 }
 
 // Tests a failure in processing the handshake response.
@@ -458,16 +534,13 @@ TEST_F(SecureChannelImplTest, ProcessHandshakeResponseFails) {
       .WillOnce(Return(expected_attestation_request.attest_request()));
   EXPECT_CALL(*transport_,
               Send(EqualsSessionRequest(expected_attestation_request)))
-      .WillOnce([&]() {
-        response_callback_.Run(attestation_session_response);
-      });
+      .WillOnce(
+          [&]() { response_callback_.Run(attestation_session_response); });
   EXPECT_CALL(*attestation_handler_, VerifyAttestationResponse(_))
       .WillOnce(Return(true));
   EXPECT_CALL(*transport_,
               Send(EqualsSessionRequest(expected_handshake_request)))
-      .WillOnce([&]() {
-        response_callback_.Run(handshake_session_response);
-      });
+      .WillOnce([&]() { response_callback_.Run(handshake_session_response); });
 
   base::test::TestFuture<base::expected<Response, ErrorCode>> future;
   secure_channel_->SetResponseCallback(future.GetRepeatingCallback());
@@ -476,6 +549,23 @@ TEST_F(SecureChannelImplTest, ProcessHandshakeResponseFails) {
   const auto& result = future.Get();
   ASSERT_FALSE(result.has_value());
   EXPECT_EQ(result.error(), ErrorCode::kHandshakeFailed);
+
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendAttestationRequestLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Success", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Error", 1);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetAttestationRequestLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendAttestationRequestLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.GetHandshakeMessageLatency.Error", 0);
+  histogram_tester_.ExpectTotalCount(
+      "Legion.SecureChannel.SendHandshakeRequestLatency.Success", 0);
 }
 
 // Tests a failure to encrypt a request after the session is established.
@@ -563,6 +653,99 @@ TEST_F(SecureChannelImplTest, WriteInClosedState) {
 
   // Second write should fail immediately.
   EXPECT_FALSE(secure_channel_->Write(StringToBytes("secret request")));
+}
+
+// Tests the successful establishment of a secure session via EstablishChannel.
+TEST_F(SecureChannelImplTest, EstablishChannelSucceeds) {
+  SetUpHandshakeAndAttestation();
+
+  base::test::TestFuture<base::expected<void, ErrorCode>> future;
+  secure_channel_->EstablishChannel(future.GetCallback());
+
+  const auto& result = future.Get();
+  ASSERT_TRUE(result.has_value());
+}
+
+// Tests a failed establishment of a secure session via EstablishChannel.
+TEST_F(SecureChannelImplTest, EstablishChannelFails) {
+  EXPECT_CALL(*attestation_handler_, GetAttestationRequest())
+      .WillOnce(Return(std::nullopt));
+
+  base::test::TestFuture<base::expected<void, ErrorCode>> future;
+  secure_channel_->EstablishChannel(future.GetCallback());
+
+  const auto& result = future.Get();
+  ASSERT_FALSE(result.has_value());
+  EXPECT_EQ(result.error(), ErrorCode::kAttestationFailed);
+}
+
+// Tests calling EstablishChannel on an already established channel.
+TEST_F(SecureChannelImplTest, EstablishChannelOnEstablishedChannel) {
+  // First, establish the channel.
+  SetUpHandshakeAndAttestation();
+  base::test::TestFuture<base::expected<void, ErrorCode>> future;
+  secure_channel_->EstablishChannel(future.GetCallback());
+  ASSERT_TRUE(future.Get().has_value());
+
+  // Now, call it again. It should succeed immediately.
+  base::test::TestFuture<base::expected<void, ErrorCode>> second_future;
+  secure_channel_->EstablishChannel(second_future.GetCallback());
+  const auto& result = second_future.Get();
+  ASSERT_TRUE(result.has_value());
+}
+
+// Tests calling EstablishChannel on a closed channel.
+TEST_F(SecureChannelImplTest, EstablishChannelOnClosedChannel) {
+  // First, force the channel to close.
+  EXPECT_CALL(*attestation_handler_, GetAttestationRequest())
+      .WillOnce(Return(std::nullopt));
+  base::test::TestFuture<base::expected<void, ErrorCode>> future;
+  secure_channel_->EstablishChannel(future.GetCallback());
+  ASSERT_FALSE(future.Get().has_value());
+
+  // Now, call it again. It should fail immediately.
+  base::test::TestFuture<base::expected<void, ErrorCode>> second_future;
+  secure_channel_->EstablishChannel(second_future.GetCallback());
+  const auto& result = second_future.Get();
+  ASSERT_FALSE(result.has_value());
+  EXPECT_EQ(result.error(), ErrorCode::kError);
+}
+
+// Tests that a write request after EstablishChannel is queued and succeeds.
+TEST_F(SecureChannelImplTest, WriteAfterEstablishChannelSucceeds) {
+  SetUpHandshakeAndAttestation();
+
+  oak::session::v1::SessionRequest expected_session_request;
+  {
+    oak::session::v1::EncryptedMessage encrypted_request;
+    encrypted_request.set_ciphertext("encrypted: secret request");
+    *expected_session_request.mutable_encrypted_message() = encrypted_request;
+  }
+
+  EXPECT_CALL(*transport_, Send(EqualsSessionRequest(expected_session_request)))
+      .WillOnce([&]() {
+        oak::session::v1::SessionResponse response;
+        {
+          oak::session::v1::EncryptedMessage encrypted_response;
+          encrypted_response.set_ciphertext("encrypted: secret response");
+          *response.mutable_encrypted_message() = encrypted_response;
+        }
+        response_callback_.Run(response);
+      });
+
+  base::test::TestFuture<base::expected<void, ErrorCode>> establish_future;
+  secure_channel_->EstablishChannel(establish_future.GetCallback());
+
+  base::test::TestFuture<base::expected<Response, ErrorCode>> write_future;
+  secure_channel_->SetResponseCallback(write_future.GetRepeatingCallback());
+  EXPECT_TRUE(secure_channel_->Write(StringToBytes("secret request")));
+
+  const auto& establish_result = establish_future.Get();
+  ASSERT_TRUE(establish_result.has_value());
+
+  const auto& write_result = write_future.Get();
+  ASSERT_TRUE(write_result.has_value());
+  EXPECT_EQ(BytesToString(write_result.value()), "secret response");
 }
 
 }  // namespace

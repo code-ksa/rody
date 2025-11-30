@@ -10,6 +10,7 @@
 #include "components/optimization_guide/proto/features/walletable_pass_extraction.pb.h"
 #include "components/optimization_guide/proto/hints.pb.h"
 #include "components/strike_database/strike_database_base.h"
+#include "components/wallet/core/browser/walletable_pass_client.h"
 #include "components/wallet/core/browser/walletable_permission_utils.h"
 #include "url/gurl.h"
 
@@ -58,13 +59,13 @@ void WalletablePassIngestionController::RegisterOptimizationTypes() {
 
 void WalletablePassIngestionController::StartWalletablePassDetectionFlow(
     const GURL& url) {
-  std::optional<PassCategory> pass_category = GetPassCategoryForURL(url);
-  if (!pass_category) {
+  if (!IsEligibleForWalletablePassDetection(client_->GetIdentityManager(),
+                                            client_->GetGeoIpCountryCode())) {
     return;
   }
 
-  if (!IsEligibleForWalletablePassDetection(client_->GetIdentityManager(),
-                                            client_->GetGeoIpCountryCode())) {
+  std::optional<PassCategory> pass_category = GetPassCategoryForURL(url);
+  if (!pass_category) {
     return;
   }
 
@@ -136,6 +137,7 @@ void WalletablePassIngestionController::OnGetConsentBubbleResult(
       break;
     case kLostFocus:
     case kUnknown:
+    case kDiscarded:
       consent_strike_db_->AddStrike();
       // TODO(crbug.com/452779539): Report other outcomes to UMA.
       break;
@@ -171,7 +173,7 @@ void WalletablePassIngestionController::ExtractWalletablePass(
   client_->GetRemoteModelExecutor()->ExecuteModel(
       optimization_guide::ModelBasedCapabilityKey::kWalletablePassExtraction,
       std::move(request),
-      /*execution_timeout=*/std::nullopt,
+      /*options=*/{},
       base::BindOnce(
           &WalletablePassIngestionController::OnExtractWalletablePass,
           weak_ptr_factory_.GetWeakPtr(), url));
@@ -252,6 +254,7 @@ void WalletablePassIngestionController::OnGetSaveBubbleResult(
       break;
     case kLostFocus:
     case kUnknown:
+    case kDiscarded:
       // TODO(crbug.com/452779539): Report other outcomes to UMA.
       break;
   }

@@ -641,7 +641,11 @@ export class PasswordManagerImpl implements PasswordManagerProxy {
   }
 
   switchBiometricAuthBeforeFillingState() {
-    return chrome.passwordsPrivate.switchBiometricAuthBeforeFillingState();
+    if (!loadTimeData.getBoolean('enablePasswordManagerMojoApi')) {
+      return chrome.passwordsPrivate.switchBiometricAuthBeforeFillingState();
+    }
+    return this.handler.switchBiometricAuthBeforeFillingState().then(
+        result => result.success);
   }
 
   showExportedFileInShell(filePath: string) {
@@ -736,7 +740,11 @@ export class PasswordManagerImpl implements PasswordManagerProxy {
   }
 
   isPasswordManagerPinAvailable() {
-    return chrome.passwordsPrivate.isPasswordManagerPinAvailable();
+    if (!loadTimeData.getBoolean('enablePasswordManagerMojoApi')) {
+      return chrome.passwordsPrivate.isPasswordManagerPinAvailable();
+    }
+    return this.handler.isPasswordManagerPinAvailable().then(
+        result => result.isAvailable);
   }
 
   disconnectCloudAuthenticator() {

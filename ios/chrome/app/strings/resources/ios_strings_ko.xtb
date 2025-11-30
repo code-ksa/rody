@@ -596,7 +596,6 @@
 <translation id="3277021493514034324">사이트 주소가 복사되었습니다.</translation>
 <translation id="3280562213547448728">음성 검색</translation>
 <translation id="3289505634533552500">음성 검색</translation>
-<translation id="3293080634164207409">탭 추가</translation>
 <translation id="3295904109373959849">탭 그룹 그리드</translation>
 <translation id="3302837541200840455"><ph name="TAB_TITLE" />, 새 활동</translation>
 <translation id="3305294846493618482">더보기</translation>
@@ -1284,6 +1283,7 @@ Handoff는 설정의 일반 섹션에서도 사용 설정할 수 있으며, 이�
 <translation id="5902752768726620872">{count,plural, =1{새 탭 {count}개}other{새 탭 {count}개}}</translation>
 <translation id="5911030830365207728">Google 번역</translation>
 <translation id="5922999516621365983">탭을 고정하려면 여기로 드래그하세요</translation>
+<translation id="5930982343430790032">{COUNT,plural, =1{파일, 탭 또는 이미지를 최대 1개 추가하세요.}other{파일, 탭 또는 이미지를 최대 {COUNT}개 추가하세요.}}</translation>
 <translation id="5936006948844852401">저장용량 관리</translation>
 <translation id="5936065461722368675">전체 페이지 번역</translation>
 <translation id="5937560539988385583">페이지 번역됨</translation>
@@ -1872,6 +1872,7 @@ Handoff는 설정의 일반 섹션에서도 사용 설정할 수 있으며, 이�
 <translation id="8032569120109842252">팔로우 중</translation>
 <translation id="8035133914807600019">새 폴더…</translation>
 <translation id="8035412398498507358">포토</translation>
+<translation id="8037713009824540257">사이트 추가</translation>
 <translation id="8040407350301524547">경로 옵션을 보려면 '길찾기'를 탭합니다.</translation>
 <translation id="804427445359061970">여기에서 다른 기기의 탭을 확인할 수 있습니다</translation>
 <translation id="8058655154417507695">유효기간 연도</translation>

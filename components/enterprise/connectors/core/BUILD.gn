@@ -105,11 +105,14 @@ source_set("cloud_content_scanning") {
     "cloud_content_scanning/connector_data_pipe_getter.h",
     "cloud_content_scanning/connector_upload_request.cc",
     "cloud_content_scanning/connector_upload_request.h",
+    "cloud_content_scanning/multipart_uploader_base.cc",
+    "cloud_content_scanning/multipart_uploader_base.h",
   ]
   deps = [
-    "//components/file_access",
     "//base",
     "//components/enterprise/obfuscation/core:enterprise_obfuscation",
+    "//components/file_access",
+    "//components/safe_browsing/core/common",
     "//mojo/public/cpp/bindings",
     "//net",
     "//services/network/public/cpp",
@@ -140,9 +143,12 @@ source_set("test_support") {
     "realtime_reporting_test_server.h",
     "reporting_test_utils.cc",
     "reporting_test_utils.h",
+    "uploader_test_utils.cc",
+    "uploader_test_utils.h",
   ]
 
   deps = [
+    ":cloud_content_scanning",
     ":core",
     "//base/test:test_support",
     "//components/enterprise",

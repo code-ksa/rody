@@ -74,6 +74,7 @@
 <translation id="1274654146705270731">תפוזים</translation>
 <translation id="1275718070701477396">נבחר</translation>
 <translation id="1290331692326790741">אות חלש</translation>
+<translation id="1292474106138697109">מסך כלי העזר להוראה</translation>
 <translation id="1300115153046603471">‏ה-APN הוא מסוג ברירת מחדל ו<ph name="ATTACH" />.</translation>
 <translation id="1301069673413256657">GSM</translation>
 <translation id="1301340234286078471">המרה</translation>
@@ -1046,6 +1047,7 @@
 <translation id="5596627076506792578">אפשרויות נוספות</translation>
 <translation id="5600027863942488546">בוצעה בדיקה של המקש <ph name="KEY_NAME" /></translation>
 <translation id="5606865426897221650">‏מקש Tab</translation>
+<translation id="5612205513582918357">אפליקציית כלי העזר להוראה משתפת את המסך שלך עם <ph name="RECEIVER_NAME" /></translation>
 <translation id="5613201299517339763">התנתקת מהחשבון</translation>
 <translation id="5620281292257375798">פנימי בלבד</translation>
 <translation id="5628106863521633649">השפות הזמינות</translation>
@@ -1635,7 +1637,6 @@
 <translation id="8167413449582155132">‏הרקע מבוסס על AI מבית Google</translation>
 <translation id="8171020708598805594">‏אפשר ליצור תמלילים באופן אוטומטי, לקבל סיכומי הקלטות באמצעות AI מבית Google ולחפש אודיו. ניתן ליצור הקלטות גם כשאין חיבור לאינטרנט.</translation>
 <translation id="8179976553408161302">Enter</translation>
-<translation id="8181979490873420600">איך לשתף את המסך בכלי העזר להוראה</translation>
 <translation id="8183975772394450380">חוף</translation>
 <translation id="819278132617411009">‏אפשר להשתמש ב-AI מבית Google כדי לשפר את הפרודוקטיביות</translation>
 <translation id="8200772114523450471">חידוש</translation>

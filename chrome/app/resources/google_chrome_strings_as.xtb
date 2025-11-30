@@ -168,7 +168,6 @@
 <translation id="2841525013647267359">এই ভাষাটোৰ পৰা অনুবাদ কৰক</translation>
 <translation id="2846251086934905009">ইনষ্টল কৰোঁতে আসোঁৱাহ হৈছে: ইনষ্টলাৰটোৱে সম্পূৰ্ণ কৰিব নোৱাৰিলে। ইনষ্টলেশ্বনটো বন্ধ কৰি দিয়া হৈছে।</translation>
 <translation id="2853415089995957805">Chromeএ আপুনি চোৱাৰ সম্ভাৱনা থকা পৃষ্ঠাসমূহ আগতীয়াকৈ ল’ড কৰে, যাতে আপুনি চোৱাৰ সময়ত সেইবোৰ অধিক ক্ষিপ্ৰতাৰে ল’ড হয়</translation>
-<translation id="2856481144859256719">Google Searchৰ শ্বৰ্টকাটত সদায় AI ম’ড দেখুৱাওক</translation>
 <translation id="2857540653560290388">Chrome লঞ্চ কৰি থকা হৈছে...</translation>
 <translation id="286025080868315611">Chromeএ কিয় কিছুমান ডাউনল’ড অৱৰোধ কৰে সেই বিষয়ে জানক</translation>
 <translation id="2861074815332034794">Chrome আপডে’ট কৰি থকা হৈছে (<ph name="PROGRESS_PERCENT" />)</translation>
@@ -567,6 +566,7 @@ Google Chromeএ আপোনাৰ ছেটিংসমূহ পুনৰু�
 <translation id="7285616922384953075"><ph name="MANAGER" />এ Chrome পৰিচালনা কৰে</translation>
 <translation id="7288567540154601580">টেব আৰু এক্সটেনশ্বন</translation>
 <translation id="7296210096911315575">ব্যৱহাৰ আৰু সুৰক্ষা সম্পর্কীয় গুৰুত্বপূর্ণ তথ্য</translation>
+<translation id="7302361266603927550">আপোনাৰ কিছুমান Chromeৰ ডেটা এতিয়াও আপোনাৰ Google একাউণ্টত ছেভ কৰা হোৱা নাই। ছাইন আউট কৰাৰ আগতে কেইমিনিটমান অপেক্ষা কৰি চাওক। যদি আপুনি এতিয়াই ছাইন আউট কৰে, এই ডেটা মচি পেলোৱা হ’ব।</translation>
 <translation id="7308322188646931570">ফাইল ডাউনল’ড কৰিবলৈ Chromeক ষ্ট’ৰেজৰ এক্সেছৰ আৱশ্যক</translation>
 <translation id="7339898014177206373">নতুন ৱিণ্ড'</translation>
 <translation id="7352651011704765696">কিবা সমস্যা হৈছে</translation>
@@ -623,6 +623,7 @@ Google Chromeএ আপোনাৰ ছেটিংসমূহ পুনৰু�
 <translation id="7801699035218095297">Google Chromeএ পাছৱর্ডসমূহ প্ৰতিলিপি কৰিবলৈ চেষ্টা কৰি আছে। ইয়াৰ অনুমতি দিবলৈ আপোনাৰ Windowsৰ পাছৱৰ্ডটো টাইপ কৰক।</translation>
 <translation id="7804364787702057554">Chromeত আপোনাৰ একাউণ্ট</translation>
 <translation id="7808348361785373670">Chromeৰ পৰা আঁতৰাওক...</translation>
+<translation id="7827099906024714326">আপোনাৰ Google একাউণ্টত কিছুমান ডেটা ছেভ কৰা আৰু আপোনাৰ আটাইবোৰ ডিভাইচত ব্যৱহাৰ কৰাৰ আগতে Chromeএ এয়া আপুনিয়েই বুলি সত্যাপন কৰিব লাগিব। যদি আপুনি এতিয়াই ছাইন আউট কৰে, এই ডেটা মচি পেলোৱা হ’ব।</translation>
 <translation id="7845233973568007926">ইনষ্টল কৰাৰ বাবে ধন্যবাদ। আপুনি <ph name="BUNDLE_NAME" /> ব্যৱহাৰ কৰাৰ পূৰ্বে আপোনাৰ কম্পিউটাৰটো ৰিষ্টাৰ্ট কৰিবই লাগিব।</translation>
 <translation id="7849037457735762883">আপুনি য’ত এৰিছিল তাৰ পৰা অব্যাহত ৰাখক: আপুনি প্ৰতিবাৰে ৰিষ্টাৰ্ট কৰোঁতে Chromeএ আপোনাৰ টেবসমূহ পুনঃস্থাপন কৰিব পাৰে। এইটো অন কৰিবলৈ ইয়ালৈ যাওক</translation>
 <translation id="7872446069773932638">ডাউনল’ড হৈ আছে... <ph name="SECONDS" /> ছেকেণ্ড বাকী আছে</translation>
@@ -668,6 +669,7 @@ Google Chromeএ আপোনাৰ ছেটিংসমূহ পুনৰু�
 <translation id="835927394551949760">Googleক সোধক</translation>
 <translation id="8362914115861174987">এই ভাষাটোলৈ অনুবাদ কৰক</translation>
 <translation id="8366770919198174997">কাৰ্যদক্ষতা কম কৰে কিন্তু Chromeক আক্ৰমণৰ বাবে অধিক প্ৰতিৰোধী কৰে</translation>
+<translation id="8367705492654390392">যিকোনো প্ৰশ্ন সোধক</translation>
 <translation id="8370517070665726704">স্বত্বাধিকাৰ <ph name="YEAR" /> Google LLC। সর্বস্বত্ব সংৰক্ষিত।</translation>
 <translation id="8377158135256176353">Chrome Canaryত Gemini ট’গল কৰক</translation>
 <translation id="8387459386171870978">Chrome ব্যৱহাৰ কৰাটো অব্যাহত ৰাখক</translation>

@@ -5,6 +5,7 @@
 package org.chromium.chrome.browser.ntp_customization.theme.chrome_colors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -23,6 +24,7 @@ import android.text.TextWatcher;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.View.MeasureSpec;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import androidx.annotation.ColorInt;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -103,6 +105,12 @@ public class NtpChromeColorsCoordinatorUnitTest {
         assertNotNull(
                 mPropertyModel.get(NtpChromeColorsProperties.PRIMARY_COLOR_INPUT_TEXT_WATCHER));
         assertNotNull(mPropertyModel.get(NtpChromeColorsProperties.SAVE_BUTTON_CLICK_LISTENER));
+        assertNotNull(
+                mPropertyModel.get(
+                        NtpChromeColorsProperties.DAILY_REFRESH_SWITCH_ON_CHECKED_CHANGE_LISTENER));
+        assertEquals(
+                NtpCustomizationUtils.getIsChromeColorDailyRefreshEnabledFromSharedPreference(),
+                mPropertyModel.get(NtpChromeColorsProperties.IS_DAILY_REFRESH_SWITCH_CHECKED));
     }
 
     @Test
@@ -132,6 +140,9 @@ public class NtpChromeColorsCoordinatorUnitTest {
         assertNotNull(
                 mPropertyModel.get(NtpChromeColorsProperties.PRIMARY_COLOR_INPUT_TEXT_WATCHER));
         assertNotNull(mPropertyModel.get(NtpChromeColorsProperties.SAVE_BUTTON_CLICK_LISTENER));
+        assertNotNull(
+                mPropertyModel.get(
+                        NtpChromeColorsProperties.DAILY_REFRESH_SWITCH_ON_CHECKED_CHANGE_LISTENER));
 
         mCoordinator.destroy();
 
@@ -141,6 +152,9 @@ public class NtpChromeColorsCoordinatorUnitTest {
                 mPropertyModel.get(NtpChromeColorsProperties.BACKGROUND_COLOR_INPUT_TEXT_WATCHER));
         assertNull(mPropertyModel.get(NtpChromeColorsProperties.PRIMARY_COLOR_INPUT_TEXT_WATCHER));
         assertNull(mPropertyModel.get(NtpChromeColorsProperties.SAVE_BUTTON_CLICK_LISTENER));
+        assertNull(
+                mPropertyModel.get(
+                        NtpChromeColorsProperties.DAILY_REFRESH_SWITCH_ON_CHECKED_CHANGE_LISTENER));
     }
 
     @Test
@@ -186,40 +200,104 @@ public class NtpChromeColorsCoordinatorUnitTest {
     }
 
     @Test
-    public void testColorGridView_onMeasure() {
-        NtpChromeColorGridRecyclerView gridView =
+    public void testDestroy_logMetricsWithDailyRefreshToggledOn() {
+        OnCheckedChangeListener dailyRefreshSwitchChangeListener =
+                mPropertyModel.get(
+                        NtpChromeColorsProperties.DAILY_REFRESH_SWITCH_ON_CHECKED_CHANGE_LISTENER);
+        assertNotNull(dailyRefreshSwitchChangeListener);
+        assertFalse(
+                NtpCustomizationUtils.getIsChromeColorDailyRefreshEnabledFromSharedPreference());
+
+        dailyRefreshSwitchChangeListener.onCheckedChanged(null, true);
+
+        String histogramName = "NewTabPage.Customization.Theme.ChromeColor.TurnOnDailyRefresh";
+        HistogramWatcher histogramWatcher =
+                HistogramWatcher.newSingleRecordWatcher(histogramName, true);
+        mCoordinator.destroy();
+        histogramWatcher.assertExpected();
+    }
+
+    @Test
+    public void testDestroy_logMetricsWithDailyRefreshToggledOff() {
+        NtpCustomizationUtils.setIsChromeColorDailyRefreshEnabledToSharedPreference(true);
+        createCoordinator();
+        OnCheckedChangeListener dailyRefreshSwitchChangeListener =
+                mPropertyModel.get(
+                        NtpChromeColorsProperties.DAILY_REFRESH_SWITCH_ON_CHECKED_CHANGE_LISTENER);
+        assertNotNull(dailyRefreshSwitchChangeListener);
+        assertTrue(NtpCustomizationUtils.getIsChromeColorDailyRefreshEnabledFromSharedPreference());
+
+        dailyRefreshSwitchChangeListener.onCheckedChanged(null, false);
+
+        String histogramName = "NewTabPage.Customization.Theme.ChromeColor.TurnOnDailyRefresh";
+        HistogramWatcher histogramWatcher =
+                HistogramWatcher.newSingleRecordWatcher(histogramName, false);
+        mCoordinator.destroy();
+        histogramWatcher.assertExpected();
+    }
+
+    @Test
+    public void testDestroy_logMetricsWithDailyRefreshToggledMultipleTimes() {
+        OnCheckedChangeListener dailyRefreshSwitchChangeListener =
+                mPropertyModel.get(
+                        NtpChromeColorsProperties.DAILY_REFRESH_SWITCH_ON_CHECKED_CHANGE_LISTENER);
+        assertNotNull(dailyRefreshSwitchChangeListener);
+        assertFalse(
+                NtpCustomizationUtils.getIsChromeColorDailyRefreshEnabledFromSharedPreference());
+
+        dailyRefreshSwitchChangeListener.onCheckedChanged(null, true);
+        dailyRefreshSwitchChangeListener.onCheckedChanged(null, false);
+        dailyRefreshSwitchChangeListener.onCheckedChanged(null, true);
+
+        String histogramName = "NewTabPage.Customization.Theme.ChromeColor.TurnOnDailyRefresh";
+        HistogramWatcher histogramWatcher =
+                HistogramWatcher.newSingleRecordWatcher(histogramName, true);
+        mCoordinator.destroy();
+        histogramWatcher.assertExpected();
+    }
+
+    @Test
+    public void testColorGridRecyclerView() {
+        NtpChromeColorGridRecyclerView gridRecyclerView =
+                new NtpChromeColorGridRecyclerView(mContext, null);
+        assertNull(gridRecyclerView.getItemAnimator());
+    }
+
+    @Test
+    public void testColorGridRecyclerView_onMeasure() {
+        NtpChromeColorGridRecyclerView gridRecyclerView =
                 new NtpChromeColorGridRecyclerView(mContext, null);
         GridLayoutManager layoutManager = spy(new GridLayoutManager(mContext, 1));
-        gridView.setLayoutManager(layoutManager);
+        gridRecyclerView.setLayoutManager(layoutManager);
 
         int itemWidth = 50;
         int spacing = 10;
-        gridView.setItemWidth(itemWidth);
-        gridView.setSpacing(spacing);
+        gridRecyclerView.setItemWidth(itemWidth);
+        gridRecyclerView.setSpacing(spacing);
 
         // Test case 1: width allows for exactly 3 items
         int width1 = 3 * (itemWidth + spacing);
-        gridView.measure(
+        gridRecyclerView.measure(
                 MeasureSpec.makeMeasureSpec(width1, MeasureSpec.EXACTLY),
                 MeasureSpec.makeMeasureSpec(100, MeasureSpec.EXACTLY));
         verify(layoutManager).setSpanCount(eq(3));
 
         // Test case 2: width allows for 2.5 items, should round down to 2
         int width2 = 2 * (itemWidth + spacing) + (itemWidth / 2);
-        gridView.measure(
+        gridRecyclerView.measure(
                 MeasureSpec.makeMeasureSpec(width2, MeasureSpec.EXACTLY),
                 MeasureSpec.makeMeasureSpec(100, MeasureSpec.EXACTLY));
         verify(layoutManager).setSpanCount(eq(2));
 
         // Test case 3: width allows for less than 1 item, should be 1
         int width3 = itemWidth / 2;
-        gridView.measure(
+        gridRecyclerView.measure(
                 MeasureSpec.makeMeasureSpec(width3, MeasureSpec.EXACTLY),
                 MeasureSpec.makeMeasureSpec(100, MeasureSpec.EXACTLY));
         verify(layoutManager).setSpanCount(eq(1));
 
         // Test case 4: width is same as before, should not change span count.
-        gridView.measure(
+        gridRecyclerView.measure(
                 MeasureSpec.makeMeasureSpec(width3, MeasureSpec.EXACTLY),
                 MeasureSpec.makeMeasureSpec(100, MeasureSpec.EXACTLY));
         verify(layoutManager).setSpanCount(eq(1));
@@ -227,9 +305,9 @@ public class NtpChromeColorsCoordinatorUnitTest {
 
     @Test
     public void testAdapter_callsCallback() {
-        NtpChromeColorGridRecyclerView gridView =
+        NtpChromeColorGridRecyclerView gridRecyclerView =
                 mBottomSheetView.findViewById(R.id.chrome_colors_recycler_view);
-        NtpChromeColorsAdapter adapter = (NtpChromeColorsAdapter) gridView.getAdapter();
+        NtpChromeColorsAdapter adapter = (NtpChromeColorsAdapter) gridRecyclerView.getAdapter();
         assertNotNull(adapter);
 
         // Click the first item.
@@ -316,6 +394,21 @@ public class NtpChromeColorsCoordinatorUnitTest {
         // color value.
         colorHex = "FF0000";
         assertEquals(color, mCoordinator.getColorFromHex(colorHex).intValue());
+    }
+
+    @Test
+    public void testDailyRefreshSwitchToggled() {
+        OnCheckedChangeListener dailyRefreshSwitchChangeListener =
+                mPropertyModel.get(
+                        NtpChromeColorsProperties.DAILY_REFRESH_SWITCH_ON_CHECKED_CHANGE_LISTENER);
+        assertNotNull(dailyRefreshSwitchChangeListener);
+
+        dailyRefreshSwitchChangeListener.onCheckedChanged(null, true);
+        assertTrue(NtpCustomizationUtils.getIsChromeColorDailyRefreshEnabledFromSharedPreference());
+
+        dailyRefreshSwitchChangeListener.onCheckedChanged(null, false);
+        assertFalse(
+                NtpCustomizationUtils.getIsChromeColorDailyRefreshEnabledFromSharedPreference());
     }
 
     private void createCoordinator() {

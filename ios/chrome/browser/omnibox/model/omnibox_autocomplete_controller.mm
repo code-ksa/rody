@@ -7,6 +7,7 @@
 #import <optional>
 #import <string>
 
+#import "base/functional/callback_helpers.h"
 #import "base/memory/raw_ptr.h"
 #import "base/metrics/histogram_functions.h"
 #import "base/metrics/user_metrics.h"
@@ -404,7 +405,9 @@ using base::UserMetricsAction;
                      cursorPosition:cursorPosition
           preventInlineAutocomplete:NO];
   } else {
-    [self startZeroSuggestRequestWithText:u"" userClobbered:NO];
+    // Force a fresh autocomplete request to ensure updated suggestions are
+    // fetched, treating this as an explicit user action.
+    [self startZeroSuggestRequestWithText:u"" userClobbered:YES];
   }
 }
 

@@ -596,7 +596,6 @@
 <translation id="3277021493514034324">ဝဘ်ဆိုက်လိပ်စာကို မိတ္တူကူးယူထားသည်</translation>
 <translation id="3280562213547448728">အသံဖြင့် ရှာဖွေခြင်း</translation>
 <translation id="3289505634533552500">အသံဖြင့်ရှာဖွေရန်</translation>
-<translation id="3293080634164207409">တဘ်များထည့်ရန်</translation>
 <translation id="3295904109373959849">တဘ်အုပ်စု ဇယားကွက်</translation>
 <translation id="3302837541200840455"><ph name="TAB_TITLE" />၊ လုပ်ဆောင်ချက်အသစ်</translation>
 <translation id="3305294846493618482">နောက်ထပ်</translation>
@@ -1283,6 +1282,7 @@ Handoff ကို ဆက်တင်များ၏ ယေဘူယျအပိ�
 <translation id="5902752768726620872">{count,plural, =1{တဘ်အသစ် {count} ခု}other{တဘ်အသစ် {count} ခု}}</translation>
 <translation id="5911030830365207728">Google ဘာသာပြန်</translation>
 <translation id="5922999516621365983">ပင်ထိုးရန် တဘ်အား ဤနေရာသို့ ဖိဆွဲပါ။</translation>
+<translation id="5930982343430790032">{COUNT,plural, =1{ဖိုင်၊ တဘ် (သို့) ပုံ ၁ ခုအထိ ထည့်ပါ}other{ဖိုင်၊ တဘ် (သို့) ပုံ {COUNT} ခုအထိ ထည့်ပါ}}</translation>
 <translation id="5936006948844852401">သိုလှောင်မှုကို စီမံခန့်ခွဲရန်</translation>
 <translation id="5936065461722368675">စာမျက်နှာတစ်ခုလုံး ဘာသာပြန်ရန်</translation>
 <translation id="5937560539988385583">စာမျက်နှာကို ဘာသာပြန်ပြီးပြီ</translation>
@@ -1871,6 +1871,7 @@ Handoff ကို ဆက်တင်များ၏ ယေဘူယျအပိ�
 <translation id="8032569120109842252">လိုက်ကြည့်နေသည်</translation>
 <translation id="8035133914807600019">ဖိုင်တွဲ အသစ်...</translation>
 <translation id="8035412398498507358">Photos</translation>
+<translation id="8037713009824540257">ဆိုက်ကို ထည့်ရန်</translation>
 <translation id="8040407350301524547">လမ်းကြောင်းရွေးစရာများအတွက် “ခရီးလမ်းညွှန်ချက်များ ရယူရန်” ကို တို့ပါ။</translation>
 <translation id="804427445359061970">အခြားစက်များမှ သင့်တဘ်များကို ဤနေရာတွင် ပြပါမည်</translation>
 <translation id="8058655154417507695">သက်တမ်းကုန်ဆုံးမည့်နှစ်</translation>

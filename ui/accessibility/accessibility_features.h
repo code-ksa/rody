@@ -127,10 +127,6 @@ AX_BASE_EXPORT bool IsAccessibilityLanguageDetectionEnabled();
 AX_BASE_EXPORT BASE_DECLARE_FEATURE(kExtensionManifestV3NetworkSpeechSynthesis);
 AX_BASE_EXPORT bool IsExtensionManifestV3NetworkSpeechSynthesisEnabled();
 
-// Support aria element reflection. For example:
-//     element.ariaActiveDescendantElement = child;
-AX_BASE_EXPORT BASE_DECLARE_FEATURE(kEnableAriaElementReflection);
-AX_BASE_EXPORT bool IsAriaElementReflectionEnabled();
 
 // Turn on browser vocalization of 'descriptions' tracks.
 AX_BASE_EXPORT BASE_DECLARE_FEATURE(kTextBasedAudioDescription);
@@ -289,15 +285,10 @@ AX_BASE_EXPORT bool IsAccessibilityManifestV3EnabledForSwitchAccess();
 AX_BASE_EXPORT BASE_DECLARE_FEATURE(kAccessibilityInlineLineSeparators);
 AX_BASE_EXPORT bool IsAccessibilityInlineLineSeparatorsEnabled();
 
-// Propagate bounding rectangles of input events to the Android platform to
-// allow Magnification to follow them. Only applies pre-Baklava 36.1, when a
-// system API was added to allow this.
-AX_BASE_EXPORT BASE_DECLARE_FEATURE(
-    kAccessibilityMagnificationFollowsInputFocus);
-AX_BASE_EXPORT bool IsAccessibilityMagnificationFollowsInputFocusEnabled();
-
-// Propagate bounding rectangles of cursor moves to the Android platform to
-// allow Magnification to follow them.
+// Propagate bounding rectangles of cursor moves and input focus changes to the
+// Android platform to allow Magnification to follow them. For compatibility
+// with older behaviour, Android SDK levels before Baklava 36.1 will only be
+// notified on cursor moves.
 AX_BASE_EXPORT BASE_DECLARE_FEATURE(kAccessibilityMagnificationFollowsFocus);
 AX_BASE_EXPORT bool IsAccessibilityMagnificationFollowsFocusEnabled();
 

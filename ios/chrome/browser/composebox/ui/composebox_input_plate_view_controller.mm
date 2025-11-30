@@ -13,7 +13,8 @@
 #import "base/time/time.h"
 #import "base/unguessable_token.h"
 #import "build/branding_buildflags.h"
-#import "ios/chrome/browser/composebox/ui/composebox_animation_context_provider.h"
+#import "ios/chrome/browser/composebox/public/features.h"
+#import "ios/chrome/browser/composebox/ui/composebox_animation_context.h"
 #import "ios/chrome/browser/composebox/ui/composebox_input_item.h"
 #import "ios/chrome/browser/composebox/ui/composebox_input_item_cell.h"
 #import "ios/chrome/browser/composebox/ui/composebox_input_item_view.h"
@@ -37,7 +38,8 @@ NSString* const kItemCellReuseIdentifier = @"ComposeboxInputItemCell";
 NSString* const kMainSectionIdentifier = @"MainSection";
 
 /// The corner radius for the input plate container.
-const CGFloat kInputPlateCornerRadius = 22.0f;
+const CGFloat kInputPlateCornerRadiusCompact = 22.0f;
+const CGFloat kInputPlateCornerRadius = 30.0f;
 /// The shadow opacity for the input plate container.
 const float kInputPlateShadowOpacity = 0.2f;
 /// The shadow radius for the input plate container.
@@ -54,8 +56,7 @@ const CGFloat kAIMButtonWidth = 122.0f;
 const CGFloat kButtonsCompactSpacing = 4.0f;
 const CGFloat kButtonsStackViewSpacing = 6.0f;
 /// The spacing between the Lens and Voice buttons.
-const CGFloat kShortcutsSpacing = 24.0f;
-const CGFloat kShortcutsSpacingCompact = 16.0f;
+const CGFloat kShortcutsSpacing = 16.0f;
 /// The spacing for the main vertical input plate stack view.
 const CGFloat kInputPlateStackViewSpacing = 10.0f;
 /// The vertical padding for the input plate stack view.
@@ -74,8 +75,9 @@ const CGFloat kGenericButtonWidth = 24.0f;
 /// The height of the buttons created with `createButtonWithImage:`.
 const CGFloat kGenericButtonHeight = 32.0f;
 /// The dimension of the send button.
-const CGFloat kSendButtonDimension = 32.0f;
-
+const CGFloat kSendButtonDimension = 36.0f;
+/// The dimension of the button stack view.
+const CGFloat kButtonStackViewDimension = 36.0f;
 /// The duration for the glow effect.
 const CGFloat kGlowEffectDuration = 0.9;
 /// The width of the glow effect border.
@@ -89,6 +91,29 @@ const CGFloat kFadeViewWidth = 30.0f;
 
 /// The size of the close icon in the context indicator buttons.
 const CGFloat kCloseIndicatorSize = 10.0f;
+
+/// The image for the send button.
+UIImage* SendButtonImage(BOOL highlighted) {
+  NSArray<UIColor*>* palette = @[
+    [UIColor colorNamed:kSolidWhiteColor], [UIColor colorNamed:kBlue500Color]
+  ];
+
+  if (highlighted) {
+    palette = @[
+      [[UIColor colorNamed:kSolidWhiteColor] colorWithAlphaComponent:0.6],
+      [[UIColor colorNamed:kBlue500Color] colorWithAlphaComponent:0.6]
+    ];
+  }
+
+  UIImageSymbolConfiguration* config = [UIImageSymbolConfiguration
+      configurationWithPointSize:kSendButtonDimension
+                          weight:UIImageSymbolWeightRegular
+                           scale:UIImageSymbolScaleMedium];
+
+  return SymbolWithPalette(
+      DefaultSymbolWithConfiguration(kRightArrowCircleFillSymbol, config),
+      palette);
+}
 }  // namespace
 
 @interface ComposeboxInputPlateViewController () <
@@ -105,9 +130,6 @@ const CGFloat kCloseIndicatorSize = 10.0f;
 
 /// Edit view contained in `_omniboxContainer`.
 @property(nonatomic, strong) UIView<TextFieldViewContaining>* editView;
-
-/// Whether the UI is in compact (single line) mode.
-@property(nonatomic, assign) BOOL isCompactMode;
 
 /// The send button.
 @property(nonatomic, strong) UIButton* sendButton;
@@ -142,8 +164,17 @@ const CGFloat kCloseIndicatorSize = 10.0f;
   UIView* _trailingCarouselFadeView;
   /// The carousel container.
   UIView* _carouselContainer;
-  /// Wether or not the current tab is attachable.
-  BOOL _canAttachCurrentTab;
+  /// Attach current tab action state.
+  BOOL _attachCurrentTabActionHidden;
+  /// Attach tabs actions state.
+  BOOL _attachTabActionsHidden;
+  BOOL _attachTabActionsDisabled;
+  /// Attach files action state.
+  BOOL _attachFileActionsHidden;
+  BOOL _attachFileActionsDisabled;
+  /// Create image action state.
+  BOOL _createImageActionsHidden;
+  BOOL _createImageActionsDisabled;
   /// Container for the omnibox.
   UIView* _omniboxContainer;
 
@@ -161,7 +192,7 @@ const CGFloat kCloseIndicatorSize = 10.0f;
   NSLayoutConstraint* _bottomPaddingConstraint;
 }
 
-/// ComposeboxAnimationContextProvider
+/// ComposeboxAnimationContext
 @synthesize inputPlateViewForAnimation = _inputPlateContainerView;
 @synthesize keyboardHeight = _keyboardHeight;
 
@@ -281,14 +312,6 @@ const CGFloat kCloseIndicatorSize = 10.0f;
                   }];
 }
 
-- (void)setCanAttachCurrentTab:(BOOL)canAttachCurrentTab {
-  if (_canAttachCurrentTab == canAttachCurrentTab) {
-    return;
-  }
-  _canAttachCurrentTab = canAttachCurrentTab;
-  [self updatePlusButtonItems];
-}
-
 - (void)updateState:(ComposeboxInputItemState)state
     forItemWithToken:(const base::UnguessableToken&)token {
   NSDiffableDataSourceSnapshot<NSString*, ComposeboxInputItem*>*
@@ -353,11 +376,23 @@ const CGFloat kCloseIndicatorSize = 10.0f;
   _sendButton.hidden = hidden;
 }
 
-- (void)setIsCompactMode:(BOOL)isCompactMode {
-  if (_isCompactMode == isCompactMode) {
+- (void)setAIModeEnabled:(BOOL)AIModeEnabled {
+  if (AIModeEnabled == _AIModeEnabled) {
     return;
   }
-  _isCompactMode = isCompactMode;
+  _AIModeEnabled = AIModeEnabled;
+  [self updatePlaceholderText];
+  [self updateAIMButtonAppearance];
+  [self updatePlusButtonItems];
+  [self.mutator setAIModeEnabled:_AIModeEnabled];
+  [self triggerGlowEffect];
+}
+
+- (void)setCompact:(BOOL)compact {
+  if (_compact == compact) {
+    return;
+  }
+  _compact = compact;
 
   if (!self.viewLoaded) {
     return;
@@ -368,6 +403,62 @@ const CGFloat kCloseIndicatorSize = 10.0f;
 
 - (void)setCurrentTabFavicon:(UIImage*)favicon {
   _currentTabFavicon = favicon;
+  [self updatePlusButtonItems];
+}
+
+- (void)hideAttachCurrentTabAction:(BOOL)hidden {
+  if (_attachCurrentTabActionHidden == hidden) {
+    return;
+  }
+  _attachCurrentTabActionHidden = hidden;
+  [self updatePlusButtonItems];
+}
+
+- (void)hideAttachTabActions:(BOOL)hidden {
+  if (_attachTabActionsHidden == hidden) {
+    return;
+  }
+  _attachTabActionsHidden = hidden;
+  [self updatePlusButtonItems];
+}
+
+- (void)disableAttachTabActions:(BOOL)disabled {
+  if (_attachTabActionsDisabled == disabled) {
+    return;
+  }
+  _attachTabActionsDisabled = disabled;
+  [self updatePlusButtonItems];
+}
+
+- (void)hideAttachFileActions:(BOOL)hidden {
+  if (_attachFileActionsHidden == hidden) {
+    return;
+  }
+  _attachFileActionsHidden = hidden;
+  [self updatePlusButtonItems];
+}
+
+- (void)disableAttachFileActions:(BOOL)disabled {
+  if (_attachFileActionsDisabled == disabled) {
+    return;
+  }
+  _attachFileActionsDisabled = disabled;
+  [self updatePlusButtonItems];
+}
+
+- (void)hideCreateImageActions:(BOOL)hidden {
+  if (_createImageActionsHidden == hidden) {
+    return;
+  }
+  _createImageActionsHidden = hidden;
+  [self updatePlusButtonItems];
+}
+
+- (void)disableCreateImageActions:(BOOL)disabled {
+  if (_createImageActionsDisabled == disabled) {
+    return;
+  }
+  _createImageActionsDisabled = disabled;
   [self updatePlusButtonItems];
 }
 
@@ -507,18 +598,6 @@ const CGFloat kCloseIndicatorSize = 10.0f;
       contentOffsetX + boundsWidth >= contentWidth;
 }
 
-/// Enables or disables AI Mode and updates the UI accordingly.
-- (void)setAIModeEnabled:(BOOL)AIModeEnabled {
-  if (AIModeEnabled == _AIModeEnabled) {
-    return;
-  }
-  _AIModeEnabled = AIModeEnabled;
-  [self updateAIMButtonAppearance];
-  [self updatePlusButtonItems];
-  [self.mutator setAIModeEnabled:_AIModeEnabled];
-  [self triggerGlowEffect];
-}
-
 /// Initiates the glow animation around the input plate.
 - (void)triggerGlowEffect {
   if (!_glowEffectView) {
@@ -637,6 +716,18 @@ const CGFloat kCloseIndicatorSize = 10.0f;
   }
 }
 
+// Updates the placeholder text based on the current operating mode of the
+// composebox.
+- (void)updatePlaceholderText {
+  if (_AIModeEnabled) {
+    [_editView
+        setCustomPlaceholderText:
+            l10n_util::GetNSString(IDS_IOS_COMPOSEBOX_AIM_ENABLED_PLACEHOLDER)];
+  } else {
+    [_editView setCustomPlaceholderText:nil];
+  }
+}
+
 /// Adds and constraints the 'X' mark indicator to the AI Mode button.
 - (void)setupXMarkInAIMButton {
   [_aimButtonXIndicator removeFromSuperview];
@@ -654,7 +745,7 @@ const CGFloat kCloseIndicatorSize = 10.0f;
   [NSLayoutConstraint activateConstraints:@[
     [_aimButton.titleLabel.trailingAnchor
         constraintEqualToAnchor:_aimButtonXIndicator.leadingAnchor
-                       constant:-4],
+                       constant:-6],
     [_aimButton.titleLabel.centerYAnchor
         constraintEqualToAnchor:_aimButtonXIndicator.centerYAnchor],
   ]];
@@ -698,18 +789,26 @@ const CGFloat kCloseIndicatorSize = 10.0f;
 
 /// Returns the send button.
 - (UIButton*)createSendButton {
+  UIButtonConfiguration* buttonConfig =
+      [UIButtonConfiguration plainButtonConfiguration];
+  buttonConfig.image = SendButtonImage(/*highlighted=*/NO);
+  buttonConfig.contentInsets = NSDirectionalEdgeInsetsZero;
+
   UIButton* sendButton =
       [ExtendedTouchTargetButton buttonWithType:UIButtonTypeSystem];
-  UIImageSymbolConfiguration* config = [UIImageSymbolConfiguration
-      configurationWithPointSize:24
-                          weight:UIImageSymbolWeightSemibold];
-
-  UIImage* image = SymbolWithPalette(
-      DefaultSymbolWithConfiguration(kRightArrowCircleFillSymbol, config), @[
-        [UIColor colorNamed:kSolidWhiteColor],
-        [UIColor colorNamed:kBlue500Color]
-      ]);
-  [sendButton setImage:image forState:UIControlStateNormal];
+  sendButton.configuration = buttonConfig;
+  sendButton.configurationUpdateHandler = ^(UIButton* button) {
+    UIButtonConfiguration* updatedConfig = button.configuration;
+    BOOL isHighlighted = button.state == UIControlStateHighlighted;
+    updatedConfig.image = SendButtonImage(isHighlighted);
+    button.configuration = updatedConfig;
+    CGFloat scale = isHighlighted ? 0.95 : 1.0;
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                       button.transform =
+                           CGAffineTransformMakeScale(scale, scale);
+                     }];
+  };
 
   [sendButton addTarget:self
                  action:@selector(sendButtonTapped)
@@ -721,14 +820,14 @@ const CGFloat kCloseIndicatorSize = 10.0f;
 
 /// Returns the microphone button.
 - (UIButton*)createMicrophoneButton {
-  UIButton* micButton = [self
-      createButtonWithImage:DefaultSymbolWithPointSize(kMicrophoneFillSymbol,
-                                                       kSymbolActionPointSize)];
+  UIButton* micButton =
+      [self createButtonWithImage:CustomSymbolWithPointSize(
+                                      kVoiceSymbol, kSymbolActionPointSize)];
+  micButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+
   [micButton addTarget:self
                 action:@selector(micButtonTapped)
       forControlEvents:UIControlEventTouchUpInside];
-  AddSizeConstraints(micButton,
-                     CGSizeMake(kGenericButtonWidth, kGenericButtonHeight));
   return micButton;
 }
 
@@ -737,12 +836,11 @@ const CGFloat kCloseIndicatorSize = 10.0f;
   UIButton* lensButton = [self
       createButtonWithImage:CustomSymbolWithPointSize(kCameraLensSymbol,
                                                       kSymbolActionPointSize)];
+  lensButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
   [lensButton addTarget:self
                  action:@selector(lensButtonTapped)
        forControlEvents:UIControlEventTouchUpInside];
 
-  AddSizeConstraints(lensButton,
-                     CGSizeMake(kGenericButtonWidth, kGenericButtonHeight));
   return lensButton;
 }
 
@@ -775,7 +873,10 @@ const CGFloat kCloseIndicatorSize = 10.0f;
   buttonsStackView.axis = UILayoutConstraintAxisHorizontal;
   buttonsStackView.spacing = kButtonsStackViewSpacing;
   buttonsStackView.alignment = UIStackViewAlignmentFill;
-
+  [NSLayoutConstraint activateConstraints:@[
+    [buttonsStackView.heightAnchor
+        constraintEqualToConstant:kButtonStackViewDimension]
+  ]];
   return buttonsStackView;
 }
 
@@ -858,22 +959,62 @@ const CGFloat kCloseIndicatorSize = 10.0f;
                         handler:^(UIAction* action){
                         }];
 
-  NSMutableArray* menuItems = [[NSMutableArray alloc] init];
-  if (_canAttachCurrentTab) {
-    [menuItems addObject:attachCurrentTabAction];
+  UIMenuElementAttributes attachTabAttributes = 0;
+  if (_attachTabActionsHidden) {
+    attachTabAttributes |= UIMenuElementAttributesHidden;
   }
-  [menuItems addObjectsFromArray:@[
-    selectTabsAction, cameraAction, galleryAction, fileAction
-  ]];
+  if (_attachTabActionsDisabled) {
+    attachTabAttributes |= UIMenuElementAttributesDisabled;
+  }
+  selectTabsAction.attributes = attachTabAttributes;
 
-  UIMenu* submenu = [UIMenu menuWithTitle:@""
-                                    image:nil
-                               identifier:nil
-                                  options:UIMenuOptionsDisplayInline
-                                 children:@[ aimAction, createImageAction ]];
-  [menuItems addObject:submenu];
+  UIMenuElementAttributes attachCurrentTabAttributes = attachTabAttributes;
+  if (_attachCurrentTabActionHidden) {
+    attachCurrentTabAttributes |= UIMenuElementAttributesHidden;
+  }
+  attachCurrentTabAction.attributes = attachCurrentTabAttributes;
 
-  _plusButton.menu = [UIMenu menuWithTitle:@"" children:menuItems];
+  UIMenuElementAttributes attachFileAttributes = 0;
+  if (_attachFileActionsHidden) {
+    attachFileAttributes |= UIMenuElementAttributesHidden;
+  }
+  if (_attachFileActionsDisabled) {
+    attachFileAttributes |= UIMenuElementAttributesDisabled;
+  }
+  fileAction.attributes = attachFileAttributes;
+
+  UIMenuElementAttributes createImageAttributes = 0;
+  if (_createImageActionsHidden) {
+    createImageAttributes |= UIMenuElementAttributesHidden;
+  }
+  if (_createImageActionsDisabled) {
+    createImageAttributes |= UIMenuElementAttributesDisabled;
+  }
+  createImageAction.attributes = createImageAttributes;
+
+  UIMenu* attachmentMenu =
+      [UIMenu menuWithTitle:@""
+                      image:nil
+                 identifier:nil
+                    options:UIMenuOptionsDisplayInline
+                   children:@[
+                     attachCurrentTabAction, selectTabsAction, cameraAction,
+                     galleryAction, fileAction
+                   ]];
+
+  UIMenu* modeMenu = [UIMenu menuWithTitle:@""
+                                     image:nil
+                                identifier:nil
+                                   options:UIMenuOptionsDisplayInline
+                                  children:@[ aimAction, createImageAction ]];
+
+  _plusButton.menu = [UIMenu
+      menuWithTitle:IsComposeboxMenuTitleEnabled()
+                        ? l10n_util::GetNSString(IDS_IOS_COMPOSEBOX_MENU_TITLE)
+                        : @""
+           children:@[ attachmentMenu, modeMenu ]];
+  _plusButton.preferredMenuElementOrder =
+      UIContextMenuConfigurationElementOrderFixed;
 }
 
 /// Initializes and configures the collection view for the attachment carousel.
@@ -974,7 +1115,7 @@ const CGFloat kCloseIndicatorSize = 10.0f;
     }
   }
 
-  if (self.isCompactMode) {
+  if (self.compact) {
     [_inputPlateStackView insertArrangedSubview:_plusButton atIndex:0];
     [_inputPlateStackView addArrangedSubview:_micButton];
     [_inputPlateStackView addArrangedSubview:_lensButton];
@@ -983,10 +1124,12 @@ const CGFloat kCloseIndicatorSize = 10.0f;
     _inputPlateStackView.spacing = 0;
     [_inputPlateStackView setCustomSpacing:kButtonsCompactSpacing
                                  afterView:_plusButton];
-    [_inputPlateStackView setCustomSpacing:kShortcutsSpacingCompact
+    [_inputPlateStackView setCustomSpacing:kShortcutsSpacing
                                  afterView:_micButton];
     _bottomPaddingConstraint.constant =
         -kInputPlateStackViewVerticalCompactPadding;
+    _inputPlateContainerView.layer.cornerRadius =
+        kInputPlateCornerRadiusCompact;
   } else {
     UIView* toolbarView = [self createToolbarView];
     [_inputPlateStackView insertArrangedSubview:_carouselContainer atIndex:0];
@@ -995,6 +1138,7 @@ const CGFloat kCloseIndicatorSize = 10.0f;
     _inputPlateStackView.spacing = kInputPlateStackViewSpacing;
 
     _bottomPaddingConstraint.constant = -kInputPlateStackViewVerticalPadding;
+    _inputPlateContainerView.layer.cornerRadius = kInputPlateCornerRadius;
   }
 }
 
@@ -1003,16 +1147,16 @@ const CGFloat kCloseIndicatorSize = 10.0f;
 - (void)updateInputPlateStackViewAnimated:(BOOL)animated {
   if (!animated) {
     [self updateInputPlateStackViewContent];
-    [self.editView hideLeadingImage:self.isCompactMode];
+    [self.editView hideLeadingImage:self.compact];
     return;
   }
 
-  CGFloat initialAlpha = self.isCompactMode ? 1 : 0;
+  CGFloat initialAlpha = self.compact ? 1 : 0;
   CGFloat finalAlpha = 1 - initialAlpha;
   [self.editView setLeadingImageAlpha:initialAlpha];
   self.sendButton.alpha = initialAlpha;
 
-  [self.editView hideLeadingImage:self.isCompactMode];
+  [self.editView hideLeadingImage:self.compact];
 
   auto animations = ^() {
     [UIView addKeyframeWithRelativeStartTime:0
@@ -1020,7 +1164,7 @@ const CGFloat kCloseIndicatorSize = 10.0f;
                                   animations:^{
                                     [self updateInputPlateStackViewContent];
                                     [self.editView
-                                        hideLeadingImage:self.isCompactMode];
+                                        hideLeadingImage:self.compact];
                                     [self.inputPlateStackView layoutIfNeeded];
                                     [self.view layoutIfNeeded];
                                   }];

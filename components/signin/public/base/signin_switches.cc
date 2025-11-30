@@ -88,6 +88,7 @@ BASE_FEATURE(kBoundSessionCredentialsKillSwitch,
 
 #if BUILDFLAG(IS_IOS)
 BASE_FEATURE(kCacheIdentityListInChrome, base::FEATURE_DISABLED_BY_DEFAULT);
+BASE_FEATURE(kEnableACPrefetch, base::FEATURE_DISABLED_BY_DEFAULT);
 #endif
 
 #if BUILDFLAG(IS_ANDROID)
@@ -201,7 +202,10 @@ BASE_FEATURE(kEnableIdentityInAuthError, base::FEATURE_ENABLED_BY_DEFAULT);
 #endif
 
 #if BUILDFLAG(ENABLE_DICE_SUPPORT)
-// Enables binding the OAuthMultilogin cookies to a device.
+// Enables binding the OAuthMultilogin cookies to a device with DBSC prototype.
+//
+// If `kEnableOAuthMultiloginStandardCookiesBinding` is enabled, DBSC standard
+// takes precedence over DBSC prototype.
 BASE_FEATURE(kEnableOAuthMultiloginCookiesBinding,
              base::FEATURE_DISABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(ENABLE_DICE_SUPPORT)
@@ -223,9 +227,18 @@ BASE_FEATURE_PARAM(bool,
 #endif  // BUILDFLAG(ENABLE_DICE_SUPPORT)
 
 #if BUILDFLAG(ENABLE_DICE_SUPPORT)
-// Kill switch for the OAuthMultilogin cookies standard binding.
+// Enables binding the OAuthMultilogin cookies to a device with DBSC standard.
+//
+// It takes precedence over the `kEnableOAuthMultiloginCookiesBinding` flag.
 BASE_FEATURE(kEnableOAuthMultiloginStandardCookiesBinding,
              base::FEATURE_DISABLED_BY_DEFAULT);
+#endif  // BUILDFLAG(ENABLE_DICE_SUPPORT)
+
+// Kill switch for enabling binding the OAuthMultilogin cookies to a device with
+// DBSC standard for the Glic partition.
+#if BUILDFLAG(ENABLE_DICE_SUPPORT)
+BASE_FEATURE(kEnableOAuthMultiloginStandardCookiesBindingForGlicPartition,
+             base::FEATURE_ENABLED_BY_DEFAULT);
 #endif  // BUILDFLAG(ENABLE_DICE_SUPPORT)
 
 BASE_FEATURE(kEnablePreferencesAccountStorage,
@@ -346,6 +359,10 @@ BASE_FEATURE_PARAM(base::TimeDelta,
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)
 BASE_FEATURE(kOpenAllProfilesFromProfilePickerExperiment,
              base::FEATURE_DISABLED_BY_DEFAULT);
+const base::FeatureParam<int>
+    kMaxProfilesCountToShowOpenAllButtonInProfilePicker{
+        &kOpenAllProfilesFromProfilePickerExperiment,
+        "max_profiles_count_to_show_open_all_button_in_profile_picker", 5};
 #endif  // BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)
 
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX)

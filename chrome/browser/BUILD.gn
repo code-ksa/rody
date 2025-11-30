@@ -176,6 +176,9 @@ source_set("flags") {
 
 source_set("shell_integration") {
   sources = [ "shell_integration.h" ]
+  if (is_win) {
+    sources += [ "shell_integration_win.h" ]
+  }
   deps = [
     "//base",
     "//ui/gfx",
@@ -2896,10 +2899,8 @@ static_library("browser") {
       "android/resource_id.h",
       "android/resource_mapper.cc",
       "android/resource_mapper.h",
-      "android/restore_id_associator_android.cc",
-      "android/restore_id_associator_android.h",
-      "android/restore_id_associator_builder_android.cc",
-      "android/restore_id_associator_builder_android.h",
+      "android/restore_entity_tracker_android.cc",
+      "android/restore_entity_tracker_android.h",
       "android/rlz/revenue_stats.cc",
       "android/rlz/rlz_ping_handler.cc",
       "android/rlz/rlz_ping_handler.h",
@@ -6444,7 +6445,6 @@ static_library("browser") {
       "profiles/profile_shortcut_manager_win.cc",
       "profiles/profile_shortcut_manager_win.h",
       "shell_integration_win.cc",
-      "shell_integration_win.h",
       "taskbar/taskbar_decorator_win.cc",
       "taskbar/taskbar_decorator_win.h",
       "tracing/windows_system_tracing_client_impl_win.cc",
